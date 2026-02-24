@@ -2,1107 +2,1300 @@
 <html lang="el">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#1A5F6E">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Οδηγός Ενσυνειδητότητας για Νευροδιαφορετικούς — Θεόδωρος Μπαϊρακτάρης. Δωρεάν οδηγός αυτορρύθμισης μέσω του Τετραπλού Άξονα Συνείδησης.">
+<meta property="og:title" content="Οδηγός Ενσυνειδητότητας για Νευροδιαφορετικούς">
+<meta property="og:description" content="Δωρεάν οδηγός αυτορρύθμισης — Θεόδωρος Μπαϊρακτάρης">
+<meta property="og:type" content="website">
 <title>Οδηγός Ενσυνειδητότητας για Νευροδιαφορετικούς</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --teal-dark:  #1A5F6E;
-    --teal-med:   #2E8B9A;
-    --teal-light: #A8D5DC;
-    --teal-pale:  #E8F6F8;
-    --gold:       #C8922A;
-    --gold-light: #F5E6C8;
-    --cream:      #FDF8F0;
-    --sage:       #7A9E7E;
-    --sage-pale:  #E6F0E7;
-    --terra:      #C07050;
-    --terra-pale: #F5EBE6;
-    --lav:        #B5A7D0;
-    --lav-pale:   #EDE8F5;
-    --body:       #1E2E28;
-    --gray:       #8A9599;
-    --light:      #D0D5D8;
-    --white:      #FFFFFF;
-    --off:        #FEFCF8;
-    --nav-h:      64px;
-    --header-h:   56px;
+/* ── Reset & Variables ──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --deep:    #1d3a4a;
+  --teal:    #1d6b72;
+  --teal2:   #2a8a93;
+  --sage:    #5a7c5e;
+  --gold:    #b8973a;
+  --gold2:   #d4b45a;
+  --terra:   #a05c3b;
+  --violet:  #7a4e8a;
+  --ink:     #1a1510;
+  --mid:     #5a5040;
+  --parch:   #faf6ee;
+  --parch2:  #f4ede0;
+  --white:   #ffffff;
+
+  --c-soma:  #5a7c5e;
+  --c-breath:#1d6b72;
+  --c-attn:  #b8973a;
+  --c-space: #7a4e8a;
+  --bg-soma: #eaf2ea;
+  --bg-breath:#e0f0f2;
+  --bg-attn: #f7f0dc;
+  --bg-space:#f0eaf5;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --max: 780px;
+  --radius: 8px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--ink);
+  background: var(--parch);
+  overflow-x: hidden;
+}
+
+/* ── Skip link for accessibility ── */
+.skip-link {
+  position: absolute; top: -100%; left: 1rem;
+  background: var(--teal); color: white;
+  padding: .5rem 1rem; border-radius: 4px;
+  font-weight: 500; z-index: 9999;
+  transition: top .2s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ── Nav ────────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--deep);
+  border-bottom: 2px solid var(--gold);
+}
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: .6rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--gold2);
+  text-decoration: none;
+  letter-spacing: .02em;
+}
+.nav-links {
+  display: flex; gap: .2rem; list-style: none; flex-wrap: wrap;
+}
+.nav-links a {
+  color: rgba(255,255,255,.75);
+  text-decoration: none;
+  font-size: .78rem;
+  font-weight: 500;
+  padding: .3rem .6rem;
+  border-radius: 4px;
+  transition: background .15s, color .15s;
+  letter-spacing: .02em;
+}
+.nav-links a:hover { background: rgba(255,255,255,.1); color: var(--gold2); }
+
+/* ── Hero ───────────────────────────────────────────── */
+.hero {
+  background: var(--deep);
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:'';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 15% 30%, rgba(29,107,114,.35) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 85% 75%, rgba(122,78,138,.25) 0%, transparent 55%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(184,151,58,.18);
+  border: 1px solid rgba(184,151,58,.45);
+  color: var(--gold2);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .35rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+  animation: fadeUp .7s ease both;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: .6rem;
+  animation: fadeUp .7s .1s ease both;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold2);
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,.7);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  font-weight: 300;
+  animation: fadeUp .7s .2s ease both;
+}
+.hero-ctas {
+  display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp .7s .3s ease both;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .75rem 1.6rem;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: .9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform .15s, box-shadow .15s;
+  cursor: pointer; border: none;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+.btn-primary { background: var(--teal); color: white; }
+.btn-outline { background: transparent; color: var(--gold2); border: 1.5px solid var(--gold2); }
+.btn-outline:hover { background: rgba(184,151,58,.12); }
+
+.hero-author {
+  margin-top: 3rem;
+  color: rgba(255,255,255,.45);
+  font-size: .85rem;
+  animation: fadeUp .7s .4s ease both;
+}
+
+/* ── Axes bar ───────────────────────────────────────── */
+.axes-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: var(--max);
+  margin: 0 auto -1px;
+}
+.axis-tab {
+  padding: 1rem .5rem;
+  text-align: center;
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: white;
+  cursor: pointer;
+  transition: filter .15s;
   }
+.axis-tab:hover { filter: brightness(1.15); }
+.axis-tab .ax-icon { display: block; font-size: 1.5rem; margin-bottom: .3rem; }
+.at-soma   { background: var(--c-soma); }
+.at-breath { background: var(--c-breath); }
+.at-attn   { background: var(--c-attn); }
+.at-space  { background: var(--c-space); }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+/* ── Main wrapper ───────────────────────────────────── */
+main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--body);
-    max-width: 480px;
+/* ── Section ────────────────────────────────────────── */
+section {
+  padding: 3.5rem 0;
+  border-bottom: 1px solid rgba(184,151,58,.18);
+  animation: fadeUp .6s ease both;
+  animation-play-state: paused;
+}
+section.visible { animation-play-state: running; }
+
+.section-label {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: .8rem;
+}
+.section-label::before {
+  content: '';
+  display: block; width: 24px; height: 2px;
+  background: var(--teal);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 400;
+  color: var(--deep);
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--deep);
+  margin: 1.8rem 0 .6rem;
+}
+p { margin-bottom: 1rem; color: var(--ink); max-width: 68ch; }
+p:last-child { margin-bottom: 0; }
+
+/* ── Chapter card ───────────────────────────────────── */
+.chapter-grid {
+  display: grid;
+  gap: 1px;
+  background: rgba(184,151,58,.15);
+  border: 1px solid rgba(184,151,58,.2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+.chapter-card {
+  background: var(--white);
+  cursor: pointer;
+  transition: background .15s;
+}
+.chapter-card:hover { background: var(--parch); }
+.chapter-head {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.2rem;
+}
+.ch-num {
+  font-family: var(--font-display);
+  font-size: .75rem;
+  color: var(--gold);
+  font-weight: 400;
+  min-width: 32px;
+  letter-spacing: .04em;
+}
+.ch-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.ch-title {
+  flex: 1;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--deep);
+}
+.ch-arrow {
+  color: var(--gold);
+  font-size: .9rem;
+  transition: transform .2s;
+}
+.chapter-card.open .ch-arrow { transform: rotate(90deg); }
+
+.chapter-body {
+  display: none;
+  padding: 0 1.2rem 1.2rem 4.5rem;
+  border-top: 1px solid rgba(184,151,58,.15);
+  background: var(--parch);
+}
+.chapter-card.open .chapter-body { display: block; }
+.chapter-body p { font-size: .95rem; color: var(--mid); margin-top: .8rem; }
+
+/* ── Axis boxes ─────────────────────────────────────── */
+.axis-grid {
+  display: grid;
+  gap: .8rem;
+  margin-top: 1.5rem;
+}
+.axis-box {
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem;
+  border-left: 4px solid;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: .5rem 1rem;
+  align-items: start;
+}
+.axis-box .ax-sym {
+  font-size: 1.6rem;
+  line-height: 1;
+  margin-top: .1rem;
+}
+.axis-box .ax-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: .2rem;
+}
+.axis-box .ax-desc { font-size: .9rem; color: var(--mid); line-height: 1.6; }
+.axis-box .ax-col { grid-column: 2; }
+
+.ab-soma   { background: var(--bg-soma);   border-color: var(--c-soma);   }
+.ab-breath { background: var(--bg-breath); border-color: var(--c-breath); }
+.ab-attn   { background: var(--bg-attn);   border-color: var(--c-attn);   }
+.ab-space  { background: var(--bg-space);  border-color: var(--c-space);  }
+.ab-soma .ax-name   { color: var(--c-soma);   }
+.ab-breath .ax-name { color: var(--c-breath); }
+.ab-attn .ax-name   { color: var(--c-attn);   }
+.ab-space .ax-name  { color: var(--c-space);  }
+
+/* ── Exercise boxes ─────────────────────────────────── */
+.exercise {
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+.exercise-head {
+  padding: .9rem 1.2rem;
+  display: flex; align-items: center; gap: .6rem;
+  font-weight: 600; font-size: .9rem;
+  letter-spacing: .03em;
+  color: white;
+}
+.exercise-body {
+  padding: 1rem 1.2rem;
+  background: var(--parch2);
+}
+.exercise-body ol {
+  padding-left: 1.4rem;
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.exercise-body li { font-size: .95rem; color: var(--ink); line-height: 1.6; }
+
+.ex-soma   .exercise-head { background: var(--c-soma);   }
+.ex-breath .exercise-head { background: var(--c-breath); }
+.ex-attn   .exercise-head { background: var(--c-attn);   }
+.ex-space  .exercise-head { background: var(--c-space);  }
+.ex-deep   .exercise-head { background: var(--deep);     }
+.ex-teal   .exercise-head { background: var(--teal);     }
+
+/* ── Note box ───────────────────────────────────────── */
+.note {
+  background: var(--bg-breath);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: .9rem 1.1rem;
+  font-size: .9rem;
+  color: var(--teal);
+  font-style: italic;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+/* ── Quote ──────────────────────────────────────────── */
+blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--teal);
+  text-align: center;
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+  position: relative;
+  line-height: 1.6;
+}
+blockquote::before, blockquote::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: .8rem auto; width: 60%;
+}
+
+/* ── Bullet list ────────────────────────────────────── */
+ul.blist {
+  list-style: none;
+  display: flex; flex-direction: column; gap: .5rem;
+  margin: .8rem 0;
+}
+ul.blist li {
+  padding-left: 1.4rem;
+  position: relative;
+  font-size: .95rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+ul.blist li::before {
+  content: '▸';
+  position: absolute; left: 0;
+  color: var(--teal);
+  font-size: .8rem;
+  top: .2rem;
+}
+
+/* ── Dual column ────────────────────────────────────── */
+.dual-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(184,151,58,.15);
+  border: 1px solid rgba(184,151,58,.2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+.dual-col > div { padding: 1.2rem; }
+.dual-head { font-weight: 600; font-size: .9rem; color: white; padding: .8rem 1.2rem; }
+.dc-run { background: var(--terra); }
+.dc-lock { background: var(--violet); }
+.dc-run-body { background: #f5ebe4; }
+.dc-lock-body { background: #f0eaf5; }
+.dc-tool { font-size: .85rem; font-weight: 600; color: var(--mid); margin-top: .6rem; }
+
+/* ── Worksheet ──────────────────────────────────────── */
+.worksheet {
+  border: 1px solid rgba(184,151,58,.25);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+.ws-row {
+  display: grid;
+  grid-template-columns: 2.5rem 5rem 1fr;
+  gap: 0;
+  border-bottom: 2px solid white;
+}
+.ws-row:last-child { border-bottom: none; }
+.ws-icon {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  padding: 1rem .5rem;
+}
+.ws-label {
+  padding: 1rem .8rem;
+  font-weight: 600; font-size: .85rem;
+  display: flex; align-items: center;
+  line-height: 1.3;
+}
+.ws-content {
+  padding: 1rem 1.2rem;
+  font-size: .9rem; line-height: 1.6;
+}
+.ws-row.ws-soma   { background: var(--bg-soma);   }
+.ws-row.ws-breath { background: var(--bg-breath); }
+.ws-row.ws-attn   { background: var(--bg-attn);   }
+.ws-row.ws-space  { background: var(--bg-space);  }
+.ws-soma .ws-label   { color: var(--c-soma);   }
+.ws-breath .ws-label { color: var(--c-breath); }
+.ws-attn .ws-label   { color: var(--c-attn);   }
+.ws-space .ws-label  { color: var(--c-space);  }
+
+/* ── Science table ──────────────────────────────────── */
+.sci-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.2rem;
+  font-size: .9rem;
+}
+.sci-table th {
+  background: var(--deep);
+  color: rgba(255,255,255,.85);
+  text-align: left;
+  padding: .7rem 1rem;
+  font-weight: 500;
+  font-size: .82rem;
+  letter-spacing: .04em;
+}
+.sci-table td { padding: .8rem 1rem; border-bottom: 1px solid rgba(184,151,58,.12); }
+.sci-table tr:nth-child(even) td { background: var(--bg-breath); }
+.sci-table tr:hover td { background: var(--parch2); }
+
+/* ── Part header ────────────────────────────────────── */
+.part-header {
+  background: var(--deep);
+  color: rgba(255,255,255,.5);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: .5rem 1.2rem .3rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  margin-top: 2rem;
+}
+.part-title {
+  background: var(--deep);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 300;
+  padding: .3rem 1.2rem 1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Protocol ───────────────────────────────────────── */
+.protocol {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 1rem 0;
+}
+.proto-head {
+  background: var(--deep);
+  color: white;
+  padding: .9rem 1.2rem;
+  font-weight: 600;
+  font-size: .95rem;
+  display: flex; gap: .5rem; align-items: center;
+}
+.proto-head.teal { background: var(--teal); }
+.proto-body {
+  background: var(--parch2);
+  padding: 1rem 1.2rem;
+}
+
+/* ── Resources ──────────────────────────────────────── */
+.resource-list {
+  display: flex; flex-direction: column; gap: .6rem;
+  margin-top: 1rem;
+}
+.resource-item {
+  display: flex; gap: .8rem; align-items: flex-start;
+  padding: .8rem 1rem;
+  background: white;
+  border: 1px solid rgba(184,151,58,.2);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color .15s, box-shadow .15s;
+}
+.resource-item:hover {
+  border-color: var(--teal);
+  box-shadow: 0 2px 8px rgba(29,107,114,.1);
+}
+.resource-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: .1rem; }
+.resource-name { font-weight: 600; font-size: .95rem; color: var(--deep); }
+.resource-url  { font-size: .8rem; color: var(--teal); }
+
+/* ── Footer ─────────────────────────────────────────── */
+footer {
+  background: var(--deep);
+  color: rgba(255,255,255,.55);
+  text-align: center;
+  padding: 3rem 1.5rem;
+  font-size: .85rem;
+  margin-top: 4rem;
+}
+footer .footer-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--gold2);
+  margin-bottom: .5rem;
+}
+footer .cc {
+  margin-top: 1rem;
+  font-size: .75rem;
+  color: rgba(255,255,255,.35);
+}
+footer a { color: var(--gold2); text-decoration: none; }
+
+  /* ── TOC sidebar (desktop) ──────────────────────────── */
+@media (min-width: 1100px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+    max-width: 1060px;
     margin: 0 auto;
-    min-height: 100dvh;
-    overflow-x: hidden;
   }
-
-  /* ── SCREENS ── */
-  .screen { display: none; flex-direction: column; min-height: 100dvh; }
-  .screen.active { display: flex; }
-
-  /* ── BOTTOM NAV ── */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 100%; max-width: 480px;
-    height: var(--nav-h);
-    background: var(--white);
-    border-top: 1px solid var(--light);
-    display: flex;
-    z-index: 100;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
-  }
-  .nav-btn {
-    flex: 1; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 4px;
-    background: none; border: none; cursor: pointer;
-    color: var(--gray); font-family: inherit;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.3px;
-    transition: color .2s;
-  }
-  .nav-btn.active { color: var(--teal-dark); }
-  .nav-btn svg { width: 22px; height: 22px; }
-
-  /* ── SCROLL CONTENT ── */
-  .scroll-area {
-    flex: 1;
+  .toc-sidebar {
+    position: sticky; top: 56px;
+    height: calc(100vh - 56px);
     overflow-y: auto;
-    padding-bottom: calc(var(--nav-h) + 16px);
-    -webkit-overflow-scrolling: touch;
+    padding: 1.5rem 1rem 2rem;
+    background: var(--parch2);
+    border-right: 1px solid rgba(184,151,58,.18);
+    font-size: .82rem;
   }
+  .toc-sidebar h4 {
+    font-family: var(--font-display);
+    font-size: .8rem;
+    color: var(--mid);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .8rem;
+    padding-bottom: .4rem;
+    border-bottom: 1px solid rgba(184,151,58,.25);
+  }
+  .toc-sidebar a {
+    display: block;
+    padding: .3rem .5rem;
+    color: var(--mid);
+    text-decoration: none;
+    border-radius: 4px;
+    line-height: 1.4;
+    transition: background .12s, color .12s;
+  }
+  .toc-sidebar a:hover, .toc-sidebar a.active {
+    background: rgba(29,107,114,.1);
+    color: var(--teal);
+  }
+  .toc-sidebar a.toc-part {
+    font-weight: 600; color: var(--deep);
+    margin-top: .6rem;
+  }
+  main { padding: 0 2rem; }
+}
 
-  /* ─────────────────────────────────────────
-     HOME SCREEN
-  ───────────────────────────────────────── */
-  .home-header {
-    background: var(--teal-dark);
-    padding: 32px 24px 28px;
-    position: relative;
-    overflow: hidden;
-  }
-  .home-header::after {
-    content: '';
-    position: absolute;
-    right: -40px; bottom: -40px;
-    width: 180px; height: 180px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.04);
-  }
-  .home-eyebrow {
-    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
-    color: var(--teal-light); margin-bottom: 8px; font-weight: 700;
-  }
-  .home-title {
-    font-family: 'Fraunces', serif;
-    font-size: 34px; font-weight: 900; color: var(--white);
-    line-height: 1.1; margin-bottom: 6px;
-  }
-  .home-subtitle { font-size: 16px; color: var(--teal-light); margin-bottom: 20px; }
-  .axis-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-  .axis-pill {
-    padding: 5px 13px; border-radius: 20px;
-    font-size: 12px; font-weight: 700; color: var(--white);
-  }
+/* ── Animations ─────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-  /* Quick start card */
-  .quick-card {
-    display: flex; align-items: center;
-    background: var(--white); margin: 16px 16px 8px;
-    border-radius: 16px; padding: 16px 18px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-    cursor: pointer; border: none; width: calc(100% - 32px);
-    font-family: inherit; text-align: left;
-    transition: transform .15s, box-shadow .15s;
-  }
-  .quick-card:active { transform: scale(0.98); }
-  .quick-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--terra-pale); display: flex; align-items: center; justify-content: center; margin-right: 14px; flex-shrink: 0; }
-  .quick-title { font-size: 15px; font-weight: 700; color: var(--body); }
-  .quick-sub   { font-size: 12px; color: var(--gray); margin-top: 2px; }
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 600px) {
+  .axes-bar { grid-template-columns: repeat(2,1fr); }
+  .dual-col { grid-template-columns: 1fr; }
+  .ws-row   { grid-template-columns: 2rem 4rem 1fr; }
+  .nav-links { display: none; }
+}
 
-  /* Section label */
-  .section-label {
-    font-size: 11px; font-weight: 700; letter-spacing: 1.4px;
-    text-transform: uppercase; color: var(--gray);
-    margin: 20px 20px 10px;
-  }
+/* ── Accessibility: focus styles ── */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
 
-  /* Chapter cards */
-  .chapter-card {
-    display: flex; align-items: center;
-    background: var(--white); margin: 0 16px 8px;
-    border-radius: 16px; padding: 14px 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    cursor: pointer; border: none; width: calc(100% - 32px);
-    font-family: inherit; text-align: left;
-    transition: transform .15s;
-  }
-  .chapter-card:active { transform: scale(0.97); }
-  .ch-icon {
-    width: 46px; height: 46px; border-radius: 13px;
-    display: flex; align-items: center; justify-content: center;
-    margin-right: 14px; flex-shrink: 0; font-size: 22px;
-  }
-  .ch-num   { font-size: 10px; color: var(--gray); font-weight: 600; letter-spacing: 0.5px; }
-  .ch-title { font-size: 15px; font-weight: 700; color: var(--body); margin: 2px 0; }
-  .ch-sub   { font-size: 12px; color: var(--gray); }
-  .ch-arrow { margin-left: auto; color: var(--light); font-size: 18px; }
-
-  /* ─────────────────────────────────────────
-     CHAPTER DETAIL SCREEN
-  ───────────────────────────────────────── */
-  .ch-header {
-    padding: 16px 20px 24px;
-    position: relative;
-  }
-  .back-btn {
-    background: rgba(255,255,255,0.2); border: none; cursor: pointer;
-    width: 38px; height: 38px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 14px; color: white; font-size: 20px;
-    transition: background .2s;
-  }
-  .back-btn:active { background: rgba(255,255,255,0.35); }
-  .ch-header-num   { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.65); }
-  .ch-header-title { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: white; margin: 4px 0; }
-  .ch-header-sub   { font-size: 14px; color: rgba(255,255,255,0.78); }
-
-  .summary-box {
-    display: flex; background: var(--white);
-    margin: 16px 16px 12px; border-radius: 14px;
-    overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  }
-  .summary-bar   { width: 5px; flex-shrink: 0; }
-  .summary-inner { padding: 14px 14px 14px 12px; }
-  .summary-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 5px; }
-  .summary-text  { font-size: 14px; font-weight: 600; color: var(--body); line-height: 1.55; }
-
-  .section-card {
-    background: var(--white); margin: 0 16px 10px;
-    border-radius: 14px; padding: 16px 16px 16px 20px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-    position: relative; overflow: hidden;
-  }
-  .section-accent { position: absolute; left: 0; top: 12px; bottom: 12px; width: 4px; border-radius: 2px; }
-  .section-title  { font-size: 14px; font-weight: 800; margin-bottom: 8px; }
-  .section-body   { font-size: 14px; color: var(--body); line-height: 1.6; white-space: pre-line; }
-
-  /* Exercise accordion */
-  .exercise-header {
-    display: flex; align-items: center; gap: 10px;
-    margin: 0 16px; padding: 14px 16px;
-    border-radius: 14px 14px 0 0; cursor: pointer;
-    border: none; font-family: inherit; text-align: left; width: calc(100% - 32px);
-    transition: opacity .2s;
-  }
-  .exercise-header:active { opacity: 0.85; }
-  .exercise-header-text { flex: 1; color: white; font-weight: 700; font-size: 14px; }
-  .exercise-toggle { color: white; font-size: 16px; transition: transform .3s; }
-  .exercise-toggle.open { transform: rotate(180deg); }
-
-  .exercise-body {
-    background: var(--white); margin: 0 16px 16px;
-    border-radius: 0 0 14px 14px;
-    border: 2px solid; border-top: none;
-    padding: 16px;
-    display: none;
-  }
-  .exercise-body.open { display: block; animation: slideDown .25s ease; }
-  @keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-
-  .step-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-  .step-badge {
-    width: 26px; height: 26px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 12px; font-weight: 800;
-    flex-shrink: 0; margin-top: 1px;
-  }
-  .step-text { font-size: 14px; color: var(--body); line-height: 1.55; }
-
-  /* Insight */
-  .insight-box { margin: 0 16px 14px; border-radius: 14px; padding: 20px; text-align: center; }
-  .insight-star { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.65); margin-bottom: 8px; }
-  .insight-text { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; color: white; line-height: 1.5; }
-
-  /* Chapter nav */
-  .ch-nav { display: flex; justify-content: space-between; margin: 0 16px 8px; }
-  .ch-nav-btn {
-    display: flex; align-items: center; gap: 6px;
-    background: none; border: none; cursor: pointer;
-    color: var(--teal-dark); font-weight: 700; font-size: 13px;
-    padding: 10px; font-family: inherit;
-  }
-
-  /* ─────────────────────────────────────────
-     BREATH SCREEN
-  ───────────────────────────────────────── */
-  .breath-screen {
-    background: var(--teal-dark);
-    color: white;
-    align-items: center;
-  }
-  .breath-header { width: 100%; padding: 20px 24px 0; }
-  .breath-title { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 900; color: white; }
-  .breath-sub   { font-size: 13px; color: var(--teal-light); letter-spacing: 2.5px; margin-top: 3px; }
-
-  .circle-area {
-    flex: 1; display: flex; align-items: center; justify-content: center;
-    position: relative;
-  }
-  .outer-ring {
-    width: 230px; height: 230px; border-radius: 50%;
-    border: 2px solid rgba(168,213,220,0.5);
-    background: rgba(168,213,220,0.12);
-    position: absolute;
-    transition: transform 0s, opacity .3s;
-  }
-  .inner-circle {
-    width: 164px; height: 164px; border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 2px solid rgba(255,255,255,0.25);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    z-index: 1;
-  }
-  .phase-label { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; color: white; }
-  .phase-sub   { font-size: 12px; color: var(--teal-light); margin-top: 4px; }
-  .ready-icon  { font-size: 32px; margin-bottom: 8px; }
-  .ready-text  { font-size: 15px; color: var(--teal-light); text-align: center; line-height: 1.4; }
-
-  .stats-row {
-    display: flex; gap: 32px; align-items: center;
-    background: rgba(255,255,255,0.07); border-radius: 18px;
-    padding: 14px 36px; margin-bottom: 16px;
-  }
-  .stat { text-align: center; }
-  .stat-val { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 900; color: white; }
-  .stat-lbl { font-size: 11px; color: var(--teal-light); margin-top: 2px; }
-  .stat-divider { width: 1px; height: 38px; background: rgba(255,255,255,0.18); }
-
-  .guide-box {
-    background: rgba(255,255,255,0.06); border-radius: 12px;
-    padding: 12px 20px; margin: 0 24px 24px;
-    text-align: center;
-  }
-  .guide-text { font-size: 13px; color: var(--teal-light); line-height: 1.55; }
-
-  .controls { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; }
-  .reset-btn {
-    width: 52px; height: 52px; border-radius: 50%;
-    background: rgba(255,255,255,0.1); border: none; cursor: pointer;
-    font-size: 20px; display: flex; align-items: center; justify-content: center;
-    transition: background .2s;
-  }
-  .reset-btn:active { background: rgba(255,255,255,0.2); }
-  .play-btn {
-    width: 74px; height: 74px; border-radius: 50%;
-    background: var(--terra); border: none; cursor: pointer;
-    font-size: 28px; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 24px rgba(192,112,80,0.45);
-    transition: transform .15s, background .2s;
-    color: white;
-  }
-  .play-btn:active { transform: scale(0.93); }
-  .play-btn.running { background: var(--teal-med); box-shadow: 0 8px 24px rgba(46,139,154,0.4); }
-
-  /* Breath animation */
-  @keyframes breatheIn  { from { transform:scale(0.7); opacity:0.4; } to { transform:scale(1.4); opacity:0.9; } }
-  @keyframes breatheOut { from { transform:scale(1.4); opacity:0.9; } to { transform:scale(0.7); opacity:0.4; } }
-  @keyframes holdBig    { from { transform:scale(1.4); opacity:0.9; } to { transform:scale(1.4); opacity:0.9; } }
-  @keyframes holdSmall  { from { transform:scale(0.7); opacity:0.4; } to { transform:scale(0.7); opacity:0.4; } }
-
-  /* ─────────────────────────────────────────
-     JOURNAL SCREEN
-  ───────────────────────────────────────── */
-  .journal-header { padding: 24px 20px 16px; }
-  .journal-title  { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: var(--teal-dark); }
-  .journal-sub    { font-size: 14px; color: var(--gray); margin-top: 3px; margin-bottom: 14px; }
-
-  .progress-bar-wrap { margin-bottom: 6px; }
-  .progress-bg   { height: 8px; background: var(--light); border-radius: 4px; overflow: hidden; }
-  .progress-fill { height: 8px; background: var(--teal-med); border-radius: 4px; transition: width .5s ease; }
-  .progress-txt  { font-size: 12px; color: var(--gray); font-weight: 600; margin-top: 5px; }
-
-  .day-card {
-    background: var(--white); margin: 0 16px 8px;
-    border-radius: 16px; overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-  .day-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 14px 16px; cursor: pointer;
-    transition: background .2s;
-  }
-  .day-row.done { background: var(--teal-pale); }
-  .day-badge {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: var(--light); display: flex;
-    align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 800; color: var(--gray);
-    flex-shrink: 0; transition: background .3s, color .3s;
-  }
-  .day-badge.done { background: var(--teal-dark); color: white; }
-  .day-name  { flex: 1; font-size: 15px; font-weight: 700; color: var(--body); }
-  .mini-dots { display: flex; gap: 5px; margin-right: 4px; }
-  .mini-dot  { width: 9px; height: 9px; border-radius: 50%; background: var(--light); transition: background .3s; }
-  .day-chevron { font-size: 14px; color: var(--gray); transition: transform .3s; }
-  .day-chevron.open { transform: rotate(180deg); }
-
-  .day-body {
-    padding: 14px 16px;
-    border-top: 1px solid var(--light);
-    display: none;
-    animation: slideDown .2s ease;
-  }
-  .day-body.open { display: block; }
-
-  .axes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-  .axis-chip {
-    border: 2px solid; border-radius: 22px;
-    padding: 9px 14px; cursor: pointer;
-    font-family: inherit; font-size: 13px; font-weight: 700;
-    background: transparent; color: var(--body);
-    transition: all .2s; text-align: left;
-  }
-  .axis-chip.checked { color: white; }
-
-  .note-label { font-size: 12px; font-weight: 600; color: var(--gray); margin-bottom: 6px; }
-  .note-input {
-    width: 100%; border: 1.5px solid var(--light); border-radius: 10px;
-    padding: 12px; font-family: inherit; font-size: 14px; color: var(--body);
-    background: var(--off); resize: none; min-height: 80px;
-    outline: none; line-height: 1.5;
-  }
-  .note-input:focus { border-color: var(--teal-med); }
-
-  .reset-week-btn {
-    display: block; margin: 12px auto; background: none; border: none;
-    font-size: 13px; color: var(--gray); text-decoration: underline;
-    cursor: pointer; font-family: inherit; padding: 10px;
-  }
-
-  /* ── MISC ── */
-  .spacer-bottom { height: 16px; }
+/* ── Print ── */
+@media print {
+  nav, .toc-sidebar { display: none; }
+  section { break-inside: avoid; }
+}
 </style>
 </head>
+
 <body>
-<!-- ═══════════════════════════════════════════
-     HOME SCREEN
-═══════════════════════════════════════════ -->
-<div class="screen active" id="screen-home">
-  <div class="scroll-area">
-    <div class="home-header">
-      <div class="home-eyebrow">Workbook Πρακτικής Παρουσίας</div>
-      <div class="home-title">Οδηγός<br>Ενσυνειδητότητας</div>
-      <div class="home-subtitle">για Νευροδιαφορετικούς</div>
-      <div class="axis-pills">
-        <span class="axis-pill" style="background:var(--sage)">Σώμα</span>
-        <span class="axis-pill" style="background:var(--terra)">Αναπνοή</span>
-        <span class="axis-pill" style="background:var(--gold)">Προσοχή</span>
-        <span class="axis-pill" style="background:var(--lav)">Χώρος</span>
-      </div>
-    </div>
+<a href="#main-content" class="skip-link">Μετάβαση στο κύριο περιεχόμενο</a>
 
-    <!-- Quick start -->
-    <button class="quick-card" onclick="showBreath()">
-      <div class="quick-icon">🌿</div>
-      <div>
-        <div class="quick-title">Γρήγορη Εκκίνηση</div>
-        <div class="quick-sub">Άσκηση αναπνοής · 2 λεπτά</div>
-      </div>
-      <span style="margin-left:auto;color:var(--light);font-size:20px">›</span>
-    </button>
-
-    <div class="section-label">Κεφάλαια</div>
-
-    <div id="chapter-list"></div>
-    <div class="spacer-bottom"></div>
+<!-- ── Navigation ── -->
+<nav aria-label="Κύρια πλοήγηση">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Οδηγός Ενσυνειδητότητας</a>
+    <ul class="nav-links" role="list">
+      <li><a href="#intro">Εισαγωγή</a></li>
+      <li><a href="#four-centers">4 Κέντρα</a></li>
+      <li><a href="#part1">Μέρος 1</a></li>
+      <li><a href="#part2">Μέρος 2</a></li>
+      <li><a href="#worksheet">Φύλλο Εργ.</a></li>
+      <li><a href="#science">Επιστήμη</a></li>
+      <li><a href="#epilogue">Επίλογος</a></li>
+    </ul>
   </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     CHAPTER DETAIL SCREEN
-═══════════════════════════════════════════ -->
-<div class="screen" id="screen-chapter">
-  <div class="scroll-area" id="chapter-scroll">
-    <div id="chapter-content"></div>
-    <div class="spacer-bottom"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     BREATH SCREEN
-═══════════════════════════════════════════ -->
-<div class="screen breath-screen" id="screen-breath">
-  <div class="breath-header">
-    <div class="breath-title">Αναπνοή</div>
-    <div class="breath-sub">4 · 2 · 6 · 1</div>
-  </div>
-
-  <div class="circle-area">
-    <div class="outer-ring" id="breath-ring"></div>
-    <div class="inner-circle">
-      <div id="phase-label" class="phase-label" style="display:none"></div>
-      <div id="phase-sub" class="phase-sub" style="display:none"></div>
-      <div id="breath-ready">
-        <div class="ready-icon" style="text-align:center">🌿</div>
-        <div class="ready-text">Έτοιμος<br>να ξεκινήσεις;</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="stats-row">
-    <div class="stat">
-      <div class="stat-val" id="breath-time">00:00</div>
-      <div class="stat-lbl">Χρόνος</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <div class="stat-val" id="breath-cycles">0</div>
-      <div class="stat-lbl">Κύκλοι</div>
-    </div>
-  </div>
-
-  <div class="guide-box">
-    <div class="guide-text">Εισπνοή 4″ · Παύση 2″ · Εκπνοή 6″ · Παύση 1″<br>Ιδανικό για άγχος και επαναφορά στο παρόν</div>
-  </div>
-
-  <div class="controls">
-    <button class="reset-btn" onclick="breathReset()">↺</button>
-    <button class="play-btn" id="play-btn" onclick="breathToggle()">▶</button>
-    <div style="width:52px"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     JOURNAL SCREEN
-═══════════════════════════════════════════ -->
-<div class="screen" id="screen-journal">
-  <div class="scroll-area">
-    <div class="journal-header">
-      <div class="journal-title">Ημερολόγιο</div>
-      <div class="journal-sub">7-Ήμερη Πρακτική</div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bg"><div class="progress-fill" id="j-progress" style="width:0%"></div></div>
-        <div class="progress-txt" id="j-progress-txt">0/28 ✓ · 0%</div>
-      </div>
-    </div>
-    <div id="journal-days"></div>
-    <button class="reset-week-btn" onclick="journalReset()">Επαναφορά εβδομάδας</button>
-    <div class="spacer-bottom"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     BOTTOM NAV
-═══════════════════════════════════════════ -->
-<nav class="bottom-nav">
-  <button class="nav-btn active" id="nav-home" onclick="showHome()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M2 12L12 3l10 9"/><path d="M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/>
-    </svg>
-    Κεφάλαια
-  </button>
-  <button class="nav-btn" id="nav-breath" onclick="showBreath()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 22c-4.97 0-9-2.69-9-6 0-1.5.8-2.9 2.1-4C6.5 10.7 8 9.4 8 8a4 4 0 018 0c0 1.4 1.5 2.7 2.9 4 1.3 1.1 2.1 2.5 2.1 4 0 3.31-4.03 6-9 6z"/>
-    </svg>
-    Αναπνοή
-  </button>
-  <button class="nav-btn" id="nav-journal" onclick="showJournal()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-    </svg>
-    Ημερολόγιο
-  </button>
 </nav>
+
+<!-- ── Hero ── -->
+<header class="hero" role="banner">
+  <div class="hero-badge">Δωρεάν · CC BY-NC-ND 4.0</div>
+  <h1>Οδηγός Ενσυνειδητότητας<br><em>για Νευροδιαφορετικούς</em></h1>
+  <p class="hero-sub">Ένας πρακτικός οδηγός αυτορρύθμισης μέσω του Τετραπλού Άξονα Συνείδησης</p>
+  <div class="hero-ctas">
+    <a href="#intro" class="btn btn-primary">Ξεκίνα την ανάγνωση ↓</a>
+    <a href="#" class="btn btn-outline" id="downloadBtn">⬇ Κατέβασε PDF</a>
+  </div>
+  <p class="hero-author">Θεόδωρος Μπαϊρακτάρης · 2025</p>
+</header>
+
+<!-- ── Axes bar ── -->
+<div class="axes-bar" role="complementary" aria-label="Οι 4 Άξονες">
+  <a href="#soma-chapter" class="axis-tab at-soma">
+    <span class="ax-icon">🌱</span>ΣΩΜΑ
+  </a>
+  <a href="#breath-chapter" class="axis-tab at-breath">
+    <span class="ax-icon">🌬</span>ΑΝΑΠΝΟΗ
+  </a>
+  <a href="#attn-chapter" class="axis-tab at-attn">
+    <span class="ax-icon">🔦</span>ΠΡΟΣΟΧΗ
+  </a>
+  <a href="#space-chapter" class="axis-tab at-space">
+    <span class="ax-icon">✨</span>ΧΩΡΟΣ
+  </a>
+</div>
+
+<!-- ── Layout wrapper ── -->
+<div class="layout">
+
+<!-- TOC Sidebar (shows on wide screens) -->
+<aside class="toc-sidebar" aria-label="Πίνακας Περιεχομένων">
+  <h4>Περιεχόμενα</h4>
+  <a href="#intro">Εισαγωγή</a>
+  <a href="#personal-note">Προσωπική Σημείωση</a>
+  <a href="#four-centers">Τα 4 Κέντρα</a>
+  <a href="#how-to">Πώς να το Χρησιμοποιήσετε</a>
+  <a href="#part1" class="toc-part">Μέρος 1 — Ο Πυρήνας</a>
+  <a href="#soma-chapter">Κεφ.1 — Σώμα</a>
+  <a href="#breath-chapter">Κεφ.2 — Αναπνοή</a>
+  <a href="#attn-chapter">Κεφ.3 — Προσοχή</a>
+  <a href="#space-chapter">Κεφ.4 — Χώρος</a>
+  <a href="#part2" class="toc-part">Μέρος 2 — Εφαρμογές</a>
+  <a href="#adhd-chapter">Κεφ.5 — Νευροδιαφ. Νους</a>
+  <a href="#daily-chapter">Κεφ.6 — Καθημερινότητα</a>
+  <a href="#protocols">Κεφ.7 — Πρωτόκολλα</a>
+  <a href="#worksheet">Κεφ.8 — Φύλλο Εργ.</a>
+  <a href="#stages">Κεφ.9 — 4 Στάδια</a>
+  <a href="#science">Κεφ.10 — Επιστήμη</a>
+  <a href="#resources">Πόροι</a>
+  <a href="#epilogue">Επίλογος</a>
+</aside>
+
+<main id="main-content">
+
+<!-- ── ΕΙΣΑΓΩΓΗ ──────────────────────────────────── -->
+<section id="intro">
+  <span class="section-label">Εισαγωγή</span>
+  <h2>Για ποιον είναι αυτό το βιβλίο;</h2>
+  <p>Αυτός ο οδηγός απευθύνεται σε όσους αισθάνονται αποσυνδεδεμένοι — όσων ο νους τρέχει ασταμάτητα, το σώμα βρίσκεται σε συνεχή εγρήγορση και η γαλήνη μοιάζει με ξένη γλώσσα.</p>
+  <ul class="blist">
+    <li>Άτομα με βίωμα τραύματος ή νευροδιαφορετικότητας (ΔΕΠΥ κ.ά.)</li>
+    <li>Όσοι ζουν με χρόνιο άγχος και υπερφόρτωση της σύγχρονης ζωής</li>
+    <li>Κάθε άτομο που θέλει να επιστρέψει στη ζωντανή του παρουσία</li>
+  </ul>
+  <div class="note">💚 Δεν χρειάζεται να «διορθώσεις» κάτι σε εσένα. Τίποτα δεν είναι σπασμένο.</div>
+
+  <h3 id="personal-note">Σημείωση για τη Σοφία του Σώματος</h3>
+  <p>Ο νους δεν έχει αίσθηση του «τώρα». Ταξιδεύει ανάμεσα σε αναμνήσεις και προβολές. Αντίθετα, το σώμα — μέσω της βαρύτητας και της αναπνοής — είναι <em>πάντα εδώ</em>.</p>
+
+  <h3>Προσωπική Σημείωση</h3>
+  <p>Αυτός ο οδηγός δεν γεννήθηκε σε εργαστήριο. Γεννήθηκε από προσωπική ανάγκη. Όταν ο γιος μου διαγνώστηκε με ΔΕΠΥ, συνειδητοποίησα ότι κι εγώ είμαι νευροδιαφορετικός.</p>
+  <p>Αυτό που χρειαζόμασταν δεν ήταν πειθαρχία — ήταν μια μέθοδος <strong>αυτοχαλάρωσης και αυτορρύθμισης</strong>, που δεν απαιτεί να «πολεμήσουμε» τον εγκέφαλό μας.</p>
+  <blockquote>«Δεν σταμάτησε ο νους μου να τρέχει, αλλά σταμάτησε να με παρασύρει.»</blockquote>
+  <p>Αυτό το βιβλίο είναι και θα παραμείνει δωρεάν. Πιστεύω ότι η γνώση που μπορεί να απαλύνει τον πόνο δεν πρέπει να έχει τιμή.</p>
+</section>
+
+<!-- ── ΤΑ 4 ΚΕΝΤΡΑ ────────────────────────────────── -->
+<section id="four-centers">
+  <span class="section-label">Βασική Αρχή</span>
+  <h2>Τα Τέσσερα Κέντρα Συνείδησης</h2>
+  <p>Η ενσυνειδητότητα δεν είναι μυστηριώδες «κάτι» που πρέπει να επιτευχθεί. Είναι η φυσική εμπειρία που προκύπτει όταν τα τέσσερα κέντρα συνείδησης λειτουργούν αρμονικά.</p>
+
+  <div class="axis-grid">
+    <div class="axis-box ab-soma">
+      <span class="ax-sym">🌱</span>
+      <div>
+        <div class="ax-name">ΣΩΜΑ — Η Σταθερότητα του «Εδώ»</div>
+        <div class="ax-desc">Η αίσθηση ότι κατοικούμε σε ένα σώμα που αγγίζει, νιώθει και συνδέεται με τη γη μέσω της βαρύτητας.</div>
+      </div>
+    </div>
+    <div class="axis-box ab-breath">
+      <span class="ax-sym">🌬</span>
+      <div>
+        <div class="ax-name">ΑΝΑΠΝΟΗ — Ο Ρυθμός της Ζωής</div>
+        <div class="ax-desc">Η επίγνωση του ρυθμού ζωής — της συνεχούς ροής εισπνοής και εκπνοής που μας συνδέει με τον κόσμο.</div>
+      </div>
+    </div>
+    <div class="axis-box ab-attn">
+      <span class="ax-sym">🔦</span>
+      <div>
+        <div class="ax-name">ΠΡΟΣΟΧΗ — Ο Φακός της Συνείδησης</div>
+        <div class="ax-desc">Η ικανότητα να κατευθύνουμε την επίγνωσή μας — να εστιάζουμε, να ανοίγουμε ή να παρατηρούμε πού «κόλλησε» ο νους.</div>
+      </div>
+    </div>
+    <div class="axis-box ab-space">
+      <span class="ax-sym">✨</span>
+      <div>
+        <div class="ax-name">ΧΩΡΟΣ — Η Ανοιχτή Επίγνωση</div>
+        <div class="ax-desc">Η αίσθηση του ανοιχτού πεδίου μέσα και γύρω μας, στο οποίο εμφανίζονται και εξαφανίζονται σκέψεις, συναισθήματα, αισθήσεις.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="how-to">Πώς να χρησιμοποιήσετε αυτόν τον οδηγό</h3>
+  <p>Οι ασκήσεις έχουν χαρακτήρα παιχνιδιού. Δεν υπάρχουν λάθη — μόνο πειράματα. Η παρουσία δεν χρειάζεται να διαρκεί ώρες. Ξεκινά με νίκες λίγων δευτερολέπτων.</p>
+  <ul class="blist">
+    <li>Η συνέπεια σε μικρές δόσεις είναι πιο σημαντική από τη διάρκεια.</li>
+    <li>Προσαρμόστε τις οδηγίες στις ανάγκες σας ελεύθερα.</li>
+    <li>Δεν υπάρχει «σωστός» τρόπος — μόνο ο δικός σας.</li>
+  </ul>
+</section>
+
+<!-- ── ΜΕΡΟΣ 1 ─────────────────────────────────────── -->
+<div class="part-header" id="part1">ΜΕΡΟΣ 1</div>
+<div class="part-title">Ο Πυρήνας της Μεθόδου — Ο Τετραπλός Άξονας</div>
+
+<!-- ΚΕΦ 1: ΣΩΜΑ -->
+<section id="soma-chapter">
+  <span class="section-label" style="color:var(--c-soma)">🌱 Κεφάλαιο 1</span>
+  <h2>Σώμα: Η Σταθερότητα του «Εδώ»</h2>
+  <p>Η πρακτική του Τετραπλού Άξονα ξεκινά πάντα με το σώμα. Το σώμα είναι η σταθερή μας βάση — το αδιαμφισβήτητο «Εδώ» που μας συνδέει με τον παρόντα χρόνο.</p>
+
+  <h3>Η Βαρύτητα: Το Αναμφίβολο «Εδώ»</h3>
+  <p>Η Βαρύτητα δεν είναι απλώς μια δύναμη — είναι απόδειξη του «Εδώ». Μας δείχνει, χωρίς αμφιβολία, ακριβώς το σημείο στο οποίο υπάρχουμε αυτή τη στιγμή.</p>
+  <p>Το σώμα μας κουβαλά ιστορία: απόρριψη, απογοήτευση, ένταση «κλειδωμένη» ως χρόνιο σφίξιμο στους ώμους, την πλάτη, το σαγόνι. Η πρακτική είναι ανακάλυψη και αποκατάσταση.</p>
+
+  <div class="exercise ex-soma">
+    <div class="exercise-head">🌱 ΑΣΚΗΣΗ: Το Βιβλίο / Κουτί</div>
+    <div class="exercise-body">
+      <ol>
+        <li>Σταθείτε όρθιοι με άνεση.</li>
+        <li>Τοποθετήστε ένα βιβλίο ή κουτί στο κεφάλι σας (προαιρετικό).</li>
+        <li>Παρατηρήστε πώς χρειάζεται να σταθείτε για να μην πέσει.</li>
+        <li>Νιώστε το βάρος να κατεβαίνει ομαλά: λαιμός → σπονδυλική στήλη → λεκάνη.</li>
+        <li>Νιώστε την αφή των πελμάτων στο έδαφος και τον άξονα που σας κρατά.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="note">Στόχος: Να νιώσετε τον κατακόρυφο άξονα του σώματός σας — όχι να σταθείτε «τέλεια».</div>
+</section>
+
+<!-- ΚΕΦ 2: ΑΝΑΠΝΟΗ -->
+<section id="breath-chapter">
+  <span class="section-label" style="color:var(--c-breath)">🌬 Κεφάλαιο 2</span>
+  <h2>Αναπνοή: Ο Ρυθμός της Ζωής</h2>
+  <p>Αν το σώμα μας ενώνει με τη γη, η αναπνοή μας συνδέει με τον ουρανό και την αδιάκοπη ροή του κόσμου. Είναι ο ρυθμός που μας συνοδεύει από τη γέννηση.</p>
+
+  <h3>Η Αναπνοή ως Ρυθμός Ύπαρξης</h3>
+  <p>Κάθε εισπνοή συγκρατείται για μια στιγμή, και στη συνέχεια αφήνεται με την εκπνοή — αυτό μας φανερώνει ότι κάθε τι έχει αρχή, μέση και τέλος.</p>
+  <ul class="blist">
+    <li><strong>Εισπνοή</strong> = Αρχή — η λήψη, η γέννηση</li>
+    <li><strong>Εκπνοή</strong> = Τέλος — η απελευθέρωση, η αποδοχή της παροδικότητας</li>
+  </ul>
+  <p>Για τον νευροδιαφορετικό νου αυτό είναι κρίσιμο: συχνά, όταν νιώθουμε άγχος, ο νους το ερμηνεύει ως μόνιμο. Με την αναπνοή, εκπαιδεύουμε τον νου να βλέπει κάθε κατάσταση ως παροδική.</p>
+
+  <div class="exercise ex-breath">
+    <div class="exercise-head">🌬 ΑΣΚΗΣΗ: Η Ενεργή Επιστροφή</div>
+    <div class="exercise-body">
+      <ol>
+        <li>Σταθείτε όρθιοι ή καθίστε. Κλείστε τα μάτια.</li>
+        <li>Νιώστε τη βαρύτητα — σημεία επαφής με το έδαφος (Σώμα).</li>
+        <li>Στρέψτε προσοχή στην εισπνοή/εκπνοή — αέρας στα ρουθούνια.</li>
+        <li>Στην εκπνοή: η κοιλιά μαζεύεται ήπια, σαν να αδειάζετε ένταση.</li>
+        <li>Σε άγχος: εκπνοή αργά από το στόμα, παρατεταμένα.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="note">Κι αν μείνεις μόνο λίγες στιγμές — είναι αρκετό. Κάθε επιστροφή είναι μια νίκη.</div>
+</section>
+
+<!-- ΚΕΦ 3: ΠΡΟΣΟΧΗ -->
+<section id="attn-chapter">
+  <span class="section-label" style="color:var(--c-attn)">🔦 Κεφάλαιο 3</span>
+  <h2>Προσοχή: Ο Φακός της Συνείδησης</h2>
+  <p>Το σώμα είναι η βάση, η αναπνοή ο ρυθμός — η προσοχή είναι ο φακός που φωτίζει την παρούσα στιγμή.</p>
+
+  <h3>Οι Τρεις Μορφές Προσοχής</h3>
+  <div class="chapter-grid" style="margin-top:.8rem">
+    <div style="display:grid;grid-template-columns:5rem 1fr;background:var(--bg-soma)">
+      <div style="background:var(--c-soma);color:white;padding:.9rem .8rem;font-weight:600;font-size:.9rem;display:flex;align-items:center;">Κλειστή</div>
+      <div style="padding:.9rem 1rem;font-size:.9rem;color:var(--ink)">Η δέσμη εστιάζει σε ένα σημείο. Χρήσιμη για συγκέντρωση.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:5rem 1fr;background:var(--bg-breath)">
+      <div style="background:var(--c-breath);color:white;padding:.9rem .8rem;font-weight:600;font-size:.9rem;display:flex;align-items:center;">Ανοιχτή</div>
+      <div style="padding:.9rem 1rem;font-size:.9rem;color:var(--ink)">Η δέσμη ανοίγει — ακούς ήχους, νιώθεις σώμα, αναπνέεις, όλα χωρούν.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:5rem 1fr;background:var(--bg-space)">
+      <div style="background:var(--terra);color:white;padding:.9rem .8rem;font-weight:600;font-size:.9rem;display:flex;align-items:center;">Αγκυλ/νη</div>
+      <div style="padding:.9rem 1rem;font-size:.9rem;color:var(--ink)">Η δέσμη κολλάει σε σκέψη ή ανησυχία — αίσθηση «τούνελ» εμμονής.</div>
+    </div>
+  </div>
+
+  <h3>Η Δύναμη της Ταμπέλας (Thought Labelling)</h3>
+  <p>Αντί να εμπλακείς στο περιεχόμενο μιας σκέψης, βάλε της μια απλή, μονολεκτική ταμπέλα και επέστρεψε στο σταθερό σημείο:</p>
+  <ul class="blist">
+    <li>«Σχεδιασμός» — για σκέψεις τι πρέπει να κάνεις αύριο</li>
+    <li>«Κριτική» — για αυτοκριτικές σκέψεις</li>
+    <li>«Ανησυχία» — για μελλοντικά σενάρια</li>
+  </ul>
+
+  <div class="exercise ex-attn">
+    <div class="exercise-head">🔦 ΑΣΚΗΣΗ: Σταθεροποίηση του Φακού</div>
+    <div class="exercise-body">
+      <ol>
+        <li>Κάθισε άνετα. Κλείσε τα μάτια — νιώσε σώμα και αναπνοή.</li>
+        <li>Άνοιξε τα μάτια. Επίλεξε σταθερό σημείο (οπτικό, ήχο ή αίσθηση).</li>
+        <li>Κράτα εκεί την προσοχή, με παράλληλη επίγνωση σώματος + αναπνοής.</li>
+        <li>Αν παρασυρθείς: ταμπέλα στη σκέψη → επιστροφή απαλά. Αυτή είναι η άσκηση.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ΚΕΦ 4: ΧΩΡΟΣ -->
+<section id="space-chapter">
+  <span class="section-label" style="color:var(--c-space)">✨ Κεφάλαιο 4</span>
+  <h2>Χώρος: Η Ανοιχτή Επίγνωση</h2>
+  <p>Εδώ, η προσοχή από στενή διευρύνεται. Ο Χώρος μας δίνει την Απεραντοσύνη — την ικανότητα να χωράμε τα πάντα χωρίς να μας κατακλύζουν.</p>
+
+  <h3>Από Εστίαση σε Άνοιγμα (Open Focus)</h3>
+  <p>Από το σταθερό σημείο που συγκεντρωθήκατε, αρχίστε να επεκτείνετε αργά την προσοχή σας. Σαν να ανοίγετε τη δέσμη ενός φακού — επιτρέπετε όλο και περισσότερα να μπαίνουν στο πεδίο επίγνωσης.</p>
+  <p>Ένας πρακτικός τρόπος: ανοίξτε την <strong>Περιφερειακή Όραση</strong> (soft gaze). Δεν κρίνετε, δεν τραβάτε τίποτα κοντά — αφήνετε τον χώρο να σας περιλαμβάνει.</p>
+
+  <blockquote>«Η ταυτότητά μας δεν είναι τα σύννεφα, αλλά ο χώρος που τα χωρά.»</blockquote>
+
+  <div class="exercise ex-space">
+    <div class="exercise-head">✨ ΑΣΚΗΣΗ: Η Διεύρυνση του Χώρου</div>
+    <div class="exercise-body">
+      <ol>
+        <li>Σταθείτε ή καθίστε. Κλείστε μάτια — νιώστε σώμα και αναπνοή.</li>
+        <li>Εστιάστε σε σταθερό σημείο για λίγα δευτερόλεπτα (κλειστή προσοχή).</li>
+        <li>Αφήστε σιγά-σιγά την προσοχή να απλωθεί — να αγκαλιάζει όλο το πεδίο.</li>
+        <li>Ακούστε, δείτε, νιώστε χωρίς εστίαση και χωρίς κριτική.</li>
+        <li>Αν χαθείτε: «Σκέψεις έρχονται και φεύγουν» → επιστροφή στον ανοιχτό χώρο.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ── ΜΕΡΟΣ 2 ─────────────────────────────────────── -->
+<div class="part-header" id="part2">ΜΕΡΟΣ 2</div>
+<div class="part-title">Εφαρμογές & Μετασχηματισμός</div>
+
+<!-- ΚΕΦ 5 -->
+<section id="adhd-chapter">
+  <span class="section-label">⚡ Κεφάλαιο 5</span>
+  <h2>Ο Νευροδιαφορετικός Νους</h2>
+  <p>Ο νους ενός νευροδιαφορετικού ανθρώπου σπάνια είναι στατικός. Συνήθως κινείται ανάμεσα σε δύο ακραίες καταστάσεις:</p>
+
+  <div class="dual-col">
+    <div class="dual-head dc-run">⚡ Ο Νους ΤΡΕΧΕΙ</div>
+    <div class="dual-head dc-lock">🔒 Ο Νους ΚΛΕΙΔΩΝΕΙ</div>
+    <div class="dc-run-body" style="padding:1rem 1.2rem;font-size:.9rem">Πολλά ερεθίσματα ταυτόχρονα, υπερφόρτωση, ανάγκη απομόνωσης.</div>
+    <div class="dc-lock-body" style="padding:1rem 1.2rem;font-size:.9rem">Τούνελ έντονης εστίασης σε ένα αντικείμενο — hyperfocus.</div>
+    <div class="dc-run-body" style="padding:.8rem 1.2rem">
+      <div class="dc-tool">🌱 Σώμα + 🌬 Αναπνοή<br>Γείωση &amp; αργή εκπνοή</div>
+    </div>
+    <div class="dc-lock-body" style="padding:.8rem 1.2rem">
+      <div class="dc-tool">✨ Χώρος + 🔦 Προσοχή<br>Άνοιγμα &amp; ταμπέλα σκέψης</div>
+    </div>
+  </div>
+  <div class="note">Η πρακτική δεν σταματά το τρέξιμο ούτε διαλύει την υπερ-συγκέντρωση. Σου δείχνει πώς να σταθείς μέσα σ'αυτά χωρίς να χαθείς.</div>
+</section>
+
+<!-- ΚΕΦ 6 -->
+<section id="daily-chapter">
+  <span class="section-label">🌿 Κεφάλαιο 6</span>
+  <h2>Αυτορρύθμιση στην Καθημερινή Ζωή</h2>
+  <p>Η αυτορρύθμιση είναι η ικανότητα να επαναφέρεις το νευρικό σύστημα σε ισορροπία. Ξεκινά με επαφή — με το Σώμα, την Αναπνοή, την Προσοχή, τον Χώρο.</p>
+
+  <!-- Accordion chapters -->
+  <div class="chapter-grid" style="margin-top:1.2rem">
+    <div class="chapter-card" onclick="toggleCard(this)">
+      <div class="chapter-head">
+        <span class="ch-num">6.1</span>
+        <span class="ch-icon" style="background:var(--bg-breath)">🔊</span>
+        <span class="ch-title">Σε Θορυβώδεις Χώρους — Αισθητηριακή Υπερφόρτωση</span>
+        <span class="ch-arrow">›</span>
+      </div>
+      <div class="chapter-body">
+        <ul class="blist">
+          <li>Νιώσε τα πόδια σου στο έδαφος (Σώμα — Γείωση).</li>
+          <li>Τρεις ήσυχες εκπνοές από το στόμα (Αναπνοή).</li>
+          <li>Μαλάκωσε το βλέμμα — περιφερειακή όραση, άφησε ήχους να περνούν (Χώρος).</li>
+          <li>Ακουστικά ή fidget toy αν χρειαστείς υποστήριξη.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="chapter-card" onclick="toggleCard(this)">
+      <div class="chapter-head">
+        <span class="ch-num">6.2</span>
+        <span class="ch-icon" style="background:var(--bg-space)">👥</span>
+        <span class="ch-title">Σε Κοινωνικές Στιγμές — Υπερδιέγερση & Κόπωση</span>
+        <span class="ch-arrow">›</span>
+      </div>
+      <div class="chapter-body">
+        <ul class="blist">
+          <li>Επίλεξε ουδέτερο σημείο ως οπτική αναφορά.</li>
+          <li>Κράτα επίγνωση: πόδια σταθερά, εκπνοή χαλαρή (Σώμα + Αναπνοή).</li>
+          <li>Άνοιγμα περιφερειακής όρασης — παρούσα χωρίς υπερφόρτωση (Χώρος).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="chapter-card" onclick="toggleCard(this)">
+      <div class="chapter-head">
+        <span class="ch-num">6.3</span>
+        <span class="ch-icon" style="background:var(--bg-attn)">😰</span>
+        <span class="ch-title">Με Άγχος ή Ένταση — Άμεση Ρύθμιση</span>
+        <span class="ch-arrow">›</span>
+      </div>
+      <div class="chapter-body">
+        <ul class="blist">
+          <li>Νιώσε το βάρος και τον άξονα (Σώμα).</li>
+          <li>Δέκα αναπνοές: εισπνοή από μύτη, αργή εκπνοή από στόμα.</li>
+          <li>Περπάτα με επίγνωση πελμάτων — η κίνηση «καίει» την ενέργεια του άγχους.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ΚΕΦ 7: ΠΡΩΤΟΚΟΛΛΑ -->
+<section id="protocols">
+  <span class="section-label">🌊 Κεφάλαιο 7</span>
+  <h2>Όταν το Κύμα Ανεβαίνει</h2>
+  <p>Άγχος, Υπερφόρτωση — Δύο Πρωτόκολλα</p>
+
+  <div class="protocol">
+    <div class="proto-head">▶ ΠΡΩΤΟΚΟΛΛΟ 1 — Άμεση Αντιμετώπιση Έντονου Άγχους</div>
+    <div class="proto-body">
+      <ul class="blist">
+        <li><strong>Γείωση:</strong> Νιώσε το βάρος — παρατήρησε πού κρατάς ένταση.</li>
+        <li><strong>Ρύθμιση:</strong> 3 βαθιές εισπνοές. Εκπνοή αργά από στόμα, σαν να φυσάς απαλά φλόγα.</li>
+        <li><strong>Ταμπέλα:</strong> Αν ο νους κολλήσει σε σενάριο: «Ανησυχία» → επιστροφή στην αναπνοή.</li>
+        <li><strong>Άνοιγμα:</strong> Περιφερειακή όραση — ο χώρος μειώνει την αίσθηση παγίδευσης.</li>
+        <li><strong>Κίνηση:</strong> Περπάτα λίγο νιώθοντας πέλματα. Ανοιχτό βλέμμα + κατακόρυφος άξονας.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="protocol" style="margin-top:1rem">
+    <div class="proto-head teal">◆ ΠΡΩΤΟΚΟΛΛΟ 2 — Διαχείριση Υπερφόρτωσης (Open Focus)</div>
+    <div class="proto-body">
+      <ul class="blist">
+        <li><strong>Γείωση:</strong> Πέλματα, βάρος — «κουμπί επαναφοράς» του σώματος.</li>
+        <li><strong>Αναπνοή:</strong> Μείνε στη ροή. Εκπνοή από στόμα αν νιώθεις σφίξιμο.</li>
+        <li><strong>Άγκυρα:</strong> Ένα σταθερό σημείο μπροστά — χωρίς να παρασύρεσαι.</li>
+        <li><strong>Άνοιγμα:</strong> Μαλάκωσε βλέμμα. Ήχοι, φώτα, σκέψεις = σύννεφα στον ανοιχτό ουρανό.</li>
+        <li><strong>Απόσταση:</strong> «Δεν είμαι τα σύννεφα — είμαι ο χώρος που τα χωρά.»</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ΚΕΦ 8: ΦΥΛΛΟ -->
+<section id="worksheet">
+  <span class="section-label">📋 Κεφάλαιο 8</span>
+  <h2>Φύλλο Εργασίας Παρουσίας</h2>
+  <p>Κάνε τα με σειρά ή επίλεξε αυτό που χρειάζεσαι αυτή τη στιγμή. Άμεση επιστροφή στο «τώρα» σε λίγα δευτερόλεπτα.</p>
+
+  <div class="worksheet">
+    <div class="ws-row ws-soma">
+      <div class="ws-icon">🌱</div>
+      <div class="ws-label">ΣΩΜΑ<br>Βάση</div>
+      <div class="ws-content">Νιώθω βάρος, σημεία επαφής, εντάσεις.<br>→ Φαντάζομαι άξονα κεφάλι→γη. Χαλαρώνω σαγόνι &amp; ώμους.</div>
+    </div>
+    <div class="ws-row ws-breath">
+      <div class="ws-icon">🌬</div>
+      <div class="ws-label">ΑΝΑΠΝΟΗ<br>Ρυθμός</div>
+      <div class="ws-content">Παρατηρώ αναπνοή — γρήγορη, ρηχή, σφιγμένη;<br>→ Εκπνοή από στόμα, πιο αργά. Κοιλιά μαζεύεται ήπια.</div>
+    </div>
+    <div class="ws-row ws-attn">
+      <div class="ws-icon">🔦</div>
+      <div class="ws-label">ΠΡΟΣΟΧΗ<br>Σταθ/ση</div>
+      <div class="ws-content">Πού είναι η προσοχή μου; Τρέχει; Έχει κολλήσει;<br>→ Σταθερό σημείο. Ταμπέλα («Ανησυχία») + επιστροφή.</div>
+    </div>
+    <div class="ws-row ws-space">
+      <div class="ws-icon">✨</div>
+      <div class="ws-label">ΧΩΡΟΣ<br>Επέκταση</div>
+      <div class="ws-content">Νιώθω παγιδευμένος/η; Τούνελ προσοχής;<br>→ Μαλακώνω βλέμμα. Σκέψεις = σύννεφα. Ο χώρος μένει.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ΚΕΦ 9: 4 ΣΤΑΔΙΑ -->
+<section id="stages">
+  <span class="section-label">🗺 Κεφάλαιο 9</span>
+  <h2>Τα Τέσσερα Στάδια: Οδηγός Βήμα-Βήμα</h2>
+  <p>Η πλήρης, διαδοχική άσκηση του Τετραπλού Άξονα. Εκτελείται καλύτερα σε ήσυχη θέση, αλλά τα βήματα μπορούν να εφαρμοστούν οποιαδήποτε στιγμή.</p>
+
+  <div class="axis-grid" style="margin-top:1.2rem">
+    <div class="axis-box ab-soma">
+      <span class="ax-sym">🌱</span>
+      <div class="ax-col">
+        <div class="ax-name">Στάδιο 1 — Νιώσε τη Γη (Γείωση)</div>
+        <ul class="blist" style="margin-top:.4rem">
+          <li>Κάθισε ή στάσου άνετα — πλάτη όρθια αλλά όχι σφιγμένη.</li>
+          <li>Νιώσε τα σημεία επαφής: πέλματα, πλάτη στο κάθισμα.</li>
+          <li>Άφησε το βάρος να βυθιστεί στη γη.</li>
+          <li>Με κάθε εκπνοή: χαλάρωσε λαιμό, σαγόνι, ώμους.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="axis-box ab-breath">
+      <span class="ax-sym">🌬</span>
+      <div class="ax-col">
+        <div class="ax-name">Στάδιο 2 — Νιώσε την Αναπνοή (Ρύθμιση)</div>
+        <ul class="blist" style="margin-top:.4rem">
+          <li>Κλείσε ή μισόκλεισε τα μάτια.</li>
+          <li>Εισπνοή: μύτη → πνεύμονες → ελαφριά διαστολή κοιλιάς.</li>
+          <li>Εκπνοή: κοιλιά → πνεύμονες → μύτη.</li>
+          <li>Σε ένταση: εκπνοή αργά από στόμα, σαν να φυσάς απαλά κερί.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="axis-box ab-attn">
+      <span class="ax-sym">🔦</span>
+      <div class="ax-col">
+        <div class="ax-name">Στάδιο 3 — Εστίασε Μπροστά (Συγκέντρωση)</div>
+        <ul class="blist" style="margin-top:.4rem">
+          <li>Άνοιξε τα μάτια. Επίλεξε ήσυχο σημείο μπροστά σου.</li>
+          <li>Κοίταξέ το με απαλό, σταθερό βλέμμα.</li>
+          <li>Σκέψεις: αναγνώρισε → ταμπέλα → επιστροφή απαλά.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="axis-box ab-space">
+      <span class="ax-sym">✨</span>
+      <div class="ax-col">
+        <div class="ax-name">Στάδιο 4 — Άνοιξε στον Χώρο (Ανοιχτή Επίγνωση)</div>
+        <ul class="blist" style="margin-top:.4rem">
+          <li>Μαλάκωσε βλέμμα. Άνοιξε περιφερειακή όραση (Open Focus).</li>
+          <li>Δες όλο το οπτικό πεδίο: δεξιά, αριστερά, πάνω, κάτω.</li>
+          <li>Νιώσε ταυτόχρονα: σώμα, αναπνοή, γη από κάτω, ουρανό από πάνω.</li>
+          <li>Στόχος: άμεση αίσθηση παρουσίας χωρίς λέξεις ή προσπάθεια.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ΚΕΦ 10: ΕΠΙΣΤΗΜΗ -->
+<section id="science">
+  <span class="section-label">🔬 Κεφάλαιο 10</span>
+  <h2>Το Υπόβαθο: Επιστήμη & Σοφία</h2>
+  <p>Για όσους αναρωτιούνται «γιατί λειτουργεί αυτή η μέθοδος;» — μια σύντομη ματιά στις βασικές αρχές.</p>
+
+  <h3>Μέρος Α: Το Επιστημονικό Υπόβαθο</h3>
+  <table class="sci-table" aria-label="Επιστημονική τεκμηρίωση">
+    <thead>
+      <tr><th>Στάδιο</th><th>Μηχανισμός</th><th>Αποτέλεσμα</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span style="color:var(--c-soma);font-weight:600">🌱 Γείωση</span></td>
+        <td>Ενδοδεκτικότητα &amp; Παρεγκεφαλίδα</td>
+        <td>Βελτιώνει αίσθηση σωματικής ασφάλειας.</td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--c-breath);font-weight:600">🌬 Αναπνοή</span></td>
+        <td>Vagus Nerve (Πνευμονογαστρικό)</td>
+        <td>Αργή εκπνοή = σήμα ασφάλειας. Μειώνει Fight or Flight.</td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--c-attn);font-weight:600">🔦 Προσοχή</span></td>
+        <td>Προμετωπιαίος Φλοιός</td>
+        <td>Ταμπέλα σκέψης ενισχύει τον έλεγχο παλμών.</td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--c-space);font-weight:600">✨ Χώρος</span></td>
+        <td>Default Mode Network (DMN)</td>
+        <td>Ανοιχτή επίγνωση μειώνει DMN — λιγότερη υπερ-ανάλυση.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Μέρος Β: Το Πνευματικό Υπόβαθο</h3>
+  <ul class="blist">
+    <li><strong>Mahāsatipatthāna Sutta (Βούδας):</strong> Τα 4 Θεμέλια Ενσυνειδητότητας — Σώμα, Αισθήσεις, Νους, Ψυχικά Φαινόμενα — αντιστοιχούν άμεσα στα 4 Στάδια.</li>
+    <li><strong>Dzogchen:</strong> Αναγνώριση του «ανοιχτού χώρου» της συνείδησης (Στάδιο 4) — όπου σκέψεις και συναισθήματα εμφανίζονται και εξαφανίζονται.</li>
+    <li><strong>Σουφισμός:</strong> Η σημασία της γείωσης και της καρδιάς ως κέντρου (Στάδιο 1).</li>
+  </ul>
+  <div class="note">Επιστήμη και πνευματικότητα συμφωνούν: η ισορροπία ξεκινά από το σώμα, ρυθμίζεται από την αναπνοή, σταθεροποιείται από την προσοχή και επεκτείνεται σε απεραντοσύνη.</div>
+</section>
+
+<!-- ΠΟΡΟΙ -->
+<section id="resources">
+  <span class="section-label">★ Πόροι</span>
+  <h2>Πόροι & Συνέχεια</h2>
+  <p>Για όσους επιθυμούν να εμβαθύνουν:</p>
+  <div class="resource-list">
+    <a href="https://openfocus.com" target="_blank" rel="noopener" class="resource-item">
+      <span class="resource-icon">🌐</span>
+      <div>
+        <div class="resource-name">Open Focus</div>
+        <div class="resource-url">openfocus.com</div>
+      </div>
+    </a>
+    <a href="https://lamalenateachings.com" target="_blank" rel="noopener" class="resource-item">
+      <span class="resource-icon">🕊</span>
+      <div>
+        <div class="resource-name">Dzogchen — Lama Lena Teachings</div>
+        <div class="resource-url">lamalenateachings.com</div>
+      </div>
+    </a>
+    <a href="https://www.merigar.it" target="_blank" rel="noopener" class="resource-item">
+      <span class="resource-icon">⭕</span>
+      <div>
+        <div class="resource-name">Dzogchen Community — Merigar</div>
+        <div class="resource-url">merigar.it</div>
+      </div>
+    </a>
+    <a href="https://sufi.gr" target="_blank" rel="noopener" class="resource-item">
+      <span class="resource-icon">🌙</span>
+      <div>
+        <div class="resource-name">Σουφισμός στην Ελλάδα</div>
+        <div class="resource-url">sufi.gr</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ΕΠΙΛΟΓΟΣ -->
+<section id="epilogue">
+  <span class="section-label">🌅 Επίλογος</span>
+  <h2>Επίλογος</h2>
+  <p>Αυτός ο δρόμος δεν έχει τέλος. Είναι ένας τρόπος να στέκεσαι μέσα στη ζωή, επιλέγοντας συνειδητά την αποδοχή σε κάθε βήμα.</p>
+  <p>Κάθε στιγμή μπορεί να γίνει μια μικρή επιστροφή στην απαλότητα και την ανοιχτότητα.</p>
+  <blockquote>«Ήδη μέσα σου υπάρχει ένας ανοιχτός χώρος που σε χωράει όπως είσαι. Αυτός ο χώρος δεν ζητά τίποτα — απλώς σου θυμίζει ότι είσαι παρών, ζωντανός και πλήρης.»</blockquote>
+  <p style="text-align:center;font-size:1.1rem;font-weight:600;color:var(--teal);margin-top:1.5rem">Συνέχισε να επιστρέφεις.</p>
+  <p style="text-align:center;font-style:italic;color:var(--mid)">Η συνέπεια σε μικρές δόσεις είναι η μεγαλύτερη πράξη αυτοφροντίδας.</p>
+</section>
+
+</main>
+</div><!-- /layout -->
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-title">Οδηγός Ενσυνειδητότητας για Νευροδιαφορετικούς</div>
+  <p>Θεόδωρος Μπαϊρακτάρης · 2025</p>
+  <p class="cc">
+    Αυτό το έργο διανέμεται υπό τους όρους της
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>.
+    Δωρεάν για πάντα.
+  </p>
+</footer>
+
 <script>
-// ══════════════════════════════════════════════
-// DATA - ΚΕΦΑΛΑΙΑ 1-5
-// ══════════════════════════════════════════════
-const CHAPTERS = [
-  // ΚΕΦΑΛΑΙΟ 1 - ΣΩΜΑ
-  { 
-    num: 1, title: 'Σώμα', sub: 'Η Σταθερότητα του «Εδώ»', 
-    color: 'var(--sage)', pale: 'var(--sage-pale)', hex: '#7A9E7E', icon: '🧍',
-    summary: 'Το σώμα είναι η αναμφισβήτητη βάση της παρούσας στιγμής. Μαθαίνουμε να αντιλαμβανόμαστε τη βαρύτητα, τη στάση μας και την επαφή με τον χώρο — ως αφετηρία κάθε πρακτικής.',
-    theorySections: [
-      { 
-        title: 'Η Αρχή: Χαλάρωση και Γείωση',
-        body: `Η πρακτική του Τετραπλού Άξονα ξεκινά πάντα με το σώμα. Το σώμα είναι η σταθερή μας βάση, το αδιαμφίβολο «Εδώ» που μας συνδέει με τον παρόντα χρόνο. Ξεκινάμε με τη συνειδητή γείωση, καθώς η χαλάρωση προηγείται της επίγνωσης.\n\nΤο σώμα μας δεν είναι απλώς ένα όχημα. Είναι ένα ζωντανό αρχείο των εμπειριών μας. Η στάση που έχουμε διαμορφώσει κουβαλά συχνά την απόρριψη, την απογοήτευση και την ένταση που βιώσαμε επειδή νιώθαμε διαφορετικοί. Αυτές οι εμπειρίες «κλειδώνονται» ως χρόνιο σφίξιμο στους ώμους, την πλάτη, τη λεκάνη και το σαγόνι.`
-      },
-      { 
-        title: 'Η Βαρύτητα: Το Αναμφίβολο «Εδώ»',
-        body: `Η Βαρύτητα δεν είναι απλώς μια δύναμη — είναι η απόδειξη του «Εδώ». Μας δείχνει, χωρίς καμία αμφιβολία, ακριβώς το σημείο στο οποίο μπορούμε να υπάρξουμε στον χώρο, αυτή τη συγκεκριμένη στιγμή. Η γείωση είναι η πρώτη πράξη χαλάρωσης.\n\nΗ αληθινή γείωση (Σώμα) επιτυγχάνεται μόνο μέσα σε έναν χώρο που νιώθουμε ότι μας χωρά. Το σώμα και ο χώρος συνεργάζονται.`
-      },
-      { 
-        title: 'Το Σώμα, ο Χώρος και η Αίσθηση Ασφάλειας',
-        body: `Η βαθιά χαλαρότητα μέσα στο σώμα δεν είναι ποτέ μια απομονωμένη πράξη. Προϋποθέτει πάντα την επίγνωση του χώρου. Το σώμα μας, μέσω των αισθητηρίων οργάνων, μας πληροφορεί συνεχώς για τη θέση μας μέσα στον χώρο. Όταν ο χώρος γίνεται αντιληπτός ως ανοιχτός και δεκτικός, το σώμα λαμβάνει την άδεια να αφήσει το σφίξιμο και να χαλαρώσει. Η αληθινή γείωση επιτυγχάνεται μόνο μέσα σε έναν χώρο που νιώθουμε ότι μας χωρά.`
-      },
-      { 
-        title: 'Απόδραση από τις Έννοιες',
-        body: `Όταν ο νους δεν έχει μια σταθερή, αναμφίβολη βάση στο παρόν, συχνά πέφτει στην παγίδα της εσωτερικής ανάλυσης και των σεναρίων. Η εστίαση στη Βαρύτητα μάς δίνει τη δυνατότητα να βγούμε από αυτά τα νοητικά σενάρια.\n\nΗ ανάλυση και η παρατήρηση γίνεται κατά τη διάρκεια του χρόνου αφού υπάρξει η σταθερότητα. Το περιεχόμενο του μηχανικού νου αναγνωρίζεται και αφήνεται αν δεν είναι χρήσιμο ή είναι βλαβερό, χωρίς την ανάγκη για ανάλυση. Ο ανοιχτός νους δεν αναλύει ούτε κρίνει — ενώνει και κατανοεί τις αιτίες.\n\nΑναμφίβολο «Εδώ» και Αδιάκοπη Ροή: Ενώ η Βαρύτητα μας δίνει ένα ακλόνητο «Εδώ», σε μεγαλύτερη κλίμακα υπάρχει μόνο κίνηση και ροή (όπως η Γη γύρω από τον Ήλιο). Η ενσυνειδητότητα μάς διδάσκει να αγκαλιάσουμε και τους δύο πόλους: τη σταθερότητα της Βαρύτητας και την αδιάκοπη ροή της ζωής.\n\nΣημαντική σημείωση για τον χρόνο: Η αλλαγή της στάσης και της έντασης παίρνει αρκετό χρόνο — η συνήθεια έχει χτιστεί επί χρόνια και το σώμα μας έχει καλουπωθεί. Μη βιαστείτε και μη πιέζετε τον εαυτό σας. Η επιμονή στην ηπιότητα είναι η μεγαλύτερη πράξη αυτορρύθμισης.`
-      }
-    ],
-    exercise: {
-      title: 'Πρακτική Άσκηση: Το Βιβλίο / Κουτί',
-      steps: [
-        'Σταθείτε όρθιοι με άνεση.',
-        'Πάρτε ένα βιβλίο ή κουτί και τοποθετήστε το στο κεφάλι σας.',
-        'Παρατηρήστε πώς χρειάζεται να σταθείτε για να μην πέσει. Νιώστε πώς το βάρος κατεβαίνει ομαλά μέσα από τον λαιμό, τη σπονδυλική στήλη και τη λεκάνη.',
-        'Νιώστε το βάρος, την αφή των πελμάτων στο έδαφος και την αίσθηση του άξονα που σας κρατά όρθιους.'
-      ]
-    },
-    insight: 'Η βαρύτητα είναι πάντα εδώ. Το σώμα είναι πάντα εδώ. Αυτό είναι αρκετό για να ξεκινήσουμε.',
-    reflection: 'Τι παρατήρησα στο σώμα μου μετά την άσκηση;'
-  },
-  
-  // ΚΕΦΑΛΑΙΟ 2 - ΑΝΑΠΝΟΗ
-  { 
-    num: 2, title: 'Αναπνοή', sub: 'Ο Ρυθμός της Ζωής', 
-    color: 'var(--terra)', pale: 'var(--terra-pale)', hex: '#C07050', icon: '🫁',
-    summary: 'Η αναπνοή μάς συνδέει με τον ρυθμό της ζωής και διδάσκει την αποδοχή της παροδικότητας. Κάθε εισπνοή και εκπνοή είναι μια μικρή πρόβα αρχής και τέλους.',
-    theorySections: [
-      {
-        title: 'Ο Ρυθμός της Ύπαρξης',
-        body: `Αν το σώμα μάς ενώνει με τη γη, η αναπνοή μάς συνδέει με τον ουρανό και την αδιάκοπη ροή του κόσμου. Είναι ο ρυθμός που μας συνοδεύει από τη γέννηση μέχρι το τέλος.\n\nΗ παρατήρηση της αναπνοής μάς διδάσκει τον φυσικό ρυθμό της ύπαρξης και την αποδοχή της παροδικότητας. Κάθε εισπνοή συγκρατείται για μια στιγμή και στη συνέχεια αφήνεται με την εκπνοή.\n\nΕΙΣΠΝΟΗ: Η Αρχή — η γέννηση, η λήψη\nΠΑΥΣΗ: Η Στιγμή — η ύπαρξη στο τώρα\nΕΚΠΝΟΗ: Το Τέλος — η απελευθέρωση, η αποδοχή\n\nΑυτό είναι κρίσιμο για τον νευροδιαφορετικό νου: Όταν νιώθουμε ένα έντονο συναίσθημα, ο νους το ερμηνεύει ως μόνιμο. Παρατηρώντας τον ρυθμό της αναπνοής, μαθαίνουμε ότι κάθε κατάσταση είναι παροδική.`
-      },
-      {
-        title: 'Η Πράξη της Παρατήρησης — Εσωτερική Αφή',
-        body: `Το πρώτο βήμα είναι η αποδοχή. Δεν χρειάζεται να ελέγξεις την αναπνοή σου. Αρκεί να την παρατηρήσεις όπως είναι: βαθιά ή ρηχή, αργή ή γρήγορη, ελεύθερη ή σφιγμένη.\n\n• Στην αίσθηση του αέρα που αγγίζει τα ρουθούνια\n• Στη διαστολή και συστολή του θώρακα\n• Στην κίνηση της κοιλιάς\n• Στη μικρή αλλαγή στη στάση του σώματος με κάθε εισπνοή και εκπνοή\n\nΗ αναπνοή ως Δείκτης: Αν είναι σφιγμένη ή ρηχή, δείχνει ένταση. Αν είναι αργή και βαθιά, δείχνει χαλάρωση. Η αναπνοή είναι ο δείκτης της ψυχικής μας κατάστασης.`
-      },
-      {
-        title: 'Ρύθμιση σε Έντονο Άγχος',
-        body: `Σε στιγμές έντονου άγχους ή υπερφόρτωσης, η αναπνοή μπορεί να γίνει ένα άμεσο εργαλείο ρύθμισης. Αφήνουμε την εκπνοή να βγαίνει από το στόμα, λίγο πιο αργά και παρατεταμένα. Επιτρέπουμε στην κοιλιά να μαλακώσει και να συσπαστεί ελαφρά προς τα μέσα.`
-      }
-    ],
-    exercise: {
-      title: 'Πρακτική Άσκηση: Η Ενεργή Επιστροφή',
-      steps: [
-        'Γείωση (Σώμα): Στάσου όρθιος/α ή κάθισε άνετα. Νιώσε τη βαρύτητα, την επαφή με το έδαφος.',
-        'Επίγνωση (Αναπνοή): Στρέψε την προσοχή στην εισπνοή και εκπνοή. Νιώσε τον αέρα που αγγίζει τα ρουθούνια.',
-        'Στην εκπνοή: Άφησε την κοιλιά να μαζευτεί ήπια προς τα μέσα, σαν να βγάζεις όλη την ένταση μαζί με τον αέρα.',
-        'Αποδοχή: Μην προσπαθήσεις να αλλάξεις την αναπνοή. Αρκεί η επίγνωση.',
-        'Ρύθμιση (Προαιρετικό): Αν νιώθεις πολύ άγχος, άφησε την εκπνοή να βγαίνει από το στόμα πιο αργά και παρατεταμένα.'
-      ]
-    },
-    insight: 'Παρατηρώ χωρίς να επεμβαίνω. Κάθε αναπνοή είναι μια νέα αρχή.',
-    reflection: 'Πώς ήταν η αναπνοή μου στην άσκηση; (γρήγορη/αργή, ρηχή/βαθιά, σφιγμένη/ελεύθερη)'
-  },
-
-  // ΚΕΦΑΛΑΙΟ 3 - ΠΡΟΣΟΧΗ
-  { 
-    num: 3, title: 'Προσοχή', sub: 'Ο Φακός της Συνείδησης', 
-    color: 'var(--gold)', pale: 'var(--gold-light)', hex: '#C8922A', icon: '👁',
-    summary: 'Η προσοχή είναι ο φακός του νου — μπορεί να εστιάζει, να ανοίγει ή να διασπάται. Μαθαίνουμε να αναγνωρίζουμε πού βρίσκεται και να την επιστρέφουμε απαλά, χωρίς αυτοκριτική.',
-    theorySections: [
-      {
-        title: 'Οι Τρεις Μορφές Προσοχής',
-        body: `Κλειστή Προσοχή: Η δέσμη μαζεύεται σε ένα σημείο. Χρήσιμη για συγκέντρωση. Π.χ. κοιτάς σταθερά ένα αντικείμενο.\n\nΑνοιχτή Προσοχή: Η δέσμη ανοίγει και φωτίζει πολλά μαζί. Ακούς τους ήχους, νιώθεις το σώμα, αναπνέεις — όλα χωράνε στην ίδια επίγνωση.\n\nΔιασπασμένη Προσοχή: Η προσοχή μοιάζει με μαϊμού που πηδά από κλαδί σε κλαδί. Ο στόχος δεν είναι να τη «σκοτώσουμε» αλλά να την χαλιναγωγήσουμε απαλά.`
-      },
-      {
-        title: 'Η Παγίδα της Αγκυλωμένης Προσοχής',
-        body: `Πέρα από την κλειστή και ανοιχτή προσοχή, υπάρχει μια τρίτη κατάσταση που αξίζει ιδιαίτερη προσοχή: η Αγκυλωμένη Προσοχή. Η δέσμη κολλάει σε εξωτερικό αντικείμενο ή σε ψυχικό περιεχόμενο — μια σκέψη, μια ανησυχία. Η υπερβολική αυτοαναφορικότητα («γιατί νιώθω έτσι; τι σημαίνει αυτό;») είναι χαρακτηριστική μορφή αγκυλωμένης προσοχής.`
-      },
-      {
-        title: 'Η Τετραπλή Προσοχή',
-        body: `Σε αυτό το στάδιο, η προσοχή γίνεται τετραπλή — κρατάμε ταυτόχρονα επίγνωση τεσσάρων επιπέδων:\n\nΣώμα: Που δίνει βάση και σταθερότητα στην παρούσα στιγμή.\nΑναπνοή: Που δίνει ρυθμό και επαναφέρει στο τώρα.\nΊδια η Προσοχή: Που μαθαίνει να σταθεροποιείται, να παρατηρεί πού πηγαίνει.\nΣκέψεις: Που αναγνωρίζονται χωρίς να παρασύρουν — απλώς παρατηρούνται.`
-      },
-      {
-        title: 'Η Δύναμη της Ταμπέλας (Thought Labelling)',
-        body: `Όταν μια σκέψη σε τραβάει, το να επιστρέψεις απλώς στην αναπνοή μπορεί να είναι δύσκολο. Η τεχνική της ταμπέλας σού δίνει ένα ενδιάμεσο βήμα: αντί να εμπλακείς στο περιεχόμενο της σκέψης, βάλε της μια απλή, μονολεκτική ταμπέλα και μετά επέστρεψε στο σταθερό σημείο.\n\n• Σκέψη: "τι πρέπει να κάνω αύριο" → Ταμπέλα: "Σχεδιασμός"\n• Σκέψη: "αυτό που είπες ήταν λάθος" → Ταμπέλα: "Κριτική" ή "Παρελθόν"\n• Σκέψη: ανησυχία για το μέλλον → Ταμπέλα: "Ανησυχία" ή "Σενάριο"`
-      }
-    ],
-    exercise: {
-      title: 'Πρακτική Άσκηση: Σταθεροποίηση του Φακού',
-      steps: [
-        'Σώμα & Αναπνοή: Στάσου ή κάθισε με άνεση. Κλείσε τα μάτια. Νιώσε το σώμα σου και τον ρυθμό της αναπνοής.',
-        'Σταθερό Σημείο: Άνοιξε τα μάτια και επίλεξε ένα σημείο εστίασης (οπτικό, ακουστικό ή σωματικό).',
-        'Τετραπλή Επίγνωση: Κράτησε την προσοχή εκεί, διατηρώντας παράλληλα επίγνωση σώματος, αναπνοής και σκεπτομορφών.',
-        'Απαλή Επιστροφή: Αν παρασυρθείς, αναγνώρισε το (με ταμπέλα αν χρειάζεται) και επέστρεψε απαλά: σώμα → αναπνοή → σταθερό σημείο.'
-      ]
-    },
-    insight: 'Η επιστροφή της προσοχής δεν είναι αποτυχία — είναι η ίδια η άσκηση. Κάθε «απαλή επιστροφή» χτίζει νέες νευρικές διαδρομές.',
-    reflection: 'Πού τείνει να «κολλάει» ή να «τρέχει» η προσοχή μου;'
-  },
-
-  // ΚΕΦΑΛΑΙΟ 4 - ΧΩΡΟΣ
-  { 
-    num: 4, title: 'Χώρος', sub: 'Η Ανοιχτή Επίγνωση', 
-    color: 'var(--lav)', pale: 'var(--lav-pale)', hex: '#B5A7D0', icon: '✦',
-    summary: 'Ο Χώρος είναι το τελευταίο — και ίσως το πιο απελευθερωτικό — κέντρο. Μαθαίνουμε να ανοίγουμε την επίγνωση σαν ουρανό που χωράει τα πάντα χωρίς να κατακλύζεται από τίποτα.',
-    theorySections: [
-      {
-        title: 'Το Αντίδοτο στην Υπερφόρτωση',
-        body: `Η Ανοιχτή Προσοχή είναι το πιο ισχυρό εργαλείο ενάντια στην υπερφόρτωση. Όταν βιώνουμε έντονο άγχος, ο νους υιοθετεί κλειστή εστίαση, σαν να βλέπουμε μέσα από ένα τούνελ. Αυτή η στένωση αυξάνει την αίσθηση κινδύνου. Το άνοιγμα της προσοχής λειτουργεί ως σήμα ασφάλειας στον εγκέφαλο.`
-      },
-      {
-        title: 'Ο Ουρανός και τα Σύννεφα',
-        body: `«Ο χώρος του ουρανού μένει πάντα ανοιχτός, αδιατάρακτος και αχανής, όπως και ο χώρος της επίγνωσης. Η ταυτότητά μας δεν είναι τα σύννεφα, αλλά ο χώρος που τα χωρά.»`
-      }
-    ],
-    exercise: {
-      title: 'Πρακτική Άσκηση: Η Διεύρυνση του Χώρου',
-      steps: [
-        'Γείωση: Στάσου ή κάθισε με άνεση. Κλείσε τα μάτια. Νιώσε το σώμα με τη βαρύτητα και την αναπνοή με τον ρυθμό της.',
-        'Εστίαση (Κλειστή Προσοχή): Επικεντρώσου σε ένα σταθερό σημείο (όραση, ήχος, αίσθηση) για λίγα δευτερόλεπτα.',
-        'Διεύρυνση (Ανοιχτή Προσοχή): Άφησε την προσοχή να απλωθεί σιγά σιγά — σαν να αγκαλιάζει όλο το πεδίο γύρω σου.',
-        'Αποδοχή: Άκου, δες, νιώσε χωρίς εστίαση και χωρίς κριτική.',
-        'Επιστροφή: Αν χαθείς στις σκέψεις, θυμήσου τον ουρανό: οι σκέψεις έρχονται και φεύγουν. Επέστρεψε στο ανοιχτό πεδίο.'
-      ]
-    },
-    insight: 'Δεν είσαι τα σύννεφα. Είσαι ο χώρος που τα χωράει.',
-    reflection: 'Τι άλλαξε στην αίσθησή μου όταν η προσοχή άνοιξε;'
-  },
-
-  // ΚΕΦΑΛΑΙΟ 5 - ΝΕΥΡΟΔΙΑΦΟΡΕΤΙΚΟΣ ΝΟΥΣ
-  { 
-    num: 5, title: 'Νευροδιαφορετικός Νους', sub: 'Τρέξιμο και Κλείδωμα', 
-    color: 'var(--teal-med)', pale: 'var(--teal-pale)', hex: '#2E8B9A', icon: '🧠',
-    summary: 'Ο νευροδιαφορετικός νους δεν είναι σπασμένος — έχει διαφορετική λειτουργία. Κατανοούμε τις δύο κύριες καταστάσεις (τρέξιμο/κλείδωμα) και εξερευνούμε πρακτικά εργαλεία για κάθε μία.',
-    theorySections: [
-      {
-        title: 'Νους που Τρέχει',
-        body: `Διασπασμένη Προσοχή / Υπερφόρτωση\n\nΟ κόσμος γίνεται αλυσίδα από μικρά άγκιστρα. Πολλά ερεθίσματα φτάνουν ταυτόχρονα χωρίς φίλτρο.\n\nΕργαλείο: Σώμα (Γείωση) + Αναπνοή (Ρυθμός)`
-      },
-      {
-        title: 'Νους που Κλειδώνει',
-        body: `Αγκυλωμένη Προσοχή / Hyperfocus\n\nΣαν τούνελ έντονης εστίασης. Μπορεί να γίνει παγίδα αν το αντικείμενο είναι αγχώδης σκέψη ή εμμονή.\n\nΕργαλείο: Χώρος (Απελευθέρωση) + Προσοχή (Επιστροφή)`
-      },
-      {
-        title: 'Ο Ρόλος του Μηχανικού Νου',
-        body: `Το Κλείδωμα (Hyperfocus) συχνά τροφοδοτείται από τον Μηχανικό Νου — εκείνο το μέρος του νου που συνεχώς αναλύει το παρελθόν και σχεδιάζει το μέλλον, χωρίς να έχει σταθερή βάση στο παρόν. Ο Μηχανικός Νους δεν είναι εχθρός — είναι ένα εργαλείο που έχει «υπερθερμανθεί» χωρίς τη σταθεροποιητική επίδραση της παρουσίας.\n\nΗ πρακτική δεν προσπαθεί να σταματήσει τον Μηχανικό Νου, αλλά να τον συμπληρώσει με έναν Ανοιχτό Νου — έναν νου που παρατηρεί χωρίς να αναλύει, που αγκαλιάζει χωρίς να κρίνει.`
-      }
-    ],
-    exercise: {
-      title: 'Αναστοχασμός: Τα δικά μου μοτίβα',
-      steps: [
-        'Πότε τείνει να «τρέχει» ο νους μου;',
-        'Πότε «κλειδώνει»;',
-        'Ποιες καταστάσεις το προκαλούν;'
-      ]
-    },
-    insight: 'Δεν πολεμάς τον εγκέφαλό σου. Συνεργάζεσαι μαζί του.',
-    reflection: 'Ποια είναι τα μοτίβα του δικού μου νου;'
-  }
-    // ΚΕΦΑΛΑΙΟ 6 - ΚΑΘΗΜΕΡΙΝΗ ΖΩΗ
-  { 
-    num: 6, title: 'Καθημερινή Ζωή', sub: 'Αυτορρύθμιση', 
-    color: 'var(--teal-dark)', pale: 'var(--teal-pale)', hex: '#1A5F6E', icon: '☀',
-    summary: 'Πρακτικά εργαλεία για θορυβώδεις χώρους, κοινωνικές καταστάσεις και στιγμές άγχους ή έντασης στην καθημερινότητα.',
-    theorySections: [
-      {
-        title: 'Τα Τέσσερα Επίπεδα Αυτορρύθμισης',
-        body: `Η αυτορρύθμιση είναι η ικανότητα να επαναφέρεις το νευρικό σου σύστημα από την υπερδιέγερση ή την υπολειτουργία σε κατάσταση ισορροπίας. Ξεκινά με επαφή σε τέσσερα επίπεδα:\n\n1. Επαφή με το Σώμα: Νιώθεις τη γη, το βάρος, τον άξονα.\n2. Επαφή με την Αναπνοή: Βλέπεις αν ο ρυθμός είναι γρήγορος, ρηχός ή ήρεμος.\n3. Επαφή με την Προσοχή: Βλέπεις πού έχει κολλήσει ο νους (διάσπαση ή αγκύλωση).\n4. Επαφή με τον Χώρο: Νιώθεις αν υπάρχει ανοιχτότητα και ασφάλεια.`
-      },
-      {
-        title: 'Σε Θορυβώδεις Χώρους (Αισθητηριακή Υπερφόρτωση)',
-        body: `• Νιώσε τα πόδια σου στο έδαφος — άμεση γείωση στο χάος.\n• Κάνε 3 ήσυχες αναπνοές με εκπνοή από το στόμα.\n• Άνοιξε την περιφερειακή όραση — μαλάκωσε το βλέμμα αντί να εστιάζεις.\n• Χρησιμοποίησε ακουστικά ή fidget toy αν χρειαστεί.`
-      },
-      {
-        title: 'Σε Κοινωνικές Στιγμές (Υπερδιέγερση & Κόπωση)',
-        body: `• Επίλεξε ένα ουδέτερο σημείο (π.χ. φυτό) ως οπτική αναφορά.\n• Νιώσε τα πόδια σταθερά — αν νιώθεις ένταση στο σαγόνι, άφησέ την με εκπνοή.\n• Χρησιμοποίησε περιφερειακή όραση για να παραμείνεις παρών.`
-      },
-      {
-        title: 'Με Άγχος ή Ένταση (Άμεση Ρύθμιση)',
-        body: `• Γείωσε: νιώσε το βάρος και τον άξονα.\n• Κάνε 10 αναπνοές: εισπνοή από μύτη, εκπνοή από στόμα, αργά.\n• Περιπάτα με επίγνωση (mindful pacing) — η ρυθμική κίνηση «καίει» το άγχος.`
-      }
-    ],
-    exercise: {
-      title: 'Πρακτική Άσκηση: Άμεση Ρύθμιση',
-      steps: [
-        'Γείωσε: νιώσε το βάρος και τον άξονα.',
-        '10 αναπνοές: εισπνοή από μύτη, εκπνοή από στόμα, αργά.',
-        'Περιπάτα με επίγνωση — η ρυθμική κίνηση «καίει» το άγχος.'
-      ]
-    },
-    insight: 'Μικρά βήματα, κάθε μέρα. Η συνέπεια σε μικρές δόσεις είναι πιο σημαντική από τη διάρκεια.',
-    reflection: 'Ποια κατάσταση με δυσκολεύει περισσότερο και ποιο εργαλείο μπορώ να δοκιμάσω;'
-  },
-
-  // ΚΕΦΑΛΑΙΟ 7 - ΟΤΑΝ ΤΟ ΚΥΜΑ ΑΝΕΒΑΙΝΕΙ
-  { 
-    num: 7, title: 'Όταν το Κύμα Ανεβαίνει', sub: 'Άγχος & Υπερφόρτωση', 
-    color: 'var(--terra)', pale: 'var(--terra-pale)', hex: '#C07050', icon: '🌊',
-    summary: 'Δύο πρακτικά πρωτόκολλα — για έντονο άγχος και για υπερφόρτωση. Απλά βήματα που μπορούν να γίνουν αυτόματα όταν το κύμα ανεβαίνει.',
-    theorySections: [
-      {
-        title: 'Πρωτόκολλο 1: Άμεση Αντιμετώπιση Έντονου Άγχους',
-        body: `Το έντονο άγχος είναι μια κατάσταση «πάλης ή φυγής» που απαιτεί άμεση σηματοδότηση ασφάλειας στο νευρικό σύστημα μέσω σώματος και αναπνοής.\n\nΓείωση (Σώμα): Νιώσε το βάρος του σώματος, τη στάση του, τις εντάσεις — χωρίς λεκτική ανάλυση. Απλώς παρατήρησε πού κρατάς την ένταση.\n\nΡύθμιση (Αναπνοή): Κλείσε τα μάτια και πάρε 3 βαθιές εισπνοές. Άφησε την εκπνοή να βγει αργά από το στόμα, σαν να φυσάς απαλά μια φλόγα.\n\nΕτικετοποίηση (Προσοχή): Αν ο νους κολλήσει σε σενάριο, χρησιμοποίησε ταμπέλα («Ανησυχία», «Σενάριο») και επέστρεψε στην αναπνοή.\n\nΆνοιγμα (Χώρος): Άνοιξε την περιφερειακή όραση και παρατήρησε τον χώρο γύρω. Η διεύρυνση μειώνει την αίσθηση παγίδευσης.\n\nΚίνηση & Άξονας: Αν μπορείς, περπάτα λίγο νιώθοντας τα πέλματα. Διατήρησε την αίσθηση του κατακόρυφου άξονα.`
-      },
-      {
-        title: 'Πρωτόκολλο 2: Διαχείριση Υπερφόρτωσης',
-        body: `Όταν όλα πέφτουν πάνω σου, ο στόχος είναι να βρεις χώρο για να χωρέσεις τα ερεθίσματα χωρίς να αντιδράσεις. Αντί να εστιάζεις στη μείωση του άγχους, εστιάζεις στη διεύρυνση της επίγνωσης.\n\nΓείωση: Νιώσε τα πέλματα, το βάρος σου. Μηδένισε τη θέση σου, σαν να πατάς το κουμπί επαναφοράς του σώματός σου.\n\nΑναπνοή: Μείνε στη ροή της. Η εκπνοή από στόμα είναι προαιρετική, αλλά συνιστάται αν νιώθεις σφίξιμο.\n\nΠροσοχή: Κράτησε την προσοχή μπροστά. Αντί να παρασυρθείς από κάθε λεπτομέρεια, επίλεξε ένα σταθερό σημείο ως άγκυρά σου.\n\nΆνοιγμα (Χώρος): Μαλάκωσε το βλέμμα (περιφερειακή όραση). Θυμήσου τον ουρανό: όλα τα ερεθίσματα — ήχοι, φώτα, σκέψεις — είναι σύννεφα που περνούν στον ανοιχτό χώρο της επίγνωσής σου.\n\nΚράτησε την απόσταση: Δεν είσαι τα σύννεφα. Είσαι ο χώρος που τα χωράει. Η απλή αναγνώριση αυτού μειώνει άμεσα την αίσθηση κινδύνου.`
-      }
-    ],
-    exercise: {
-      title: 'Αναστοχασμός: Τα σήματα του σώματός μου',
-      steps: [
-        'Ποια είναι τα πρώτα σήματα του σώματος μου όταν αρχίζει η υπερφόρτωση;',
-        'Πού νιώθω πρώτα την ένταση; (σαγόνι, ώμοι, στήθος;)',
-        'Ποιο πρωτόκολλο με βοηθά περισσότερο;'
-      ]
-    },
-    insight: 'Δεν είσαι τα σύννεφα. Είσαι ο ουρανός που τα χωράει.',
-    reflection: 'Τι θα κάνω διαφορετικά την επόμενη φορά που θα νιώσω το κύμα να ανεβαίνει;'
-  },
-
-  // ΚΕΦΑΛΑΙΟ 8 - ΦΥΛΛΟ ΕΡΓΑΣΙΑΣ
-  { 
-    num: 8, title: 'Φύλλο Εργασίας', sub: 'Η Πρακτική της Παρουσίας', 
-    color: 'var(--teal-dark)', pale: 'var(--teal-pale)', hex: '#1A5F6E', icon: '📋',
-    summary: 'Ένα γρήγορο φύλλο αναφοράς 4 βημάτων — ένα για κάθε κέντρο. Ιδανικό για καθημερινή χρήση.',
-    theorySections: [
-      {
-        title: 'Πώς να το χρησιμοποιήσεις',
-        body: `Στόχος: Να επιστρέφεις στο «τώρα» σε λίγα δευτερόλεπτα.\n\nΚάνε τα βήματα με σειρά ή διάλεξε αυτό που χρειάζεσαι τώρα. Ακόμα και ένα βήμα αλλάζει την κατάσταση.`
-      }
-    ],
-    exercise: {
-      title: 'Τα 4 Βήματα Παρουσίας',
-      steps: [
-        'ΣΩΜΑ / ΒΑΣΗ: Νιώθω το βάρος μου. Παρατηρώ εντάσεις (π.χ. σαγόνι). Φαντάζομαι έναν άξονα από το κεφάλι μέχρι τη γη.',
-        'ΑΝΑΠΝΟΗ / ΡΥΘΜΟΣ: Πώς είναι η αναπνοή μου; Εκπνοή από στόμα, λίγο πιο αργή. Νιώθω την κοιλιά να μαζεύεται ήπια.',
-        'ΠΡΟΣΟΧΗ / ΣΤΑΘΕΡΟΠΟΙΗΣΗ: Πού είναι η προσοχή μου; Επιστρέφω σε σταθερό σημείο. Ετικετοποιώ τη σκέψη και επιστρέφω.',
-        'ΧΩΡΟΣ / ΕΠΕΚΤΑΣΗ: Νιώθω παγιδευμένος/η; Μαλακώνω το βλέμμα. Αφήνω την προσοχή να απλωθεί. Σκέψεις = σύννεφα.'
-      ]
-    },
-    insight: 'Στόχος: να επιστρέφεις στο «τώρα» σε λίγα δευτερόλεπτα.',
-    reflection: 'Τι παρατήρησα σήμερα;'
-  },
-
-  // ΚΕΦΑΛΑΙΟ 9 - ΤΑ ΤΕΣΣΕΡΑ ΣΤΑΔΙΑ
-  { 
-    num: 9, title: 'Τα Τέσσερα Στάδια', sub: 'Οδηγός Βήμα-Βήμα', 
-    color: 'var(--gold)', pale: 'var(--gold-light)', hex: '#C8922A', icon: '👣',
-    summary: 'Η πλήρης, διαδοχική άσκηση του Τετραπλού Άξονα. Εκτελείται καλύτερα σε ήσυχη θέση, αλλά τα βήματα μπορούν να εφαρμοστούν οποιαδήποτε στιγμή.',
-    theorySections: [
-      {
-        title: 'Η Λογική των Σταδίων',
-        body: `Τα 4 στάδια λειτουργούν ως ένα σύστημα:\n\nΣτάδιο 1 → Σώμα (Γείωση)\nΣτάδιο 2 → Αναπνοή (Ρύθμιση)\nΣτάδιο 3 → Προσοχή (Συγκέντρωση)\nΣτάδιο 4 → Χώρος (Ανοιχτή Επίγνωση)\n\nΚάθε στάδιο προετοιμάζει το επόμενο.`
-      }
-    ],
-    exercise: {
-      title: 'Ολοκληρωμένη Άσκηση',
-      steps: [
-        'ΣΤΑΔΙΟ 1 — Γείωση: Κάθισε ή στάσου άνετα. Νιώσε τα σημεία επαφής. Άφησε το βάρος να βυθιστεί στη γη. Χαλάρωσε λαιμό, σαγόνι, ώμους.',
-        'ΣΤΑΔΙΟ 2 — Αναπνοή: Κλείσε ή μισόκλεισε τα μάτια. Νιώσε τη διαδρομή: εισπνοή μύτη → πνεύμονες → κοιλιά, εκπνοή αντίστροφα.',
-        'ΣΤΑΔΙΟ 3 — Προσοχή: Άνοιξε τα μάτια. Διάλεξε ήσυχο σημείο μπροστά σου. Αν έρθουν σκέψεις: αναγνώρισε → ταμπέλα → επέστρεψε απαλά.',
-        'ΣΤΑΔΙΟ 4 — Χώρος: Μαλάκωσε το βλέμμα. Άνοιξε περιφερειακή όραση. Δες όλο το οπτικό πεδίο. Νιώσε ταυτόχρονα: σώμα, αναπνοή, γη, ουρανό.'
-      ]
-    },
-    insight: 'Η παρουσία δεν χρειάζεται ώρες. Ξεκινά με νίκες λίγων δευτερολέπτων.',
-    reflection: 'Ποιο στάδιο μου φαίνεται πιο φυσικό; Πού δυσκολεύομαι περισσότερο;'
-  },
-
-  // ΚΕΦΑΛΑΙΟ 10 - ΕΠΙΣΤΗΜΗ & ΣΟΦΙΑ
-  { 
-    num: 10, title: 'Επιστήμη & Σοφία', sub: 'Το Υπόβαθρο', 
-    color: 'var(--lav)', pale: 'var(--lav-pale)', hex: '#B5A7D0', icon: '🔭',
-    summary: 'Η επιστήμη και η πνευματικότητα συμφωνούν — η ισορροπία ξεκινά από το σώμα, ρυθμίζεται από την αναπνοή, σταθεροποιείται από την προσοχή και επεκτείνεται σε αίσθηση απεραντοσύνης.',
-    theorySections: [
-      {
-        title: 'Το Επιστημονικό Υπόβαθρο',
-        body: `Γείωση & Ενδοδεκτικότητα: Η εστίαση στη Βαρύτητα ενισχύει την Ενδοδεκτικότητα (επίγνωση εσωτερικών αισθήσεων) και τη λειτουργία της Παρεγκεφαλίδας, βελτιώνοντας την αίσθηση σωματικής ασφάλειας.\n\nΑναπνοή & Πνευμονογαστικό Νεύρο: Η αργή, βαθιά εκπνοή στέλνει σήματα ασφάλειας μέσω του Πνευμονογαστρικού Νεύρου (Vagus Nerve), μειώνοντας την αντίδραση «Πάλης ή Φυγής».\n\nΠροσοχή & Προμετωπιαίος Φλοιός: Μαθαίνοντας να ελέγχουμε την προσοχή και να χρησιμοποιούμε ετικετοποίηση, ενισχύουμε τον Προμετωπιαίο Φλοιό.\n\nΧώρος & Δίκτυο Προεπιλεγμένης Λειτουργίας (DMN): Η Ανοιχτή Επίγνωση μειώνει τη δραστηριότητα του DMN, υπεύθυνου για χρόνια υπερ-ανάλυση.\n\nΝευροπλαστικότητα: Ο εγκέφαλός μας μπορεί να αλλάξει. Κάθε πρακτική χτίζει νέους νευρωνικούς διαδρόμους.`
-      },
-      {
-        title: 'Το Πνευματικό Υπόβαθρο',
-        body: `Mahāsatipatthāna Sutta: Τα Τέσσερα Θεμέλια της Ενσυνειδητότητας (Σώμα, Αισθήσεις, Νους, Ψυχικά Φαινόμενα) αντιστοιχούν άμεσα στα τέσσερα στάδια της μεθόδου μας.\n\nDzogchen: Παραδόσεις όπως το Dzogchen μιλούν για την αναγνώριση του «ανοιχτού χώρου» της συνείδησης, στον οποίο σκέψεις και συναισθήματα εμφανίζονται και εξαφανίζονται χωρίς να μας περιορίζουν.\n\nΣουφισμός: Ο Σουφισμός υπενθυμίζει τη σημασία της γείωσης και της καρδιάς ως κέντρου — τη σύνδεση πνεύματος και σώματος.`
-      }
-    ],
-    exercise: {
-      title: 'Αναστοχασμός: Η διαδρομή μου',
-      steps: [
-        'Ποιο από τα 4 κέντρα σου έρχεται πιο φυσικά;',
-        'Πού δυσκολεύεσαι περισσότερο;',
-        'Τι έχει αλλάξει από τότε που ξεκίνησες;',
-        'Ποια είναι η επόμενη μικρή νίκη που θέλεις να πετύχεις;'
-      ]
-    },
-    insight: 'Ο εγκέφαλός σου μπορεί να αλλάξει. Κάθε πρακτική χτίζει νέους νευρωνικούς διαδρόμους.',
-    reflection: 'Τι κουβαλάω από αυτό το ταξίδι;'
-  }
-];
-// ══════════════════════════════════════════════
-// STORAGE & JOURNAL DATA
-// ══════════════════════════════════════════════
-const AXES = [
-  { key:'body',   label:'🧍 Σώμα',    color:'#7A9E7E' },
-  { key:'breath', label:'🫁 Αναπνοή', color:'#C07050' },
-  { key:'focus',  label:'👁 Προσοχή', color:'#C8922A' },
-  { key:'space',  label:'✦ Χώρος',   color:'#B5A7D0' },
-];
-const DAYS = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη','Παρασκευή','Σάββατο','Κυριακή'];
-
-function loadJournal() {
-  try { return JSON.parse(localStorage.getItem('journal_v1')) || emptyWeek(); }
-  catch { return emptyWeek(); }
-}
-function saveJournal(data) {
-  localStorage.setItem('journal_v1', JSON.stringify(data));
-}
-function emptyWeek() {
-  return DAYS.map((d,i)=>({ id:i, day:d, checked:{body:false,breath:false,focus:false,space:false}, note:'' }));
+// ── Toggle chapter accordion ──────────────────────────
+function toggleCard(card) {
+  card.classList.toggle('open');
 }
 
-let journalData = loadJournal();
+// ── Scroll-based section reveal ──────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
 
-// ══════════════════════════════════════════════
-// NAVIGATION
-// ══════════════════════════════════════════════
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+id).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  const nb = document.getElementById('nav-'+id);
-  if (nb) nb.classList.add('active');
-  window.scrollTo(0,0);
-}
-function showHome()    { showScreen('home'); }
-function showBreath()  { showScreen('breath'); document.getElementById('nav-breath').classList.add('active'); }
-function showJournal() { showScreen('journal'); renderJournal(); }
+document.querySelectorAll('section').forEach(s => observer.observe(s));
 
-// ══════════════════════════════════════════════
-// HOME — BUILD CHAPTER LIST
-// ══════════════════════════════════════════════
-function buildHome() {
-  const list = document.getElementById('chapter-list');
-  list.innerHTML = CHAPTERS.map(ch=>`
-    <button class="chapter-card" onclick="openChapter(${ch.num})">
-      <div class="ch-icon" style="background:${ch.hex}22; font-size:22px">${ch.icon}</div>
-      <div style="flex:1">
-        <div class="ch-num">Κεφάλαιο ${ch.num}</div>
-        <div class="ch-title">${ch.title}</div>
-        <div class="ch-sub">${ch.sub}</div>
-      </div>
-      <div class="ch-arrow">›</div>
-    </button>
-  `).join('');
-}
+// ── Active TOC link ───────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const tocLinks = document.querySelectorAll('.toc-sidebar a');
 
-// ══════════════════════════════════════════════
-// CHAPTER DETAIL
-// ══════════════════════════════════════════════
-function openChapter(num) {
-  const ch = CHAPTERS[num-1];
-  
-  const theoryHtml = ch.theorySections.map(s => `
-    <div class="section-card">
-      <div class="section-accent" style="background:${ch.hex}"></div>
-      <div class="section-title" style="color:${ch.hex}">${s.title}</div>
-      <div class="section-body">${s.body.replace(/\n\n/g, '<br><br>')}</div>
-    </div>
-  `).join('');
+const tocObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.toc-sidebar a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
 
-  const stepsHtml = ch.exercise.steps.map((step, i) => `
-    <div class="step-row">
-      <div class="step-badge" style="background:${ch.hex}">${i+1}</div>
-      <div class="step-text">${step}</div>
-    </div>
-  `).join('');
+sections.forEach(s => tocObserver.observe(s));
 
-  const reflectionHtml = ch.reflection ? `
-    <div class="section-card" style="margin-top: 10px; background: var(--off);">
-      <div class="section-title" style="color:${ch.hex}">🤔 Αναστοχασμός</div>
-      <div class="section-body"><em>${ch.reflection}</em></div>
-    </div>
-  ` : '';
-
-  const prevBtn = num>1 ? `<button class="ch-nav-btn" onclick="openChapter(${num-1})">‹ Προηγούμενο</button>` : '<div></div>';
-  const nextBtn = num<CHAPTERS.length ? `<button class="ch-nav-btn" onclick="openChapter(${num+1})">Επόμενο ›</button>` : '<div></div>';
-
-  document.getElementById('chapter-content').innerHTML = `
-    <div class="ch-header" style="background:${ch.hex}">
-      <button class="back-btn" onclick="showHome()">←</button>
-      <div class="ch-header-num">Κεφάλαιο ${ch.num}</div>
-      <div class="ch-header-title">${ch.title}</div>
-      <div class="ch-header-sub">${ch.sub}</div>
-    </div>
-
-    <div class="summary-box">
-      <div class="summary-bar" style="background:${ch.hex}"></div>
-      <div class="summary-inner">
-        <div class="summary-label" style="color:${ch.hex}">Σε αυτό το κεφάλαιο</div>
-        <div class="summary-text">${ch.summary}</div>
-      </div>
-    </div>
-
-    ${theoryHtml}
-    ${reflectionHtml}
-
-    <button class="exercise-header" style="background:${ch.hex}" onclick="toggleExercise(this)">
-      <span>💪</span>
-      <span class="exercise-header-text">${ch.exercise.title}</span>
-      <span class="exercise-toggle">▾</span>
-    </button>
-    <div class="exercise-body" style="border-color:${ch.hex}">${stepsHtml}</div>
-
-    <div class="insight-box" style="background:${ch.hex}">
-      <div class="insight-star">★  Βασικό Σημείο</div>
-      <div class="insight-text">${ch.insight.replace(/\n/g,'<br>')}</div>
-    </div>
-
-    <div class="ch-nav">${prevBtn}${nextBtn}</div>
-  `;
-
-  document.getElementById('chapter-scroll').scrollTop = 0;
-  showScreen('chapter');
-  document.getElementById('nav-home').classList.add('active');
-}
-
-function toggleExercise(btn) {
-  const body = btn.nextElementSibling;
-  const tog  = btn.querySelector('.exercise-toggle');
-  body.classList.toggle('open');
-  tog.classList.toggle('open');
-}
-
-// ══════════════════════════════════════════════
-// BREATH TIMER
-// ══════════════════════════════════════════════
-const PHASES = [
-  { label:'Εισπνοή',  sub:'αργά από τη μύτη', dur:4000, scaleEnd:1.4, opEnd:0.9 },
-  { label:'Παύση',    sub:'κράτα απαλά',       dur:2000, scaleEnd:1.4, opEnd:0.9 },
-  { label:'Εκπνοή',   sub:'αργά από το στόμα', dur:6000, scaleEnd:0.7, opEnd:0.35 },
-  { label:'Παύση',    sub:'άφησε...',           dur:1000, scaleEnd:0.7, opEnd:0.35 },
-];
-
-let breathRunning=false, phaseIdx=0, breathElapsed=0, breathCycles=0;
-let breathTimer=null, phaseTimeout=null;
-
-function breathToggle() {
-  if (breathRunning) breathStop();
-  else breathStart();
-}
-function breathStart() {
-  breathRunning = true;
-  document.getElementById('play-btn').textContent = '⏸';
-  document.getElementById('play-btn').classList.add('running');
-  document.getElementById('breath-ready').style.display = 'none';
-  document.getElementById('phase-label').style.display = 'block';
-  document.getElementById('phase-sub').style.display   = 'block';
-  breathTimer = setInterval(()=>{ breathElapsed++; updateBreathTime(); }, 1000);
-  runPhase(phaseIdx);
-}
-function breathStop() {
-  breathRunning = false;
-  document.getElementById('play-btn').textContent = '▶';
-  document.getElementById('play-btn').classList.remove('running');
-  clearInterval(breathTimer);
-  clearTimeout(phaseTimeout);
-  const ring = document.getElementById('breath-ring');
-  ring.style.animation = 'none';
-}
-function breathReset() {
-  breathStop();
-  breathElapsed=0; breathCycles=0; phaseIdx=0;
-  updateBreathTime();
-  document.getElementById('breath-cycles').textContent='0';
-  document.getElementById('breath-ring').style.transform='scale(1)';
-  document.getElementById('breath-ring').style.opacity='0.4';
-  document.getElementById('phase-label').style.display='none';
-  document.getElementById('phase-sub').style.display='none';
-  document.getElementById('breath-ready').style.display='block';
-}
-function runPhase(idx) {
-  if (!breathRunning) return;
-  const ph = PHASES[idx];
-  phaseIdx = idx;
-  document.getElementById('phase-label').textContent = ph.label;
-  document.getElementById('phase-sub').textContent   = ph.sub;
-  const ring = document.getElementById('breath-ring');
-  ring.style.transition = `transform ${ph.dur}ms ease-in-out, opacity ${ph.dur}ms ease-in-out`;
-  ring.style.transform  = `scale(${ph.scaleEnd})`;
-  ring.style.opacity    = ph.opEnd;
-  phaseTimeout = setTimeout(()=>{
-    const next = (idx+1)%PHASES.length;
-    if (next===0) { breathCycles++; document.getElementById('breath-cycles').textContent=breathCycles; }
-    runPhase(next);
-  }, ph.dur);
-}
-function updateBreathTime() {
-  const m=String(Math.floor(breathElapsed/60)).padStart(2,'0');
-  const s=String(breathElapsed%60).padStart(2,'0');
-  document.getElementById('breath-time').textContent=m+':'+s;
-}
-
-// ══════════════════════════════════════════════
-// JOURNAL RENDERING
-// ══════════════════════════════════════════════
-let expandedDay = 0;
-
-function renderJournal() {
-  const total = journalData.reduce((s,e)=>s+Object.values(e.checked).filter(Boolean).length,0);
-  const max   = DAYS.length * AXES.length;
-  const pct   = Math.round((total/max)*100);
-  document.getElementById('j-progress').style.width = pct+'%';
-  document.getElementById('j-progress-txt').textContent = `${total}/${max} ✓  ·  ${pct}%`;
-
-  document.getElementById('journal-days').innerHTML = journalData.map((entry,di)=>{
-    const done = Object.values(entry.checked).filter(Boolean).length === AXES.length;
-    const isOpen = expandedDay === di;
-    const dots = AXES.map(ax=>`<div class="mini-dot" style="background:${entry.checked[ax.key]?ax.color:'var(--light)'}"></div>`).join('');
-    const chips = AXES.map(ax=>`
-      <button class="axis-chip ${entry.checked[ax.key]?'checked':''}"
-        style="border-color:${ax.color};${entry.checked[ax.key]?'background:'+ax.color+';color:white':''}"
-        onclick="toggleCheck(${di},'${ax.key}')">${ax.label}</button>
-    `).join('');
-
-    return `
-      <div class="day-card">
-        <div class="day-row ${done?'done':''}" onclick="toggleDay(${di})">
-          <div class="day-badge ${done?'done':''}">${done?'✓':di+1}</div>
-          <div class="day-name">${entry.day}</div>
-          <div class="mini-dots">${dots}</div>
-          <div class="day-chevron ${isOpen?'open':''}">▾</div>
-        </div>
-        <div class="day-body ${isOpen?'open':''}">
-          <div class="axes-grid">${chips}</div>
-          <div class="note-label">Τι παρατήρησα σήμερα:</div>
-          <textarea class="note-input" rows="3"
-            onchange="updateNote(${di},this.value)"
-            placeholder="Γράψε τις παρατηρήσεις σου...">${entry.note}</textarea>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function toggleDay(di) {
-  expandedDay = expandedDay===di ? -1 : di;
-  renderJournal();
-}
-function toggleCheck(di, key) {
-  journalData[di].checked[key] = !journalData[di].checked[key];
-  saveJournal(journalData);
-  renderJournal();
-}
-function updateNote(di, text) {
-  journalData[di].note = text;
-  saveJournal(journalData);
-}
-function journalReset() {
-  if (confirm('Να καθαριστούν όλες οι εγγραφές;')) {
-    journalData = emptyWeek();
-    saveJournal(journalData);
-    expandedDay = 0;
-    renderJournal();
-  }
-}
-
-// ══════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════
-buildHome();
+// ── Download button placeholder ──────────────────────
+document.getElementById('downloadBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  alert('Για να κατεβάσεις το PDF, πρόσθεσε το αρχείο στο GitHub repo σου με το όνομα "Οδηγος_Ενσυνειδητοτητας.pdf" και ενημέρωσε αυτό το link.');
+});
 </script>
-
 </body>
 </html>
+
+    
+  
