@@ -41,6 +41,532 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
+  <!--
+  ══════════════════════════════════════════════════
+  JOURNEY ANIMATION — COPY-PASTE INTEGRATION
+  ══════════════════════════════════════════════════
+  Βάλε ΟΛΟΚΛΗΡΟ αυτό το block ΠΡΙΝ το </body>
+  στο index.html σου. Δεν χρειάζεται τίποτα άλλο — 
+  το κουμπί εμφανίζεται αυτόματα στο home header.
+  ══════════════════════════════════════════════════
+-->
+
+<style>
+.journey-btn{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:9px 18px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .25s;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.journey-btn:active{background:rgba(255,255,255,.22);transform:scale(.97)}
+.journey-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;background:#060610;display:none;flex-direction:column;opacity:0;transition:opacity .6s ease}
+.journey-overlay.open{display:flex;opacity:1}
+.journey-overlay.closing{opacity:0}
+.journey-overlay canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1}
+.jc-close{position:fixed;top:16px;left:16px;z-index:20;width:40px;height:40px;border-radius:50%;background:rgba(232,228,223,.08);border:1px solid rgba(232,228,223,.15);color:rgba(232,228,223,.5);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(8px);font-family:'DM Sans',sans-serif}
+.jc-close:active{background:rgba(232,228,223,.18);color:rgba(232,228,223,.8)}
+.jc-label{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:10;text-align:center;width:90%;opacity:0;transition:opacity 1.5s;pointer-events:none}
+.jc-label.vis{opacity:1}
+.jc-label .jc-m{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:rgba(232,228,223,.8);font-family:'Fraunces',serif}
+.jc-label .jc-s{font-size:clamp(.75rem,1.5vw,.95rem);font-weight:200;letter-spacing:.25em;color:rgba(232,228,223,.35);margin-top:6px;font-family:'DM Sans',sans-serif}
+.jc-num{position:fixed;top:22px;right:20px;z-index:10;font-size:.75rem;letter-spacing:.3em;color:rgba(232,228,223,.2);font-weight:300;font-family:'DM Sans',sans-serif}
+.jc-prog{position:fixed;bottom:0;left:0;height:2px;z-index:10;transition:width 1s}
+.jc-ctrls{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:10px}
+.jc-ctrls button{background:rgba(232,228,223,.05);border:1px solid rgba(232,228,223,.1);color:rgba(232,228,223,.4);padding:7px 20px;font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:.2em;cursor:pointer;border-radius:20px;transition:all .4s;backdrop-filter:blur(10px)}
+.jc-ctrls button:active{background:rgba(232,228,223,.12);color:rgba(232,228,223,.7)}
+.jc-dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:14px}
+.jc-d{width:6px;height:6px;border-radius:50%;background:rgba(232,228,223,.12);cursor:pointer;transition:all .6s;border:none;padding:0}
+.jc-d.on{background:rgba(232,228,223,.6);box-shadow:0 0 12px rgba(232,228,223,.15);transform:scale(1.4)}
+.jc-intro{position:fixed;top:0;left:0;width:100%;height:100%;z-index:100;background:#060610;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:opacity 1.5s}
+.jc-intro.hid{opacity:0;pointer-events:none}
+.jc-intro-t{font-family:'Fraunces',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:900;letter-spacing:.08em;background:linear-gradient(135deg,#e8e4df,#a89880);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;line-height:1.2}
+.jc-intro-s{font-size:clamp(.8rem,1.5vw,1rem);font-weight:200;letter-spacing:.3em;color:rgba(232,228,223,.3);margin-top:8px;margin-bottom:50px;font-family:'DM Sans',sans-serif}
+.jc-intro-tap{font-size:.7rem;letter-spacing:.5em;color:rgba(232,228,223,.25);animation:jcBr 3s ease-in-out infinite;font-family:'DM Sans',sans-serif}
+@keyframes jcBr{0%,100%{opacity:.2}50%{opacity:.6}}
+</style>
+
+<div class="journey-overlay" id="jOverlay">
+  <div class="jc-intro" id="jIntro">
+    <div class="jc-intro-t" id="jIntroTitle">Ταξίδι<br>Ενσυνειδητότητας</div>
+    <div class="jc-intro-s" id="jIntroSub">5 στάδια · από το χάος στην επίγνωση</div>
+    <div class="jc-intro-tap" id="jIntroTap">πάτα για αρχή</div>
+  </div>
+  <canvas id="jCv"></canvas>
+  <button class="jc-close" id="jClose">✕</button>
+  <div class="jc-label" id="jLbl"><div class="jc-m" id="jLblM"></div><div class="jc-s" id="jLblS"></div></div>
+  <div class="jc-num" id="jNum"></div>
+  <div class="jc-prog" id="jProg"></div>
+  <div class="jc-dots" id="jDots">
+    <button class="jc-d on" data-js="0"></button>
+    <button class="jc-d" data-js="1"></button>
+    <button class="jc-d" data-js="2"></button>
+    <button class="jc-d" data-js="3"></button>
+    <button class="jc-d" data-js="4"></button>
+  </div>
+  <div class="jc-ctrls">
+    <button id="jPrv">◂</button>
+    <button id="jAuto">AUTO</button>
+    <button id="jNxt">▸</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ── AUTO-INJECT BUTTON INTO HOME HEADER ──
+  function injectButton(){
+    const header = document.querySelector('.home-header');
+    if(!header || header.querySelector('.journey-btn')) return;
+    const pills = header.querySelector('.axis-pills');
+    const btn = document.createElement('button');
+    btn.className = 'journey-btn';
+    btn.onclick = openJourney;
+    updateBtnLang(btn);
+    if(pills) pills.after(btn); else header.appendChild(btn);
+    window._jBtn = btn;
+  }
+
+  function updateBtnLang(btn){
+    const lang = (typeof currentLang!=='undefined') ? currentLang : 'el';
+    btn.textContent = lang==='el' ? '🌀 Ταξίδι Ενσυνειδητότητας' : '🌀 Mindfulness Journey';
+  }
+
+  // ── BILINGUAL DATA ──
+  const txt = {
+    el: {
+      introTitle: 'Ταξίδι<br>Ενσυνειδητότητας',
+      introSub: '5 στάδια · από το χάος στην επίγνωση',
+      introTap: 'πάτα για αρχή',
+      stages: [
+        { label:'Αρχή', sub:'Ο ανεμοστρόβιλος των σκέψεων' },
+        { label:'Βαρύτητα', sub:'Γείωση στο σώμα' },
+        { label:'Αναπνοή', sub:'Ο κύκλος που αγκαλιάζει' },
+        { label:'Προσοχή', sub:'Εστιασμένη ακτίνα' },
+        { label:'Χώρος', sub:'Ανοιχτή επίγνωση' }
+      ]
+    },
+    en: {
+      introTitle: 'Mindfulness<br>Journey',
+      introSub: '5 stages · from chaos to awareness',
+      introTap: 'tap to begin',
+      stages: [
+        { label:'Beginning', sub:'The vortex of thoughts' },
+        { label:'Gravity', sub:'Grounding in the body' },
+        { label:'Breath', sub:'The embracing cycle' },
+        { label:'Attention', sub:'Focused beam' },
+        { label:'Space', sub:'Open awareness' }
+      ]
+    }
+  };
+
+  function getLang(){ return (typeof currentLang!=='undefined') ? currentLang : 'el'; }
+  function T(){ return txt[getLang()] || txt.el; }
+
+  // ── OVERLAY CONTROL ──
+  let animId=null, running=false;
+
+  window.openJourney = function(){
+    const ov=document.getElementById('jOverlay');
+    // Set intro text for current language
+    const t = T();
+    document.getElementById('jIntroTitle').innerHTML = t.introTitle;
+    document.getElementById('jIntroSub').textContent = t.introSub;
+    document.getElementById('jIntroTap').textContent = t.introTap;
+    
+    ov.style.display='flex';
+    document.body.style.overflow='hidden';
+    requestAnimationFrame(()=>ov.classList.add('open'));
+    document.getElementById('jIntro').classList.remove('hid');
+    cur=0;tar=0;trT=1;tm=0;autoOn=false;
+    document.getElementById('jAuto').textContent='AUTO';
+    jResize();
+    if(!running){running=true;loop();}
+    updUI();
+  };
+
+  window.closeJourney = function(){
+    const ov=document.getElementById('jOverlay');
+    ov.classList.add('closing'); ov.classList.remove('open');
+    autoOn=false; clearTimeout(autoTmr);
+    setTimeout(()=>{
+      ov.style.display='none'; ov.classList.remove('closing');
+      document.body.style.overflow=''; running=false;
+      if(animId) cancelAnimationFrame(animId);
+    },600);
+  };
+
+  document.getElementById('jClose').onclick = closeJourney;
+
+  // ── CANVAS ──
+  const cv=document.getElementById('jCv'), ctx=cv.getContext('2d');
+  let W,H,cx,cy;
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+
+  function jResize(){
+    W=window.innerWidth;H=window.innerHeight;
+    cv.width=W*dpr;cv.height=H*dpr;
+    cv.style.width=W+'px';cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    cx=W/2;cy=H/2;
+  }
+  window.addEventListener('resize',jResize);
+
+  // ── STATE ──
+  let cur=0,tar=0,trT=1,tm=0,autoOn=false,autoTmr=null;
+  const stg=[
+    {accent:[210,90,75],bg:[30,15,20]},
+    {accent:[150,110,190],bg:[20,15,30]},
+    {accent:[70,160,200],bg:[12,20,30]},
+    {accent:[220,180,70],bg:[25,22,12]},
+    {accent:[100,200,140],bg:[12,25,18]}
+  ];
+
+  // ── PARTICLES ──
+  class AP{
+    constructor(){this.r(1)}
+    r(i){this.x=Math.random()*(W||400);this.y=i?Math.random()*(H||600):-10;this.vx=(Math.random()-.5)*.3;this.vy=.08+Math.random()*.35;this.sz=.4+Math.random()*1.5;this.al=.03+Math.random()*.12;this.l=0;this.m=400+Math.random()*600}
+    u(){this.x+=this.vx+Math.sin(tm*.15+this.y*.008)*.12;this.y+=this.vy;this.l++;if(this.y>(H||600)+10||this.l>this.m)this.r(0)}
+    d(r,g,b){const f=Math.min(this.l/80,1)*Math.min(1,Math.max(0,(this.m-this.l)/80));ctx.beginPath();ctx.arc(this.x,this.y,this.sz,0,Math.PI*2);ctx.fillStyle=`rgba(${r},${g},${b},${this.al*f})`;ctx.fill()}
+  }
+  const aps=Array.from({length:100},()=>new AP());
+
+  class VP{
+    constructor(){this.r()}
+    r(){this.a=Math.random()*Math.PI*2;this.bR=15+Math.random()*190;this.s=(0.4+Math.random()*1.8)*(Math.random()>.5?1:-1);this.yO=-170+Math.random()*140;this.sz=.6+Math.random()*2.8;this.al=.12+Math.random()*.45;this.w=Math.random()>.35;this.t=[]}
+    u(){this.a+=this.s*.017;const cc=.25+.75*Math.max(0,(this.yO+170)/310);this.x=cx+Math.cos(this.a)*this.bR*cc;this.y=cy+this.yO+Math.sin(this.a)*this.bR*.25+Math.sin(tm*.5+this.a)*6;this.t.unshift({x:this.x,y:this.y});if(this.t.length>6)this.t.pop()}
+    d(a){const cl=this.w?'210,90,75':'240,170,80';for(let i=0;i<this.t.length;i++){const ta=this.al*a*(1-i/this.t.length)*.35;ctx.beginPath();ctx.arc(this.t[i].x,this.t[i].y,this.sz*(1-i*.1),0,Math.PI*2);ctx.fillStyle=`rgba(${cl},${ta})`;ctx.fill()}}
+  }
+  const vps=Array.from({length:90},()=>new VP());
+
+  class BO{
+    constructor(){this.r()}
+    r(){this.a=Math.random()*Math.PI*2;this.bR=28+Math.random()*45;this.s=.15+Math.random()*.45;this.sz=.4+Math.random()*1.3;this.al=.08+Math.random()*.25}
+    d(a,bs){this.a+=this.s*.007;const r=this.bR*bs;ctx.beginPath();ctx.arc(cx+Math.cos(this.a)*r*.85,cy-5+Math.sin(this.a)*r*1.15,this.sz,0,Math.PI*2);ctx.fillStyle=`rgba(70,170,210,${this.al*a})`;ctx.fill()}
+  }
+  const bos=Array.from({length:50},()=>new BO());
+
+  // ── HUMAN ──
+  function drawH(x,y,sc,al,sit,br){
+    ctx.save();ctx.translate(x,y);ctx.scale(sc,sc);ctx.globalAlpha=al;ctx.lineCap='round';ctx.lineJoin='round';
+    const bo=br?Math.sin(tm*.45)*2:0;
+    const sk=a=>`rgba(205,190,170,${a*al})`;
+    const sf=a=>`rgba(215,200,180,${a*al})`;
+    if(sit){
+      const hY=-54+bo;
+      // glow
+      const gl=ctx.createRadialGradient(0,-15,3,0,-15,55);
+      gl.addColorStop(0,`rgba(210,200,180,${.05*al})`);gl.addColorStop(1,'rgba(210,200,180,0)');
+      ctx.fillStyle=gl;ctx.beginPath();ctx.arc(0,-15,55,0,Math.PI*2);ctx.fill();
+      // head
+      ctx.fillStyle=sf(.25);ctx.beginPath();ctx.ellipse(0,hY,10.5,12.5,0,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle=sk(.75);ctx.lineWidth=2;ctx.stroke();
+      // hair
+      ctx.strokeStyle=sk(.2);ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(0,hY-4,10,-2.8,-.3);ctx.stroke();
+      ctx.beginPath();ctx.arc(0,hY-4,10,Math.PI+.3,Math.PI+2.8);ctx.stroke();
+      // eyes closed
+      ctx.strokeStyle=sk(.55);ctx.lineWidth=1.3;
+      ctx.beginPath();ctx.arc(-4,hY-1,2.8,.15,Math.PI-.15);ctx.stroke();
+      ctx.beginPath();ctx.arc(4,hY-1,2.8,.15,Math.PI-.15);ctx.stroke();
+      // smile
+      ctx.strokeStyle=sk(.3);ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(0,hY+2.5,3,.3,Math.PI-.3);ctx.stroke();
+      // neck
+      ctx.strokeStyle=sk(.7);ctx.lineWidth=3;
+      ctx.beginPath();ctx.moveTo(0,hY+12);ctx.lineTo(0,-37+bo);ctx.stroke();
+      // shoulders
+      ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-19,-35+bo);ctx.quadraticCurveTo(0,-39+bo,19,-35+bo);ctx.stroke();
+      // torso
+      ctx.lineWidth=3.5;ctx.beginPath();ctx.moveTo(0,-37+bo);ctx.quadraticCurveTo(1.5,-15+bo*.4,0,8);ctx.stroke();
+      // arms
+      ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.moveTo(-19,-35+bo);ctx.quadraticCurveTo(-25,-15,-22,6);ctx.quadraticCurveTo(-20,12,-16,10);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(19,-35+bo);ctx.quadraticCurveTo(25,-15,22,6);ctx.quadraticCurveTo(20,12,16,10);ctx.stroke();
+      // hands
+      ctx.fillStyle=sf(.45);ctx.beginPath();ctx.ellipse(-16,10,3,2.5,-.3,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.ellipse(16,10,3,2.5,.3,0,Math.PI*2);ctx.fill();
+      // legs
+      ctx.strokeStyle=sk(.65);ctx.lineWidth=3;
+      ctx.beginPath();ctx.moveTo(0,8);ctx.quadraticCurveTo(-16,14,-25,18);ctx.quadraticCurveTo(-28,20,-20,23);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(0,8);ctx.quadraticCurveTo(16,14,25,18);ctx.quadraticCurveTo(28,20,20,23);ctx.stroke();
+      // feet
+      ctx.lineWidth=2.2;
+      ctx.beginPath();ctx.moveTo(-20,23);ctx.lineTo(-10,21);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(20,23);ctx.lineTo(10,21);ctx.stroke();
+    } else {
+      const sw=Math.sin(tm*.7)*3.5,hY=-70+sw*.4;
+      const gl=ctx.createRadialGradient(0,-20,3,0,-20,55);
+      gl.addColorStop(0,`rgba(210,200,180,${.05*al})`);gl.addColorStop(1,'rgba(210,200,180,0)');
+      ctx.fillStyle=gl;ctx.beginPath();ctx.arc(0,-20,55,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle=sf(.25);ctx.beginPath();ctx.ellipse(sw*.5,hY,10.5,12.5,sw*.015,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle=sk(.75);ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle=sk(.55);
+      ctx.beginPath();ctx.arc(-4+sw*.5,hY-1,1.8,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(4+sw*.5,hY-1,1.8,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle=sk(.35);ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(-7+sw*.5,hY-5.5);ctx.lineTo(-2+sw*.5,hY-6.5);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(7+sw*.5,hY-5.5);ctx.lineTo(2+sw*.5,hY-6.5);ctx.stroke();
+      ctx.strokeStyle=sk(.25);ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(-2.5+sw*.5,hY+4);ctx.lineTo(2.5+sw*.5,hY+4);ctx.stroke();
+      ctx.strokeStyle=sk(.7);ctx.lineWidth=3;
+      ctx.beginPath();ctx.moveTo(sw*.45,hY+12);ctx.lineTo(sw*.25,-47);ctx.stroke();
+      ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-20+sw*.2,-44);ctx.quadraticCurveTo(sw*.25,-48,20+sw*.2,-44);ctx.stroke();
+      ctx.lineWidth=3.5;ctx.beginPath();ctx.moveTo(sw*.25,-47);ctx.quadraticCurveTo(sw*.12,-22,0,0);ctx.stroke();
+      ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.moveTo(-20+sw*.2,-44);ctx.quadraticCurveTo(-23,-22,-16,-3);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(20+sw*.2,-44);ctx.quadraticCurveTo(23,-22,16,-3);ctx.stroke();
+      ctx.fillStyle=sf(.35);ctx.beginPath();ctx.arc(-16,-3,2.8,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(16,-3,2.8,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle=sk(.65);ctx.lineWidth=3;
+      ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(-7,19,-12,40);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(7,19,12,40);ctx.stroke();
+      ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.moveTo(-12,40);ctx.lineTo(-19,42);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(12,40);ctx.lineTo(19,42);ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // ── HELPERS ──
+  function drawGnd(a,cl){
+    const gy=cy+78;ctx.save();
+    const g=ctx.createLinearGradient(cx-220,gy,cx+220,gy);
+    g.addColorStop(0,'rgba(200,190,170,0)');
+    g.addColorStop(.3,`rgba(${cl[0]},${cl[1]},${cl[2]},${.35*a})`);
+    g.addColorStop(.7,`rgba(${cl[0]},${cl[1]},${cl[2]},${.35*a})`);
+    g.addColorStop(1,'rgba(200,190,170,0)');
+    ctx.strokeStyle=g;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx-220,gy);ctx.lineTo(cx+220,gy);ctx.stroke();
+    ctx.globalAlpha=a*.07;ctx.fillStyle=`rgba(${cl[0]},${cl[1]},${cl[2]},.3)`;
+    ctx.beginPath();ctx.ellipse(cx,gy+2,32,4,0,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+
+  function drawAx(a,cl,h){
+    ctx.save();const top=cy-h,bot=cy+92;
+    const g=ctx.createLinearGradient(cx,top,cx,bot);
+    g.addColorStop(0,`rgba(${cl[0]},${cl[1]},${cl[2]},0)`);
+    g.addColorStop(.15,`rgba(${cl[0]},${cl[1]},${cl[2]},${.35*a})`);
+    g.addColorStop(.85,`rgba(${cl[0]},${cl[1]},${cl[2]},${.35*a})`);
+    g.addColorStop(1,`rgba(${cl[0]},${cl[1]},${cl[2]},0)`);
+    ctx.strokeStyle=g;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(cx,top);ctx.lineTo(cx,bot);ctx.stroke();
+    ctx.globalAlpha=a*.05;
+    const gg=ctx.createLinearGradient(cx-12,0,cx+12,0);
+    gg.addColorStop(0,'rgba(200,190,170,0)');gg.addColorStop(.5,`rgba(${cl[0]},${cl[1]},${cl[2]},.25)`);gg.addColorStop(1,'rgba(200,190,170,0)');
+    ctx.fillStyle=gg;ctx.fillRect(cx-12,top,24,bot-top);
+    ctx.globalAlpha=a*.45;
+    for(let i=0;i<6;i++){
+      const t=((tm*18+i*50)%(bot-top)),da=Math.sin(t/(bot-top)*Math.PI)*.55;
+      ctx.fillStyle=`rgba(${cl[0]},${cl[1]},${cl[2]},${da*a})`;ctx.beginPath();ctx.arc(cx,top+t,1.3,0,Math.PI*2);ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // ── STAGE 0: ΑΡΧΗ — vortex ──
+  function s0(a){
+    drawH(cx,cy+18,1.15,a,false,false);
+    vps.forEach(p=>{p.u();p.d(a)});
+    ctx.save();
+    for(let i=0;i<6;i++){
+      ctx.globalAlpha=a*.1;ctx.strokeStyle='rgba(210,90,75,.45)';ctx.lineWidth=.8+i*.15;
+      ctx.beginPath();const sa=tm*.35+i*.95;
+      for(let t=0;t<130;t++){const ang=sa+t*.065,comp=.18+.82*(t/130),r=(12+t*1.9)*comp;
+        const px=cx+Math.cos(ang)*r,py=cy-55-t*.95+Math.sin(ang*.4)*4;
+        t===0?ctx.moveTo(px,py):ctx.lineTo(px,py)}ctx.stroke();
+    }
+    const vg=ctx.createRadialGradient(cx,cy-100,8,cx,cy-100,160);
+    vg.addColorStop(0,`rgba(210,90,75,${.07*a})`);vg.addColorStop(1,'rgba(210,90,75,0)');
+    ctx.globalAlpha=a;ctx.fillStyle=vg;ctx.beginPath();ctx.arc(cx,cy-100,160,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+
+  // ── STAGE 1: ΒΑΡΥΤΗΤΑ — axis + grounding only (NO spiral) ──
+  function s1(a){
+    drawGnd(a,[150,110,190]);drawAx(a,[150,110,190],125);
+    drawH(cx,cy+18,1.15,a,false,false);
+    ctx.save();
+    // Roots only — removed calming spiral (was duplicate with vortex)
+    ctx.globalAlpha=a*.18;ctx.strokeStyle='rgba(150,110,190,.35)';ctx.lineWidth=1.1;
+    for(let i=0;i<7;i++){
+      ctx.beginPath();ctx.moveTo(cx,cy+78);
+      const sp=(i-3)*20,dp=25+Math.abs(i-3)*12;
+      ctx.quadraticCurveTo(cx+sp*.5,cy+88,cx+sp,cy+78+dp);ctx.stroke();
+    }
+    const rg=ctx.createRadialGradient(cx,cy+78,0,cx,cy+78,55);
+    rg.addColorStop(0,`rgba(150,110,190,${.08*a})`);rg.addColorStop(1,'rgba(150,110,190,0)');
+    ctx.globalAlpha=a;ctx.fillStyle=rg;ctx.beginPath();ctx.arc(cx,cy+78,55,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+
+  // ── STAGE 2: ΑΝΑΠΝΟΗ — breath aura ──
+  function s2(a){
+    drawGnd(a,[70,160,200]);drawAx(a,[70,160,200],115);
+    const bc=Math.sin(tm*.45),bs=1+bc*.18;
+    ctx.save();
+    for(let i=4;i>=0;i--){
+      ctx.globalAlpha=a*(.018+i*.01);ctx.fillStyle='rgba(70,160,200,.22)';
+      ctx.beginPath();ctx.ellipse(cx,cy-5,(43+i*13)*bs,(63+i*17)*bs,0,0,Math.PI*2);ctx.fill();
+    }
+    ctx.globalAlpha=a*.3;ctx.strokeStyle='rgba(70,160,200,.35)';ctx.lineWidth=1.1;
+    ctx.beginPath();ctx.ellipse(cx,cy-5,43*bs,63*bs,0,0,Math.PI*2);ctx.stroke();
+    bos.forEach(p=>p.d(a,bs));
+    // wisps
+    ctx.globalAlpha=a*(.12+bc*.08);ctx.strokeStyle='rgba(70,160,200,.18)';ctx.lineWidth=.7;
+    for(let i=0;i<7;i++){ctx.beginPath();const ox=(i-3)*9;
+      for(let y=0;y<85;y+=2){const px=cx+ox+Math.sin(y*.038+tm*.65+i*.7)*(3.5+i*.4),py=cy-32-y;
+        y===0?ctx.moveTo(px,py):ctx.lineTo(px,py)}ctx.stroke();}
+    ctx.restore();
+    drawH(cx,cy+18,1,a,true,true);
+  }
+
+  // ── STAGE 3: ΠΡΟΣΟΧΗ — focus beams ──
+  function s3(a){
+    drawGnd(a,[220,180,70]);drawAx(a,[220,180,70],105);
+    const bc=Math.sin(tm*.45),bs=1+bc*.05;
+    ctx.save();
+    ctx.globalAlpha=a*.06;ctx.fillStyle='rgba(70,160,200,.18)';
+    ctx.beginPath();ctx.ellipse(cx,cy-5,40*bs,58*bs,0,0,Math.PI*2);ctx.fill();
+    ctx.globalAlpha=a*.15;ctx.strokeStyle='rgba(70,160,200,.2)';ctx.lineWidth=.7;
+    ctx.beginPath();ctx.ellipse(cx,cy-5,40*bs,58*bs,0,0,Math.PI*2);ctx.stroke();
+    ctx.restore();
+    drawH(cx,cy+18,1,a,true,true);
+    ctx.save();
+    const tx=cx+Math.min(185,W*.23),ty=cy-38;
+    const eY=cy+18-54+Math.sin(tm*.45)*2;
+    const pulse=4.5+Math.sin(tm*2.5)*2;
+    ctx.globalAlpha=a*.035;ctx.beginPath();
+    ctx.moveTo(cx-7,eY-4);ctx.lineTo(tx,ty-14);ctx.lineTo(tx,ty+14);ctx.lineTo(cx+7,eY+4);ctx.closePath();
+    ctx.fillStyle='rgba(220,180,70,.25)';ctx.fill();
+    for(let b=-1;b<=1;b+=2){const ex=cx+b*4.5;
+      const bg=ctx.createLinearGradient(ex,eY,tx,ty);
+      bg.addColorStop(0,`rgba(220,180,70,${.45*a})`);bg.addColorStop(.6,`rgba(220,180,70,${.2*a})`);bg.addColorStop(1,`rgba(220,180,70,${.05*a})`);
+      ctx.strokeStyle=bg;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(ex,eY);ctx.lineTo(tx,ty);ctx.stroke();}
+    for(let i=0;i<8;i++){const t=((tm*40+i*35)%100)/100;
+      ctx.fillStyle=`rgba(240,200,80,${Math.sin(t*Math.PI)*.5*a})`;ctx.beginPath();ctx.arc(cx+(tx-cx)*t,eY+(ty-eY)*t,1.2,0,Math.PI*2);ctx.fill();}
+    const tg=ctx.createRadialGradient(tx,ty,0,tx,ty,38);
+    tg.addColorStop(0,`rgba(220,180,70,${.3*a})`);tg.addColorStop(.5,`rgba(220,180,70,${.06*a})`);tg.addColorStop(1,'rgba(220,180,70,0)');
+    ctx.globalAlpha=a;ctx.fillStyle=tg;ctx.beginPath();ctx.arc(tx,ty,38,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=`rgba(245,210,85,${.85*a})`;ctx.beginPath();ctx.arc(tx,ty,pulse,0,Math.PI*2);ctx.fill();
+    for(let i=0;i<3;i++){const rr=((tm*16+i*28)%38);
+      ctx.globalAlpha=a*Math.max(0,1-rr/38)*.25;ctx.strokeStyle='rgba(220,180,70,.4)';ctx.lineWidth=.7;
+      ctx.beginPath();ctx.arc(tx,ty,rr,0,Math.PI*2);ctx.stroke();}
+    ctx.restore();
+  }
+
+  // ── STAGE 4: ΧΩΡΟΣ — open awareness ──
+  function s4(a){
+    drawGnd(a,[100,200,140]);drawAx(a,[100,200,140],105);
+    const bc=Math.sin(tm*.4),bs=1+bc*.04;
+    ctx.save();
+    ctx.globalAlpha=a*.045;ctx.fillStyle='rgba(70,160,200,.12)';
+    ctx.beginPath();ctx.ellipse(cx,cy-5,38*bs,55*bs,0,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+    drawH(cx,cy+18,1,a,true,true);
+    ctx.save();
+    for(let i=0;i<28;i++){
+      const ang=(i/28)*Math.PI*2+tm*.025,len=75+Math.sin(tm*.22+i*.45)*55+35,sr=33;
+      const sx=cx+Math.cos(ang)*sr,sy=(cy-10)+Math.sin(ang)*sr*.65;
+      const ex=cx+Math.cos(ang)*len,ey=(cy-10)+Math.sin(ang)*len*.6;
+      const rg=ctx.createLinearGradient(sx,sy,ex,ey);
+      rg.addColorStop(0,`rgba(100,200,140,${.22*a})`);rg.addColorStop(.55,`rgba(100,200,140,${.05*a})`);rg.addColorStop(1,'rgba(100,200,140,0)');
+      ctx.strokeStyle=rg;ctx.lineWidth=1.1;ctx.globalAlpha=a;
+      ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(ex,ey);ctx.stroke();
+      if(Math.sin(tm*1.8+i*1.1)>.6){ctx.globalAlpha=a*.35;ctx.fillStyle='rgba(130,225,165,.55)';ctx.beginPath();ctx.arc(ex,ey,1.3,0,Math.PI*2);ctx.fill();}
+    }
+    for(let i=0;i<4;i++){const wr=((tm*10+i*65)%290);
+      ctx.globalAlpha=a*Math.max(0,1-wr/290)*.12;ctx.strokeStyle='rgba(100,200,140,.35)';ctx.lineWidth=.7;
+      ctx.beginPath();ctx.ellipse(cx,cy-10,wr,wr*.6,0,0,Math.PI*2);ctx.stroke();}
+    const sg=ctx.createRadialGradient(cx,cy-10,18,cx,cy-10,210);
+    sg.addColorStop(0,`rgba(100,200,140,${.05*a})`);sg.addColorStop(1,'rgba(100,200,140,0)');
+    ctx.globalAlpha=a;ctx.fillStyle=sg;ctx.beginPath();ctx.arc(cx,cy-10,210,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+
+  const rndr=[s0,s1,s2,s3,s4];
+
+  // ── BG ──
+  function drawBG(bl){
+    const i=Math.floor(bl),f=bl-i,n=Math.min(i+1,4);
+    const b1=stg[i].bg,b2=stg[n].bg;
+    const r=b1[0]*(1-f)+b2[0]*f,g=b1[1]*(1-f)+b2[1]*f,b=b1[2]*(1-f)+b2[2]*f;
+    const gr=ctx.createRadialGradient(cx,cy*.8,0,cx,cy,Math.max(W,H)*.75);
+    gr.addColorStop(0,`rgb(${r},${g},${b})`);gr.addColorStop(1,'#060610');
+    ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+    const v=ctx.createRadialGradient(cx,cy,Math.min(W,H)*.3,cx,cy,Math.max(W,H)*.7);
+    v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.4)');
+    ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  }
+
+  // ── UI ──
+  function updUI(){
+    const t=T().stages[cur];
+    document.getElementById('jLblM').textContent=t.label;
+    document.getElementById('jLblS').textContent=t.sub;
+    document.getElementById('jLbl').classList.add('vis');
+    document.getElementById('jNum').textContent=`${cur+1} / 5`;
+    const ac=stg[cur].accent;
+    document.getElementById('jProg').style.width=`${(cur/4)*100}%`;
+    document.getElementById('jProg').style.background=`linear-gradient(90deg,rgba(${ac[0]},${ac[1]},${ac[2]},.3),rgba(${ac[0]},${ac[1]},${ac[2]},.6))`;
+    document.querySelectorAll('.jc-d').forEach((d,i)=>d.classList.toggle('on',i===cur));
+  }
+
+  function goTo(i){
+    if(i<0||i>4||(i===cur&&trT>=1))return;
+    tar=i;trT=0;document.getElementById('jLbl').classList.remove('vis');
+  }
+
+  document.getElementById('jPrv').onclick=()=>{if(trT>=1)goTo(cur-1)};
+  document.getElementById('jNxt').onclick=()=>{if(trT>=1)goTo(cur+1)};
+  document.getElementById('jAuto').onclick=()=>{
+    autoOn=!autoOn;document.getElementById('jAuto').textContent=autoOn?'PAUSE':'AUTO';
+    autoOn?schAuto():clearTimeout(autoTmr);
+  };
+  document.querySelectorAll('.jc-d').forEach(d=>{d.onclick=()=>{if(trT>=1)goTo(+d.dataset.js)}});
+
+  document.addEventListener('keydown',e=>{
+    if(!running||trT<1)return;
+    if(e.key==='Escape')closeJourney();
+    if(e.key==='ArrowRight'||e.key===' ')goTo(cur+1);
+    if(e.key==='ArrowLeft')goTo(cur-1);
+  });
+
+  // touch swipe
+  let tx0=0;
+  cv.addEventListener('touchstart',e=>{tx0=e.touches[0].clientX},{passive:true});
+  cv.addEventListener('touchend',e=>{if(trT<1)return;const dx=e.changedTouches[0].clientX-tx0;if(dx<-40)goTo(cur+1);else if(dx>40)goTo(cur-1)},{passive:true});
+
+  function schAuto(){if(!autoOn)return;autoTmr=setTimeout(()=>{
+    if(cur<4){goTo(cur+1);setTimeout(schAuto,1800)}else{autoOn=false;document.getElementById('jAuto').textContent='AUTO'}
+  },5000)}
+
+  document.getElementById('jIntro').onclick=()=>{document.getElementById('jIntro').classList.add('hid');updUI()};
+
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+
+  function loop(){
+    if(!running)return;
+    tm+=.016;ctx.clearRect(0,0,W,H);
+    if(trT<1){trT=Math.min(trT+.011,1);if(trT>=1){cur=tar;updUI()}}
+    const et=ease(trT),bl=trT<1?cur+(tar-cur)*et:cur;
+    drawBG(bl);
+    const ac=stg[Math.round(bl)].accent;
+    aps.forEach(p=>{p.u();p.d(ac[0],ac[1],ac[2])});
+    if(trT<1){rndr[cur](1-et);rndr[tar](et)}else{rndr[cur](1)}
+    animId=requestAnimationFrame(loop);
+  }
+
+  // ── INJECT BUTTON + OBSERVE LANG CHANGES ──
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',injectButton);
+  else injectButton();
+
+  // Re-inject after buildHome (in case it rebuilds the header)
+  const origBH = window.buildHome;
+  if(typeof origBH==='function'){
+    window.buildHome=function(){origBH.apply(this,arguments);setTimeout(injectButton,50)};
+  }
+
+  // Watch for language toggle
+  const origTL = window.toggleLang;
+  if(typeof origTL==='function'){
+    window.toggleLang=function(){origTL.apply(this,arguments);
+      setTimeout(()=>{if(window._jBtn)updateBtnLang(window._jBtn)},50)};
+  }
+})();
+</script>
+  
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--cream);
