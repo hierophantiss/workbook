@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Βαρύτητα & Σκέψεις — Η Ισορροπία της Παρουσίας</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#050510;overflow:hidden;height:100vh;width:100vw;font-family:'Fraunces',serif;color:#e8e4df;user-select:none}
+  canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1}
+  .label{position:fixed;bottom:65px;left:50%;transform:translateX(-50%);z-index:10;text-align:center;width:85%;opacity:0;transition:opacity 1.8s ease}
+  .label.vis{opacity:1}
+  .label .main{font-size:clamp(1.1rem,3vw,1.8rem);font-weight:300;letter-spacing:0.3em;text-transform:uppercase}
+  .label .sub{font-size:clamp(0.6rem,1.2vw,0.8rem);letter-spacing:0.18em;color:rgba(232,228,223,0.3);margin-top:6px;font-style:italic;line-height:1.6}
+  .snum{position:fixed;top:24px;right:28px;z-index:10;font-size:0.7rem;letter-spacing:0.3em;color:rgba(232,228,223,0.15)}
+  .ptrack{position:fixed;bottom:0;left:0;width:100%;height:2px;background:rgba(255,255,255,0.03);z-index:10}
+  .pbar{height:100%;background:linear-gradient(90deg,rgba(160,120,170,0.4),rgba(200,100,80,0.4),rgba(100,170,130,0.4));transition:width 1.5s ease}
+  .dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:14px}
+  .dot{width:6px;height:6px;border-radius:50%;background:rgba(232,228,223,0.1);transition:all .6s ease;cursor:pointer;border:none;padding:0}
+  .dot.active{background:rgba(232,228,223,0.5);transform:scale(1.5);box-shadow:0 0 10px rgba(232,228,223,0.12)}
+  .ctrls{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:8px}
+  .ctrls button{background:rgba(232,228,223,0.05);border:1px solid rgba(232,228,223,0.1);color:rgba(232,228,223,0.35);padding:5px 14px;font-family:'Fraunces',serif;font-size:0.7rem;letter-spacing:0.1em;cursor:pointer;border-radius:18px;transition:all .3s}
+  .ctrls button:active{background:rgba(232,228,223,0.15);color:rgba(232,228,223,0.7)}
+  .intro{position:fixed;inset:0;z-index:100;background:#050510;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:opacity 2s ease}
+  .intro.hidden{opacity:0;pointer-events:none}
+  .intro-t{font-size:clamp(1.6rem,4.5vw,2.8rem);font-weight:300;letter-spacing:0.2em;background:linear-gradient(135deg,#e8e4df,#a89880);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:fi 2s ease 0.5s forwards}
+  .intro-s{font-size:clamp(0.7rem,1.4vw,0.95rem);letter-spacing:0.3em;color:rgba(232,228,223,0.25);margin-top:8px;font-style:italic;opacity:0;animation:fi 2s ease 1.2s forwards}
+  .intro-h{font-size:0.6rem;letter-spacing:0.4em;color:rgba(232,228,223,0.1);margin-top:50px;text-transform:uppercase;animation:pu 3.5s ease-in-out infinite}
+  @keyframes fi{to{opacity:1}}
+  @keyframes pu{0%,100%{opacity:0.1}50%{opacity:0.35}}
+</style>
+</head>
+<body>
+<div class="intro" id="intro">
+  <div class="intro-t">Βαρύτητα & Σκέψεις</div>
+  <div class="intro-s">Η Ισορροπία της Παρουσίας</div>
+  <div class="intro-h">πάτησε για να ξεκινήσεις</div>
+</div>
+<canvas id="c"></canvas>
+<div class="label" id="label"><div class="main" id="lm"></div><div class="sub" id="ls"></div></div>
+<div class="snum" id="sn"></div>
+<div class="ptrack"><div class="pbar" id="pb"></div></div>
+<div class="dots">
+  <button class="dot active" onclick="goTo(0)"></button>
+  <button class="dot" onclick="goTo(1)"></button>
+  <button class="dot" onclick="goTo(2)"></button>
+  <button class="dot" onclick="goTo(3)"></button>
+</div>
+<div class="ctrls"><button onclick="goTo(cur-1)">◀</button><button id="ab" onclick="togAuto()">▶ auto</button><button onclick="goTo(cur+1)">▶</button></div>
+
+<script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+let W,H,cx,cy;
+function resize(){const d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cv.style.width=W+'px';cv.style.height=H+'px';ctx.setTransform(d,0,0,d,0,0);cx=W/2;cy=H/2}
+resize();addEventListener('resize',resize);
+
+const scenes=[
+  {label:'Ισορροπία',sub:'Το κέντρο βάρους στη θέση του\nΤο σώμα σταθερό στη γη',sub_en:'Center of gravity in place\nThe body stable on the earth',bg:[18,22,30]},
+  {label:'Σκέψεις',sub:'Οι σκέψεις εντείνονται\nΤο κέντρο βάρους μετατοπίζεται',sub_en:'Thoughts intensify\nThe center of gravity shifts',bg:[35,18,22]},
+  {label:'Ανισορροπία',sub:'Χαμένοι στις σκέψεις\nΤο σώμα χάνει τη γείωση',sub_en:'Lost in thoughts\nThe body loses its grounding',bg:[40,15,18]},
+  {label:'Επαναφορά',sub:'Η βαρύτητα μας φέρνει πίσω\nΤα πόδια στη γη — ο νους ήρεμος',sub_en:'Gravity brings us back\nFeet on the ground — the mind calm',bg:[15,28,22]}
+];
+
+let cur=0,tgt=0,tT=0,trans=false,time=0,gA=0,autoP=false,autoTm=null;
+
+function n(x,y){const v=Math.sin(x*12.9898+y*78.233)*43758.5453;return v-Math.floor(v)}
+function sn(x,y){const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy;const sx=fx*fx*(3-2*fx),sy=fy*fy*(3-2*fy);return n(ix,iy)+(n(ix+1,iy)-n(ix,iy))*sx+(n(ix,iy+1)-n(ix,iy))*sy+(n(ix,iy)-n(ix+1,iy)-n(ix,iy+1)+n(ix+1,iy+1))*sx*sy}
+function fbm(x,y,o=4){let v=0,a=0.5,f=1;for(let i=0;i<o;i++){v+=a*sn(x*f,y*f);a*=0.5;f*=2}return v}
+
+const amb=[];for(let i=0;i<30;i++)amb.push({x:Math.random()*2000,y:Math.random()*2000,vx:(Math.random()-0.5)*0.1,vy:(Math.random()-0.5)*0.07,sz:0.3+Math.random()*0.8,al:0.02+Math.random()*0.05,ph:Math.random()*Math.PI*2});
+
+// Thought particles
+const thP=[];
+for(let i=0;i<50;i++){
+  thP.push({a:Math.random()*Math.PI*2,r:15+Math.random()*60,sp:(0.4+Math.random()*1.5)*(Math.random()>0.5?1:-1),
+    sz:0.6+Math.random()*2,al:0.15+Math.random()*0.35,ph:Math.random()*Math.PI*2,
+    co:Math.random()>0.4?[200+Math.random()*55,80+Math.random()*40,60+Math.random()*30]:[170+Math.random()*40,60+Math.random()*30,60+Math.random()*30]});
+}
+
+// Ground
+function drawGround(alpha,y){
+  const g=ctx.createLinearGradient(cx-200,y,cx+200,y);
+  g.addColorStop(0,'rgba(140,130,110,0)');
+  g.addColorStop(0.3,`rgba(140,130,110,${alpha*0.2})`);
+  g.addColorStop(0.5,`rgba(140,130,110,${alpha*0.3})`);
+  g.addColorStop(0.7,`rgba(140,130,110,${alpha*0.2})`);
+  g.addColorStop(1,'rgba(140,130,110,0)');
+  ctx.strokeStyle=g;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(cx-200,y);ctx.lineTo(cx+200,y);ctx.stroke();
+  const g2=ctx.createRadialGradient(cx,y,0,cx,y,80);
+  g2.addColorStop(0,`rgba(140,130,110,${alpha*0.05})`);
+  g2.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=g2;ctx.fillRect(cx-200,y-20,400,40);
+}
+
+// Gravity axis
+function drawAxis(alpha,x,topY,botY,color,dashed){
+  const g=ctx.createLinearGradient(x,topY,x,botY);
+  g.addColorStop(0,`rgba(${color},0)`);
+  g.addColorStop(0.15,`rgba(${color},${alpha*0.4})`);
+  g.addColorStop(0.5,`rgba(${color},${alpha*0.55})`);
+  g.addColorStop(0.85,`rgba(${color},${alpha*0.4})`);
+  g.addColorStop(1,`rgba(${color},0)`);
+  ctx.strokeStyle=g;ctx.lineWidth=1.8;
+  if(dashed)ctx.setLineDash([4,6]);
+  ctx.beginPath();ctx.moveTo(x,topY);ctx.lineTo(x,botY);ctx.stroke();
+  if(dashed)ctx.setLineDash([]);
+}
+
+// Center of gravity marker
+function drawCoG(x,y,alpha,color,size,label){
+  // Diamond shape
+  const s=size;
+  ctx.fillStyle=`rgba(${color},${alpha*0.3})`;
+  ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s*0.6,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s*0.6,y);ctx.closePath();ctx.fill();
+  ctx.strokeStyle=`rgba(${color},${alpha*0.7})`;ctx.lineWidth=1.5;ctx.stroke();
+  // Glow
+  const g=ctx.createRadialGradient(x,y,0,x,y,s*2);
+  g.addColorStop(0,`rgba(${color},${alpha*0.12})`);
+  g.addColorStop(1,`rgba(${color},0)`);
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,s*2,0,Math.PI*2);ctx.fill();
+  // Inner dot
+  ctx.fillStyle=`rgba(${color},${alpha*0.8})`;
+  ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill();
+  // Label
+  if(label){
+    ctx.font='9px Fraunces';ctx.fillStyle=`rgba(${color},${alpha*0.35})`;
+    ctx.textAlign='left';ctx.fillText(label,x+s+5,y+3);
+  }
+}
+
+// Standing body with tilt
+function drawPerson(x,y,alpha,tilt,headInflate,breathPhase){
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.rotate(tilt); // body tilt angle
+
+  const col=`rgba(215,205,190,${alpha*0.8})`;
+  const dim=`rgba(215,205,190,${alpha*0.3})`;
+  ctx.lineCap='round';ctx.lineJoin='round';
+
+  const sway=Math.sin(time*1.2+tilt*3)*tilt*8; // more sway when tilted
+
+  // Legs
+  ctx.strokeStyle=col;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(-8+sway*0.2,0);ctx.quadraticCurveTo(-10+sway*0.3,40,-13+sway*0.1,90);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(8+sway*0.2,0);ctx.quadraticCurveTo(10+sway*0.3,40,13+sway*0.1,90);ctx.stroke();
+  // Feet
+  ctx.lineWidth=1.6;
+  ctx.beginPath();ctx.moveTo(-13+sway*0.1,90);ctx.lineTo(-19+sway*0.1,94);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(13+sway*0.1,90);ctx.lineTo(19+sway*0.1,94);ctx.stroke();
+
+  // Torso
+  ctx.strokeStyle=col;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(-13+sway*0.5,-55);ctx.quadraticCurveTo(-15+sway*0.3,-25,-10+sway*0.2,0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(13+sway*0.5,-55);ctx.quadraticCurveTo(15+sway*0.3,-25,10+sway*0.2,0);ctx.stroke();
+
+  // Spine (dim)
+  ctx.strokeStyle=`rgba(215,205,190,${alpha*0.08})`;ctx.lineWidth=0.7;
+  ctx.beginPath();ctx.moveTo(sway*0.5,-60);ctx.lineTo(sway*0.1,5);ctx.stroke();
+
+  // Shoulders
+  ctx.strokeStyle=col;ctx.lineWidth=2;
+  const shDrop=Math.abs(tilt)*8; // shoulders drop when tilted
+  ctx.beginPath();ctx.moveTo(-20+sway*0.6,-55+shDrop*0.5);ctx.quadraticCurveTo(sway*0.5,-60,20+sway*0.6,-55+shDrop*0.5);ctx.stroke();
+
+  // Arms (more tense when tilted)
+  const armTense=Math.abs(tilt)*15;
+  ctx.lineWidth=1.8;
+  ctx.beginPath();ctx.moveTo(-20+sway*0.6,-55+shDrop*0.5);ctx.quadraticCurveTo(-24+sway-armTense*0.5,-30,-20+sway*0.3-armTense*0.3,5);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(20+sway*0.6,-55+shDrop*0.5);ctx.quadraticCurveTo(24+sway+armTense*0.5,-30,20+sway*0.3+armTense*0.3,5);ctx.stroke();
+
+  // Neck
+  ctx.strokeStyle=dim;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(sway*0.5,-60);ctx.lineTo(sway*0.7,-66);ctx.stroke();
+
+  // Head (inflatable based on thought intensity)
+  const headR=12*headInflate;
+  const headY=-66-headR*0.6;
+  const headX=sway*0.8;
+
+  // Head glow (red when thoughts are intense)
+  if(headInflate>1.1){
+    const redIntensity=(headInflate-1)*0.5;
+    const hg=ctx.createRadialGradient(headX,headY,0,headX,headY,headR*2.5);
+    hg.addColorStop(0,`rgba(200,80,60,${alpha*redIntensity*0.1})`);
+    hg.addColorStop(1,'rgba(200,80,60,0)');
+    ctx.fillStyle=hg;ctx.beginPath();ctx.arc(headX,headY,headR*2.5,0,Math.PI*2);ctx.fill();
+  }
+
+  // Body glow (green when grounded)
+  if(headInflate<=1.05){
+    const groundGlow=ctx.createRadialGradient(0,-20,0,0,-20,50);
+    groundGlow.addColorStop(0,`rgba(120,180,140,${alpha*0.06})`);
+    groundGlow.addColorStop(1,'rgba(120,180,140,0)');
+    ctx.fillStyle=groundGlow;ctx.beginPath();ctx.arc(0,-20,50,0,Math.PI*2);ctx.fill();
+  }
+
+  ctx.fillStyle=`rgba(215,205,190,${alpha*0.1})`;
+  ctx.beginPath();ctx.arc(headX,headY,headR,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();
+
+  // Eyes
+  if(headInflate>1.2){
+    // Worried eyes
+    ctx.fillStyle=`rgba(200,100,80,${alpha*0.5})`;
+    ctx.beginPath();ctx.arc(headX-4,headY-1,1.2*headInflate,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(headX+4,headY-1,1.2*headInflate,0,Math.PI*2);ctx.fill();
+  } else {
+    // Peaceful closed eyes
+    ctx.strokeStyle=`rgba(215,205,190,${alpha*0.4})`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(headX-5,headY);ctx.quadraticCurveTo(headX-3,headY+1.5,headX-1,headY);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(headX+1,headY);ctx.quadraticCurveTo(headX+3,headY+1.5,headX+5,headY);ctx.stroke();
+  }
+
+  ctx.restore();
+  // Return head position in world coords for thought particles
+  return {hx:x+Math.cos(tilt)*(sway*0.8)-Math.sin(tilt)*(headY), hy:y+Math.sin(tilt)*(sway*0.8)+Math.cos(tilt)*(headY)};
+}
+
+// ══════════════════════════
+// SCENES
+// ══════════════════════════
+const groundY=cy+110;
+const personY=cy+15;
+
+function s0(alpha){
+  if(alpha<=0)return;ctx.save();
+  drawGround(alpha,groundY);
+  // Strong axis - stable
+  drawAxis(alpha,cx,cy-120,groundY,'160,150,120',false);
+  // Person standing balanced
+  const head=drawPerson(cx,personY,alpha,0,1,Math.sin(time*0.4));
+  // Center of gravity at belly (correct position)
+  drawCoG(cx,personY-15,alpha,'140,180,140',8,'Κέντρο Βάρους');
+  // Ground connection dots
+  for(let i=0;i<5;i++){
+    const gy=groundY-3+((time*5+i*12)%30);
+    const ga=Math.max(0,1-(gy-(groundY-3))/30)*0.15;
+    ctx.fillStyle=`rgba(140,170,130,${alpha*ga})`;
+    ctx.beginPath();ctx.arc(cx+Math.sin(time*0.3+i)*8,gy,1,0,Math.PI*2);ctx.fill();
+  }
+  ctx.restore();
+}
+
+function s1(alpha){
+  if(alpha<=0)return;ctx.save();
+  drawGround(alpha,groundY);
+  const wobble=Math.sin(time*0.8)*0.03; // slight wobble
+  drawAxis(alpha*0.6,cx,cy-120,groundY,'160,140,120',false);
+  const head=drawPerson(cx,personY,alpha,wobble,1.4,0);
+
+  // CoG moving upward (shifting to thoughts)
+  const cogY=personY-15-Math.sin(time*0.3)*15-20;
+  drawCoG(cx,cogY,alpha,'200,160,80',9,'Κέντρο Βάρους ↑');
+
+  // Thought particles gathering around head
+  thP.forEach((p,i)=>{
+    if(i>30)return; // only some active
+    p.a+=p.sp*0.015;
+    const orbR=p.r*(0.6+Math.sin(time*0.3+p.ph)*0.3);
+    const px=head.hx+Math.cos(p.a)*orbR*0.6;
+    const py=head.hy+Math.sin(p.a)*orbR*0.4+Math.sin(time*0.4+p.ph)*4;
+    ctx.beginPath();ctx.arc(px,py,p.sz,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${p.co[0]|0},${p.co[1]|0},${p.co[2]|0},${p.al*alpha*0.4})`;ctx.fill();
+  });
+
+  // Warning: dim red glow building
+  const rg=ctx.createRadialGradient(head.hx,head.hy,0,head.hx,head.hy,60);
+  rg.addColorStop(0,`rgba(200,80,60,${alpha*0.04})`);
+  rg.addColorStop(1,'rgba(200,80,60,0)');
+  ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+  ctx.restore();
+}
+
+function s2(alpha){
+  if(alpha<=0)return;ctx.save();
+  drawGround(alpha,groundY);
+  // Tilting severely
+  const tilt=Math.sin(time*0.6)*0.18+0.12; // constant lean
+  // Axis broken/dashed
+  drawAxis(alpha*0.3,cx,cy-120,groundY,'180,100,80',true);
+  const head=drawPerson(cx,personY,alpha,tilt,1.8,0);
+
+  // CoG way up in head area!
+  const cogX=head.hx;
+  const cogY=head.hy+5;
+  drawCoG(cogX,cogY,alpha,'200,90,70',11,'Κέντρο Βάρους ⚠');
+
+  // All thought particles — intense swarm
+  thP.forEach(p=>{
+    p.a+=p.sp*0.025;
+    const orbR=p.r*(0.8+Math.sin(time*0.4+p.ph)*0.4);
+    const px=head.hx+Math.cos(p.a)*orbR*0.7;
+    const py=head.hy+Math.sin(p.a)*orbR*0.45+Math.sin(time*0.5+p.ph)*6;
+    ctx.beginPath();ctx.arc(px,py,p.sz*1.2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${p.co[0]|0},${p.co[1]|0},${p.co[2]|0},${p.al*alpha*0.55})`;ctx.fill();
+  });
+
+  // Chaotic spirals
+  for(let i=0;i<5;i++){
+    ctx.beginPath();
+    const sa=time*0.4+i*1.2;
+    for(let t2=0;t2<50;t2++){
+      const a=sa+t2*0.1,r=8+t2*1.5;
+      const px=head.hx+Math.cos(a)*r*0.5;
+      const py=head.hy+Math.sin(a)*r*0.3-t2*0.4;
+      t2===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.strokeStyle=`rgba(200,90,70,${alpha*0.06})`;ctx.lineWidth=0.8;ctx.stroke();
+  }
+
+  // Feet barely touching ground (disconnection)
+  ctx.strokeStyle=`rgba(200,100,80,${alpha*0.15})`;ctx.lineWidth=0.5;ctx.setLineDash([2,4]);
+  ctx.beginPath();ctx.moveTo(cx-30,groundY);ctx.lineTo(cx+30,groundY);ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Strong red glow
+  const rg=ctx.createRadialGradient(head.hx,head.hy,0,head.hx,head.hy,100);
+  rg.addColorStop(0,`rgba(200,70,50,${alpha*0.08})`);
+  rg.addColorStop(1,'rgba(200,70,50,0)');
+  ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+  ctx.restore();
+}
+
+function s3(alpha){
+  if(alpha<=0)return;ctx.save();
+  drawGround(alpha,groundY);
+  // Strong axis - restored
+  drawAxis(alpha,cx,cy-120,groundY,'120,170,140',false);
+  // Person standing balanced again, peaceful
+  const head=drawPerson(cx,personY,alpha,0,1,Math.sin(time*0.35));
+  // CoG back at belly — correct
+  drawCoG(cx,personY-15,alpha,'120,180,140',8,'Κέντρο Βάρους ✓');
+
+  // Roots going down from feet
+  for(let i=0;i<7;i++){
+    const sp=(i-3)*14,dp=20+Math.abs(i-3)*8;
+    const wx=Math.sin(time*0.25+i)*3;
+    ctx.beginPath();ctx.moveTo(cx,groundY);
+    ctx.quadraticCurveTo(cx+sp*0.5+wx,groundY+dp*0.5,cx+sp+wx,groundY+dp);
+    ctx.strokeStyle=`rgba(120,160,130,${alpha*(0.06+(1-Math.abs(i-3)/3)*0.1)})`;
+    ctx.lineWidth=1;ctx.stroke();
+  }
+
+  // Settling particles going DOWN
+  for(let i=0;i<15;i++){
+    const sy=personY-60+((time*6+i*20)%170);
+    const sx=cx+Math.sin(time*0.3+i*0.7)*5;
+    const sa=Math.max(0,1-Math.abs(sy-personY)/100)*0.12;
+    ctx.beginPath();ctx.arc(sx,sy,1,0,Math.PI*2);
+    ctx.fillStyle=`rgba(140,190,160,${alpha*sa})`;ctx.fill();
+  }
+
+  // Remaining thoughts — tiny, fading, far away
+  for(let i=0;i<6;i++){
+    const dist=80+i*15+Math.sin(time*0.2+i)*10;
+    const a2=time*0.05+i*1;
+    const px=head.hx+Math.cos(a2)*dist;
+    const py=head.hy+Math.sin(a2)*dist*0.3-20;
+    const ta=0.04+Math.sin(time+i)*0.02;
+    ctx.beginPath();ctx.arc(px,py,2+Math.sin(time+i),0,Math.PI*2);
+    ctx.fillStyle=`rgba(180,140,130,${alpha*ta})`;ctx.fill();
+  }
+
+  // Green peaceful glow
+  const gg=ctx.createRadialGradient(cx,personY-20,0,cx,personY-20,80);
+  gg.addColorStop(0,`rgba(120,180,140,${alpha*0.06})`);
+  gg.addColorStop(1,'rgba(120,180,140,0)');
+  ctx.fillStyle=gg;ctx.fillRect(0,0,W,H);
+
+  // Expanding awareness rings
+  for(let i=0;i<2;i++){
+    const rr=((time*8+i*70)%150);
+    const ra=Math.max(0,1-rr/150);
+    ctx.globalAlpha=alpha*ra*0.05;
+    ctx.strokeStyle='rgba(140,190,160,1)';ctx.lineWidth=0.6;
+    ctx.beginPath();ctx.arc(cx,personY-20,rr,0,Math.PI*2);ctx.stroke();
+    ctx.globalAlpha=1;
+  }
+
+  ctx.restore();
+}
+
+const draws=[s0,s1,s2,s3];
+
+function drawBg(sf){
+  const idx=Math.floor(sf),fr=sf-idx,nx=Math.min(idx+1,3);
+  const r=scenes[idx].bg[0]*(1-fr)+scenes[nx].bg[0]*fr;
+  const g=scenes[idx].bg[1]*(1-fr)+scenes[nx].bg[1]*fr;
+  const b=scenes[idx].bg[2]*(1-fr)+scenes[nx].bg[2]*fr;
+  const gr=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*0.75);
+  gr.addColorStop(0,`rgb(${r|0},${g|0},${b|0})`);gr.addColorStop(1,'rgb(5,5,16)');
+  ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+  ctx.globalAlpha=gA;
+  amb.forEach(p=>{p.x+=p.vx+Math.sin(time*0.2+p.ph)*0.02;p.y+=p.vy+Math.cos(time*0.15+p.ph)*0.015;
+    if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.sz,0,Math.PI*2);
+    ctx.fillStyle=`rgba(200,195,185,${p.al*(0.7+Math.sin(time*0.5+p.ph)*0.3)})`;ctx.fill()});
+  ctx.globalAlpha=1;
+}
+
+function updUI(){const s=scenes[cur];document.getElementById('lm').textContent=s.label;
+  document.getElementById('ls').innerHTML=s.sub.replace(/\n/g,'<br>')+(s.sub_en?'<div style="margin-top:6px;font-size:0.8em;color:rgba(180,200,190,0.35);font-style:italic">'+s.sub_en.replace(/\n/g,'<br>')+'</div>':'');
+  document.getElementById('label').classList.add('vis');document.getElementById('sn').textContent=`${cur+1} / 4`;
+  document.getElementById('pb').style.width=`${(cur/3)*100}%`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur))}
+
+function goTo(i){if(i<0||i>3||i===cur||trans)return;tgt=i;trans=true;tT=0;
+  document.getElementById('label').classList.remove('vis');
+  setTimeout(()=>{cur=tgt;trans=false;updUI()},2000)}
+function ease(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function togAuto(){autoP=!autoP;document.getElementById('ab').innerHTML=autoP?'\u23F8 pause':'\u25B6 auto';if(autoP)runA();else clearTimeout(autoTm)}
+function runA(){if(!autoP)return;autoTm=setTimeout(()=>{if(cur<3){goTo(cur+1);setTimeout(runA,2200)}else{autoP=false;document.getElementById('ab').innerHTML='\u25B6 auto'}},8000)}
+
+document.getElementById('intro').addEventListener('click',()=>{document.getElementById('intro').classList.add('hidden');updUI()});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')goTo(cur+1);if(e.key==='ArrowLeft')goTo(cur-1)});
+
+let lt=0;
+function loop(ts){
+  const dt=Math.min((ts-lt)/1000,0.05);lt=ts;time+=dt;
+  if(gA<1)gA=Math.min(1,gA+dt*0.5);
+  if(trans)tT=Math.min(tT+dt*0.6,1);
+  ctx.clearRect(0,0,W,H);
+  const sf=trans?cur+(tgt-cur)*ease(tT):cur;
+  drawBg(sf);ctx.globalAlpha=gA;
+  if(trans){const e2=ease(tT);draws[cur](1-e2);draws[tgt](e2)}
+  else draws[cur](1);
+  ctx.globalAlpha=1;
+  requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
