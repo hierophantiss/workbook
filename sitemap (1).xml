@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Main page (bilingual) -->
+  <url>
+    <loc>https://mindfulness-practice.site/</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://mindfulness-practice.site/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mindfulness-practice.site/?lang=en"/>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://mindfulness-practice.site/?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://mindfulness-practice.site/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mindfulness-practice.site/?lang=en"/>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Exercises / Ασκήσεις -->
+  <url>
+    <loc>https://mindfulness-practice.site/gravity_thhots.html</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://mindfulness-practice.site/eswterikhafh.html</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://mindfulness-practice.site/camera_exercise__3_.html</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://mindfulness-practice.site/cameraexercise.html</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://mindfulness-practice.site/metronomos.html</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://mindfulness-practice.site/treepose.html</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://mindfulness-practice.site/breath_exercise.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>
