@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mindfulness-practice.site/sitemap.xml
+
+# Cache-friendly crawling
+Crawl-delay: 1
