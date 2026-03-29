@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mindfulness-practice.site/sitemap.xml
+
+Crawl-delay: 1
