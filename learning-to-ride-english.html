@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>🚴 Learning to Ride - 8-Week Program</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #D9E8DA;
+            --bg-card: #E8F0E9;
+            --teal: #2A5D5E;
+            --sage: #7A9E7E;
+            --terra: #C07050;
+            --gold: #C8922A;
+            --lav: #B5A7D0;
+            --text: #1F2B27;
+            --text-soft: #5C6761;
+            --text-hint: #6D7570;
+            --border: #B8C4B9;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0e1117;
+                --bg-card: #161b22;
+                --text: #d8dde3;
+                --text-soft: #8b949e;
+                --text-hint: #6e7681;
+                --border: #30363d;
+                --teal: #58a6ff;
+                --sage: #7ee787;
+            }
+        }
+
+        html {
+            touch-action: pan-y;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--sage) 100%);
+            color: white;
+            padding: 24px 16px;
+            margin: -16px -16px 24px -16px;
+            text-align: center;
+            border-radius: 0 0 16px 16px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .week-info {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.3);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+
+        section h2 {
+            color: var(--teal);
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        section h3 {
+            color: var(--sage);
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .lesson-content {
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .lesson-content p {
+            margin-bottom: 12px;
+        }
+
+        .lesson-content strong {
+            color: var(--teal);
+        }
+
+        .lesson-content ol, .lesson-content ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .lesson-content li {
+            margin-bottom: 8px;
+        }
+
+        .breathing-guide {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 2px dashed var(--teal);
+        }
+
+        .breath-step {
+            margin: 12px 0;
+            padding: 12px;
+            background: white;
+            border-left: 4px solid var(--teal);
+            text-align: left;
+            border-radius: 4px;
+        }
+
+        .breath-step strong {
+            color: var(--teal);
+        }
+
+        .breath-step p {
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            background: var(--bg);
+            color: var(--text);
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(42, 93, 94, 0.1);
+        }
+
+        button {
+            background: var(--teal);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        button:hover {
+            background: #236364;
+            box-shadow: 0 4px 12px rgba(42, 93, 94, 0.3);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button.secondary {
+            background: var(--sage);
+            width: auto;
+            margin-top: 0;
+            margin-right: 8px;
+        }
+
+        button.secondary:hover {
+            background: #6a8e6c;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .nav-buttons button {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .reflection-prompt {
+            background: var(--bg);
+            padding: 12px;
+            border-left: 4px solid var(--lav);
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-style: italic;
+            color: var(--text-soft);
+        }
+
+        .open-space {
+            background: linear-gradient(135deg, rgba(181, 167, 208, 0.1), rgba(122, 158, 126, 0.1));
+            border-left: 4px solid var(--lav);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text-soft);
+        }
+
+        .week-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .week-btn {
+            padding: 10px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            transition: all 0.2s ease;
+            font-size: 12px;
+        }
+
+        .week-btn:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        .week-btn.active {
+            background: var(--teal);
+            color: white;
+            border-color: var(--teal);
+        }
+
+        .home-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--teal);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(42, 93, 94, 0.3);
+            z-index: 100;
+            width: calc(100% - 32px);
+            max-width: 300px;
+        }
+
+        .home-btn:hover {
+            box-shadow: 0 6px 16px rgba(42, 93, 94, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+
+            header {
+                margin: -12px -12px 16px -12px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            section {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚴 Learning to Ride</h1>
+            <div class="week-info">
+                <span id="weekTitle">Week 1: Know Your Bike</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div style="margin-top: 8px; font-size: 12px;">
+                    Day <span id="dayNumber">1</span>/7 · Progress: <span id="progressPercent">0</span>%
+                </div>
+            </div>
+        </header>
+
+        <div class="week-selector">
+            <button class="week-btn active" onclick="selectWeek(1)">W1</button>
+            <button class="week-btn" onclick="selectWeek(2)">W2</button>
+            <button class="week-btn" onclick="selectWeek(3)">W3</button>
+            <button class="week-btn" onclick="selectWeek(4)">W4</button>
+        </div>
+
+        <section id="lessonSection">
+            <h2 id="lessonTitle">Day 1: Feel the Pedals</h2>
+            <div class="lesson-content" id="lessonContent"></div>
+        </section>
+
+        <section id="breathingSection">
+            <h3>🫁 Today's Practice</h3>
+            <div class="breathing-guide" id="breathingGuide"></div>
+            <button id="practiceBtn" onclick="markPracticed()">✓ I Practiced</button>
+        </section>
+
+        <section id="journalSection">
+            <h3>📝 Reflection</h3>
+            <div class="reflection-prompt" id="reflectionPrompt"></div>
+            <textarea id="journalEntry" placeholder="What did I notice today? How did it feel?"></textarea>
+            <button onclick="saveJournal()">Save to Journal</button>
+        </section>
+
+        <section id="openSpaceSection">
+            <h3>✨ Open Space Reflection</h3>
+            <div class="open-space" id="openSpaceText"></div>
+        </section>
+
+        <section>
+            <div class="nav-buttons">
+                <button class="secondary" onclick="previousDay()">← Previous</button>
+                <button class="secondary" onclick="nextDay()">Next →</button>
+            </div>
+        </section>
+    </div>
+
+    <button class="home-btn" onclick="goHome()">← Back to Home</button>
+
+    <script>
+        const programData = {
+            1: {
+                title: "Week 1: Know Your Bike",
+                subtitle: "Here I am. This is my body — my bike.",
+                days: [
+                    {day: 1, title: "Feel the Pedals", lesson: `<p><strong>Where:</strong> Anywhere — home, office, park</p><p><strong>Duration:</strong> 2-3 minutes</p><p><strong>The Game:</strong></p><ol><li>Stand or sit comfortably</li><li>Feel your pedals — the points that touch the earth<ul style="margin-left: 20px; margin-top: 8px;"><li>Feet on ground or feet on seat?</li><li>Is there pressure?</li><li>Is there warmth?</li><li>Is there balance?</li></ul></li><li>Just observe — don't do anything</li></ol><p><strong>The Idea:</strong><br>The pedals are like your feet — always here, always touching the earth. This is your connection to the ground.</p>`, breathing: `<div class="breath-step"><strong>Simple Observation (2 minutes)</strong><p>Just stand with your feet there. No controlled breathing. Just notice how you naturally breathe.</p></div>`, reflection: "What was the first thing I felt?", openSpace: "You're not learning to ride a bike to do something. You're learning to <strong>know</strong> what it is."},
+                    {day: 2, title: "Feel the Axis", lesson: `<p><strong>Where:</strong> Quiet place</p><p><strong>Duration:</strong> 3-5 minutes</p><p><strong>The Game:</strong></p><ol><li>Stand or sit comfortably</li><li>Imagine a line running upward:<ul style="margin-left: 20px; margin-top: 8px;"><li>From your feet</li><li>Through your pelvis</li><li>Through your belly</li><li>Through your heart</li><li>Through your throat</li><li>To your head</li></ul></li><li>This is the line that holds you upright</li><li>Just feel the line — you don't need to do anything</li></ol><p><strong>The Idea:</strong><br>Your bike isn't just feet on the ground. It has <strong>structure</strong> — an axis that holds it together. And you have the same axis.</p>`, breathing: `<div class="breath-step"><strong>Axis Breathing (3 minutes)</strong><p>As you imagine the vertical line through your body, notice how your breath moves along that line.</p></div>`, reflection: "Could I imagine the axis? Where did I feel it most?", openSpace: "Your bike has a skeleton. You have a spine. It's the same idea."},
+                    {day: 3, title: "Feel the Weight", lesson: `<p><strong>Where:</strong> Home or quiet place</p><p><strong>Duration:</strong> 3 minutes</p><p><strong>The Game:</strong></p><ol><li>Stand or sit</li><li>Feel your feet + the axis (from yesterday)</li><li>Now: Let the weight drop downward<ul style="margin-left: 20px; margin-top: 8px;"><li>Like you're settling into the earth</li><li>Not with force — just let it</li><li>Feel gravity pulling you down</li></ul></li><li>Notice: What changes in the axis?</li><li>Feel how your body becomes more stable</li></ol><p><strong>The Idea:</strong><br><strong>Gravity is not your enemy</strong>. It is <strong>your stability</strong>. A bike is stable because it's heavy. You are stable because your body has weight.</p>`, breathing: `<div class="breath-step"><strong>Gravity Breathing (3 minutes)</strong><p>Let your breath be heavy. On the exhale, feel yourself becoming heavier, more grounded.</p></div>`, reflection: "What did I feel when I let the weight drop? Was it steady?", openSpace: "<strong>Gravity is not your enemy</strong>. It is <strong>your stability</strong>."},
+                    {day: 4, title: "The Box Exercise", lesson: `<p><strong>Where:</strong> Home or quiet place</p><p><strong>Duration:</strong> 5 minutes</p><p><strong>The Game:</strong></p><ol><li>Stand or sit comfortably</li><li>Feel all three:<ul style="margin-left: 20px; margin-top: 8px;"><li>Feet on earth ✓</li><li>Axis ✓</li><li>Weight ✓</li></ul></li><li>(Optional) Place a book on your head</li><li>Notice: What does your body do to stay stable?</li><li>Remove the book — the sense of structure remains</li></ol><p><strong>The Idea:</strong><br>When <strong>you pay attention</strong>, your body <strong>aligns itself</strong>. You don't do anything. You just observe.</p>`, breathing: `<div class="breath-step"><strong>Stability Breathing (5 minutes)</strong><p>Sit upright. Breathe naturally. Notice how the axis supports the breath.</p></div>`, reflection: "What part of my body responded to stay stable?", openSpace: "You don't do anything. You simply... <strong>observe</strong>."},
+                    {day: 5, title: "All Three Together", lesson: `<p><strong>Where:</strong> Anywhere</p><p><strong>Duration:</strong> 3-5 minutes</p><p><strong>The Game:</strong></p><p>Now you have <strong>3 things</strong> that are open:</p><ol><li><strong>Feet</strong> — connection to earth</li><li><strong>Axis</strong> — the line holding you</li><li><strong>Weight</strong> — the force stabilizing you</li></ol><p>Today you will <strong>feel all three at once</strong>.</p><ol><li>Close your eyes (optional)</li><li>Feel your feet — they touch the earth</li><li>Feel the axis — the line above you</li><li>Feel the weight — the force holding you down</li><li>Open your eyes</li></ol><p><strong>The Idea:</strong><br>You don't have <strong>three things</strong>. You have <strong>one system that works</strong>.</p>`, breathing: `<div class="breath-step"><strong>Integrated Breathing (5 minutes)</strong><p>Feel gravity pulling down. Feel breath moving. One system.</p></div>`, reflection: "Could I feel all three? Which did I feel most strongly?", openSpace: "You don't have three things. You have <strong>one bike that works perfectly</strong>."},
+                    {day: 6, title: "Daily Observations", lesson: `<p><strong>The Game:</strong> 5-6 times daily, 30 seconds: Stop. Quick check: Feet + Axis + Weight. What changed?</p><p><strong>Good times:</strong> When you wake, before eating, middle of work, before sleep.</p><p><strong>The Idea:</strong> You're not doing <strong>one big exercise</strong>. You're doing <strong>many small recognitions</strong>.</p>`, breathing: `<div class="breath-step"><strong>6 Micro-Observations (30 sec each)</strong><p>Throughout the day, take 30 seconds to feel the three elements.</p></div>`, reflection: "How many times did I do this? What was different at different times?", openSpace: "The important question is not 'Did I do it right?' It is: 'What did I notice?'"},
+                    {day: 7, title: "Sensing Tension", lesson: `<p><strong>The Game:</strong> Same as yesterday, but notice: Where do you hold tension? Jaw, shoulders, back, pelvis, stomach, neck?</p><p>When you imagine the axis, what <strong>relaxes</strong>?</p><p><strong>Week 1 Complete!</strong> You now understand your bike.</p>`, breathing: `<div class="breath-step"><strong>Tension Release Breathing (5 minutes)</strong><p>Notice where you hold tension. With each exhale, let that area relax.</p></div>`, reflection: "What did I learn about my body — my bike?", openSpace: "You're not different. You are the bike. And the bike is already whole."}
+                ]
+            },
+            2: {
+                title: "Week 2: Balance Through Movement",
+                subtitle: "Pedals and breath. Movement regulates.",
+                days: [
+                    {day: 1, title: "Feel the Air", lesson: `<p>Sit on your bike (feet on pedals, don't push yet). Quick check: Feet ✓ Axis ✓ Weight ✓. Now feel the air around you. Where does it touch your face? This is what you will sync with breathing.</p>`, breathing: `<div class="breath-step"><strong>Air Observation (5 minutes)</strong><p>Feel the air on your face as you breathe. The air coming in is like the inhale. The air around you is like the exhale. They're connected.</p></div>`, reflection: "What did I notice about the air?", openSpace: "Your breath is like the air. You don't control it. You just feel it."},
+                    {day: 2, title: "The Rhythm of Movement", lesson: `<p>Start pedaling very gently. PUSH → (pause) → PUSH. Don't speed up. Just <strong>observe the rhythm</strong>.</p>`, breathing: `<div class="breath-step"><strong>Rhythm Breathing (5 minutes)</strong><p>Let the pedal rhythm sync with your breath. One pedal = one breath cycle.</p></div>`, reflection: "How many seconds was one pedal?", openSpace: "The bike has rhythm. Your feet have rhythm. Breathing has rhythm. They're all the same movement."},
+                    {day: 3, title: "Your Rhythm Tells the Truth", lesson: `<p>Pedal and observe. If <strong>relaxed</strong>: rhythm is slow, steady. If <strong>anxious</strong>: rhythm becomes faster. If <strong>tired</strong>: rhythm becomes slower. The bike tells you how you are.</p>`, breathing: `<div class="breath-step"><strong>Honest Rhythm Breathing (5 minutes)</strong><p>Don't try to control the rhythm. Just notice what naturally happens.</p></div>`, reflection: "When was the movement fastest?", openSpace: "You don't need to analyze. The bike <strong>is the indicator</strong>."},
+                    {day: 4, title: "The Active Return", lesson: `<p>Quick check (10 sec). Close your eyes. Pedal firmly 3 times. Then slow to gentle pedaling. Feel your legs relax. Feel breathing adjust. When you ease off, the body relaxes <strong>immediately</strong>.</p>`, breathing: `<div class="breath-step"><strong>Effort → Release Breathing (5 minutes)</strong><p>Effort on pedals → hold breath. Slow down → exhale with relief.</p></div>`, reflection: "What did I feel when I returned to slow rhythm?", openSpace: "When you stop pushing, you relax immediately. You don't need to do anything else."},
+                    {day: 5, title: "Gravity + Breathing = One System", lesson: `<p>Feel all of this at once: Feet ✓ Axis ✓ Weight ✓ + Breath synced with pedals. You now have TWO anchors: Gravity holds you DOWN. Breathing holds you IN THE NOW.</p>`, breathing: `<div class="breath-step"><strong>Integrated Breathing (5 minutes)</strong><p>Feel gravity pulling down. Feel breath moving up and down. One system.</p></div>`, reflection: "Could I feel both?", openSpace: "You don't have two things. You have <strong>one system that works</strong>."},
+                    {day: 6, title: "Rhythm Observations", lesson: `<p>5-6 times daily, 30 seconds: Stop. Quick check: Feet + Axis. Feel your breathing. How fast? Deep or shallow? Calm or tense?</p>`, breathing: `<div class="breath-step"><strong>6 Rhythm Checkpoints (30 sec each)</strong><p>Just stop and feel. Not good or bad. Just what is.</p></div>`, reflection: "How many times did I do this?", openSpace: "Your breath is <strong>the mirror of your soul</strong>."},
+                    {day: 7, title: "Breathing as a Lifeline", lesson: `<p><strong>Week 2 Complete!</strong> You now have two anchors. Whenever you feel tense or anxious: Stop. Quick check. Pedal gently + slow exhale. Observe what happens.</p>`, breathing: `<div class="breath-step"><strong>Lifeline Breathing (Throughout the day)</strong><p>Every time you need it, return to your breath. It's always here. It's always now.</p></div>`, reflection: "When was breathing most helpful?", openSpace: "Your <strong>breath</strong> keeps you here and now. You don't need to think. Just move with the rhythm."}
+                ]
+            },
+            3: {
+                title: "Week 3: Eyes on the Road",
+                subtitle: "Look. Stay calm. Move.",
+                days: [
+                    {day: 1, title: "Watch the Road", lesson: `<p>Now you add focused attention. Keep pedaling with rhythm. Eyes forward. Body grounded. All three at once.</p>`, breathing: `<div class="breath-step"><strong>Aware Breathing (5 minutes)</strong><p>Keep pedaling. Eyes ahead. Body grounded. All three together.</p></div>`, reflection: "Can I stay grounded while being aware?", openSpace: "Your <strong>attention</strong> doesn't disconnect you. It connects you to the world."},
+                    {day: 2, title: "Navigate Obstacles", lesson: `<p>Pedal through a space with gentle challenges. Navigate around them while keeping your foundation.</p>`, breathing: `<div class="breath-step"><strong>Navigation Breathing (5 minutes)</strong><p>Feel how breath adjusts when you navigate. It's automatic. Trust it.</p></div>`, reflection: "What obstacles did I encounter?", openSpace: "Your <strong>attention</strong> is the lens that guides you."},
+                    {day: 3, title: "Stay Grounded While Focused", lesson: `<p>The key: You can focus ahead AND stay grounded. It's not "either/or". It's "both/and".</p>`, breathing: `<div class="breath-step"><strong>Dual Awareness Breathing (5 minutes)</strong><p>Eyes forward. Body earthed. Breath rhythmic. All three. Always.</p></div>`, reflection: "Can I feel the bike AND look ahead?", openSpace: "It's not 'or'. It's 'and'."},
+                    {day: 4, title: "The Labeling Technique", lesson: `<p>When distractions come, don't fight them. Label them and return. "Thinking" "Sound" "Distraction" — then back to the path.</p>`, breathing: `<div class="breath-step"><strong>Labeling Breathing (5 minutes)</strong><p>When breath gets caught, label what's holding it. Then release and return.</p></div>`, reflection: "What distractions came?", openSpace: "Attention doesn't mean no thoughts. It means thoughts come, but they don't hold you."},
+                    {day: 5, title: "Attention + Gravity + Breath = Full Bike", lesson: `<p>All three systems working together. Pedals. Axis. Gravity. Breathing. Eyes forward. You are complete.</p>`, breathing: `<div class="breath-step"><strong>Complete System Breathing (5-10 minutes)</strong><p>Feel all three: ground, rhythm, direction. The bike rides itself.</p></div>`, reflection: "Which is the foundation?", openSpace: "You don't have three things. You have <strong>one bike that works perfectly</strong>."},
+                    {day: 6, title: "Road Observations", lesson: `<p>5-6 times daily: Stop. Check (feet + axis + breathing). Look ahead. Check: Am I still grounded?</p>`, breathing: `<div class="breath-step"><strong>6 Connection Checkpoints (30 sec each)</strong><p>Feel how attention doesn't disconnect you. It connects you.</p></div>`, reflection: "While looking ahead, did I stay grounded?", openSpace: "Your attention gives you <strong>power</strong>. Not loss."},
+                    {day: 7, title: "Navigating Real Life", lesson: `<p><strong>Week 3 Complete!</strong> You can face challenges while staying grounded, rhythmic, and aware.</p>`, breathing: `<div class="breath-step"><strong>Life Navigation Breathing (Throughout the day)</strong><p>Every challenge is just another obstacle. You have three anchors. You're ready.</p></div>`, reflection: "When was attention most helpful?", openSpace: "I looked ahead and <strong>stayed home</strong>. This is possible."}
+                ]
+            },
+            4: {
+                title: "Week 4: Riding in Nature",
+                subtitle: "I looked. I stayed calm. And I felt everything.",
+                days: [
+                    {day: 1, title: "Soft Eyes", lesson: `<p>Stop gripping the road with your attention. Open it. See the road ahead AND the sky above. Feel both.</p>`, breathing: `<div class="breath-step"><strong>Open Breathing (10 minutes)</strong><p>Let the breath expand beyond the body. Feel it connected to wind, air, the world.</p></div>`, reflection: "What changed when I softened my gaze?", openSpace: "Open awareness doesn't mean lost. It means I look ahead AND feel everything."},
+                    {day: 2, title: "The Sky Metaphor", lesson: `<p>The road is one cloud in the sky of consciousness. Watch the cloud AND feel the sky. The cloud changes. The sky never does.</p>`, breathing: `<div class="breath-step"><strong>Sky Breathing (10 minutes)</strong><p>Your breath is like the sky. Thoughts are clouds. They appear and disappear in vast openness.</p></div>`, reflection: "If attention is a cloud, what is the sky?", openSpace: "You're not just attention. You're an open space that holds everything."},
+                    {day: 3, title: "Feel, Don't Think", lesson: `<p>Don't try to "experience" it. Let it in. The wind touches your face. The earth pushes back. The sky is above. Simple.</p>`, breathing: `<div class="breath-step"><strong>Passive Breathing (10 minutes)</strong><p>Don't control the breath. Let it breathe you. Feel the difference between effort and surrender.</p></div>`, reflection: "What did I feel passively?", openSpace: "You don't do anything. You simply... <strong>open</strong>."},
+                    {day: 4, title: "The Complete Bike", lesson: `<p>All four layers working together: Gravity (grounded) + Breathing (rhythmic) + Attention (watching) + Open Space (feeling everything). There is no "me doing this". There is just the ride happening.</p>`, breathing: `<div class="breath-step"><strong>Integrated Full Breathing (15-20 minutes)</strong><p>Feel all four at once. Not separate. One organism riding.</p></div>`, reflection: "Is there a moment when there is no 'me'?", openSpace: "This is full presence. Not as an idea. As something you discover."},
+                    {day: 5, title: "There is No Difference", lesson: `<p>Ride without trying. Let all four work together. When you stop trying, you discover: there is no separation between you and the ride.</p>`, breathing: `<div class="breath-step"><strong>Effortless Breathing (20 minutes)</strong><p>I pedal. The earth supports. Breath flows. Eyes see. Heart feels. It all happens. I don't have to do it.</p></div>`, reflection: "What happened when I stopped trying?", openSpace: "I'm not the rider. I am the bike."},
+                    {day: 6, title: "Ride Without Thinking", lesson: `<p>Go on a longer ride. Don't observe. Don't practice. Just ride. Let all four happen on their own.</p>`, breathing: `<div class="breath-step"><strong>Pure Riding Breathing (20-30 minutes)</strong><p>The breath rides you. The earth carries you. Eyes guide you. Heart feels you. You are the ride.</p></div>`, reflection: "Did the bike feel like it was riding itself?", openSpace: "When you stop trying, <strong>life begins</strong>."},
+                    {day: 7, title: "Integration Reflection", lesson: `<p><strong>Week 4 Complete!</strong> You have learned all four axes: Gravity + Breathing + Attention + Space. Now you ride your life.</p>`, breathing: `<div class="breath-step"><strong>Completion Breathing (Anytime)</strong><p>You don't need a lesson anymore. You are the lesson. Ride.</p></div>`, reflection: "What does it mean that I'm complete?", openSpace: "There was never anything missing. It was always here. I just needed to look."}
+                ]
+            }
+        };
+
+        let currentWeek = 1;
+        let currentDay = 1;
+
+        function loadState() {
+            const saved = localStorage.getItem('ltr-state-en');
+            if (saved) {
+                const state = JSON.parse(saved);
+                currentWeek = state.week;
+                currentDay = state.day;
+            }
+            updateUI();
+        }
+
+        function saveState() {
+            localStorage.setItem('ltr-state-en', JSON.stringify({
+                week: currentWeek,
+                day: currentDay
+            }));
+        }
+
+        function updateUI() {
+            const week = programData[currentWeek];
+            const dayData = week.days[currentDay - 1];
+
+            document.getElementById('weekTitle').textContent = `${week.title} · ${dayData.title}`;
+            document.getElementById('dayNumber').textContent = currentDay;
+            document.getElementById('progressPercent').textContent = Math.round((currentDay / 7) * 100);
+            document.getElementById('progressFill').style.width = `${(currentDay / 7) * 100}%`;
+
+            document.getElementById('lessonTitle').textContent = `Day ${currentDay}: ${dayData.title}`;
+            document.getElementById('lessonContent').innerHTML = dayData.lesson;
+
+            document.getElementById('breathingGuide').innerHTML = dayData.breathing;
+
+            document.getElementById('reflectionPrompt').textContent = dayData.reflection;
+            document.getElementById('journalEntry').value = '';
+
+            document.getElementById('openSpaceText').innerHTML = dayData.openSpace;
+
+            document.querySelectorAll('.week-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i + 1 === currentWeek);
+            });
+
+            saveState();
+        }
+
+        function selectWeek(week) {
+            currentWeek = week;
+            currentDay = 1;
+            updateUI();
+        }
+
+        function previousDay() {
+            if (currentDay > 1) {
+                currentDay--;
+            } else if (currentWeek > 1) {
+                currentWeek--;
+                currentDay = 7;
+            }
+            updateUI();
+        }
+
+        function nextDay() {
+            if (currentDay < 7) {
+                currentDay++;
+            } else if (currentWeek < 4) {
+                currentWeek++;
+                currentDay = 1;
+            }
+            updateUI();
+        }
+
+        function markPracticed() {
+            document.getElementById('practiceBtn').textContent = '✓ Practiced Today!';
+            document.getElementById('practiceBtn').style.background = 'var(--sage)';
+        }
+
+        function saveJournal() {
+            const text = document.getElementById('journalEntry').value.trim();
+            if (!text) {
+                alert('Please write something first!');
+                return;
+            }
+            document.getElementById('journalEntry').value = '';
+            alert('✓ Saved to journal!');
+        }
+
+        function goHome() {
+            if (confirm('Go back to home?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadState);
+    </script>
+</body>
+</html>
