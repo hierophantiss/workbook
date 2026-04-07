@@ -2,35 +2,22 @@
 <html lang="el">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="description" content="Οδηγός ενσυνειδητότητας για νευροδιαφορετικούς — Τετραπλός Άξονας: Σώμα, Αναπνοή, Προσοχή, Χώρος. Mindfulness guide for neurodivergent individuals.">
 <meta name="author" content="Θεόδωρος Μπαϊρακτάρης">
 <meta name="theme-color" content="#2A5D5E">
-<meta name="color-scheme" content="light dark">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="format-detection" content="telephone=no">
 <meta property="og:title" content="Mindfulness for Neurodivergent Minds">
 <meta property="og:description" content="Δωρεάν οδηγός ενσυνειδητότητας για νευροδιαφορετικούς. Trauma-informed, δίγλωσσος, offline. Free mindfulness guide for neurodivergent individuals.">
 <meta property="og:image" content="https://mindfulness-practice.site/hero.png">
 <meta property="og:url" content="https://mindfulness-practice.site/">
 <meta property="og:type" content="website">
-<meta property="og:locale" content="el_GR">
-<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@mindfulnessguide">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Mindfulness">
 <title>Mindfulness — Οδηγός για Νευροδιαφορετικούς</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<!-- Prefetch common screen resources -->
-<link rel="prefetch" href="hero.png" as="image">
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
-<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
-<!-- Fonts — optimized for fast loading -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@300;700;900&display=swap" rel="stylesheet">
@@ -71,8 +58,8 @@
   --lav:        #B5A7D0;  /* space */
 
   /* Text — no pure black */
-  --text:       #1F2B27;  /* slightly darker from #2E3D35 for 5:1+ contrast */
-  --text-soft:  #5C6761;  /* boosted from #6B7478 for readability */
+  --text:       #1F2B27;  /* darker for 5:1+ contrast */
+  --text-soft:  #5C6761;  /* boosted for readability */
   --text-hint:  #6D7570;  /* adjusted for consistency */
   --border:     #B8C4B9;  /* visible on sage bg */
 
@@ -112,27 +99,7 @@ body.dark .about-bio { color: var(--text-soft); }
 body.dark .tw-card { background: var(--bg-card); }
 body.dark .tw-text { color: var(--text-soft); }
 
-/* Active nav indicator */
-.bottom-nav .nav-item.active {
-  color: var(--teal);
-  font-weight: 600;
-}
-.bottom-nav .nav-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 3px;
-  background: var(--teal);
-  border-radius: 2px;
-}
-
-html { 
-  scroll-behavior: smooth; 
-  touch-action: pan-y;
-}
+html { scroll-behavior: smooth; }
 /* ═══ RESET ═══ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 16px; -webkit-text-size-adjust: 100%; }
@@ -143,10 +110,6 @@ body {
   min-height: 100vh; min-height: 100dvh;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
-  color-scheme: light dark;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
 }
 
 /* ═══ ACCESSIBILITY ═══ */
@@ -162,27 +125,9 @@ body {
   outline: 2px solid var(--teal-light);
   outline-offset: 2px;
 }
-.action-btn:focus-visible, .grid-card:focus-visible, .sec-btn:focus-visible, .state-btn:focus-visible, .nav-btn:focus-visible {
+.action-btn:focus-visible, .grid-card:focus-visible, .sec-btn:focus-visible, .state-btn:focus-visible {
   outline: 3px solid var(--teal); outline-offset: 3px;
   box-shadow: 0 0 0 5px rgba(42,93,94,0.15);
-}
-
-/* Better keyboard navigation */
-.nav-btn:focus-visible::after {
-  width: 28px;
-  height: 4px;
-}
-
-/* Screen reader text */
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -229,13 +174,6 @@ body {
 .top-lang:hover, .top-lang.active { background: rgba(255,255,255,0.15); color: white; }
 
 /* ═══ DESKTOP RESPONSIVE ═══ */
-@media (min-width: 360px) {
-  /* Small phones — tighter spacing but readable */
-  :root { --nav-h: 64px; }
-  .home-actions { gap: 8px; }
-  .action-btn { padding: 12px 14px; gap: 10px; }
-}
-
 @media (min-width: 600px) {
   :root { --max-w: 720px; }
   .top-title { font-size: 20px; }
@@ -268,15 +206,6 @@ body {
   .practice-grid { padding: 8px 20px; }
 }
 
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-  .action-btn, .grid-card, .practice-card { 
-    transition: background .2s, box-shadow .2s;
-    padding-bottom: 18px;
-  }
-  .action-btn:active { background: var(--teal-pale); }
-}
-
 /* ═══ SCREENS ═══ */
 .screen {
   display: none; position: fixed;
@@ -291,19 +220,6 @@ body {
 .screen.active .scroll-area { animation: screenFadeIn 0.3s ease; }
 @keyframes screenFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Loading state animation — subtle pulse */
-@keyframes pulse { 
-  0%, 100% { opacity: 1; } 
-  50% { opacity: 0.5; } 
-}
-
-/* Skeleton loader for content cards */
-.skeleton {
-  animation: shimmer 2s infinite;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
-  background-size: 1000px 100%;
-}
-
 /* ═══ HERO SECTION WITH OVERLAY ═══ */
 .hero-section {
   position: relative; overflow: hidden;
@@ -313,8 +229,6 @@ body {
 .hero-img {
   width: 100%; height: 360px; object-fit: cover; object-position: center 15%;
   display: block;
-  will-change: transform;
-  content-visibility: auto;
 }
 .hero-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
@@ -339,21 +253,13 @@ body.dark .hero-section { border: 0.5px solid var(--border); }
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 16px 18px;
   cursor: pointer; font-family: inherit; text-align: left;
-  transition: transform .12s, background .15s, box-shadow .15s; width: 100%;
+  transition: transform .12s; width: 100%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  will-change: background, box-shadow;
-}
-.action-btn:hover {
-  background: var(--teal-pale);
 }
 .action-btn:active { transform: scale(0.97); }
 .action-btn.action-primary {
   background: var(--teal); border-color: transparent;
   box-shadow: 0 4px 16px rgba(42,93,94,0.3);
-}
-.action-btn.action-primary:hover {
-  background: #236364;
-  box-shadow: 0 6px 20px rgba(42,93,94,0.4);
 }
 .action-btn.action-primary .action-label { color: white; }
 .action-icon { font-size: 22px; flex-shrink: 0; }
@@ -423,35 +329,11 @@ body.dark .bottom-nav {
   background: none; border: none; cursor: pointer;
   color: var(--text-hint); font-family: inherit;
   font-size: 10px; font-weight: 700; letter-spacing: 0.3px;
-  transition: color .2s, background .15s; 
-  padding: 4px 0;
-  min-height: 48px;
-  position: relative;
+  transition: color .2s; padding: 4px 0;
 }
-.nav-btn:active { 
-  background: rgba(42, 93, 94, 0.08);
-}
-.nav-btn.active { 
-  color: var(--teal); 
-  font-weight: 700;
-}
-.nav-btn.active svg { 
-  filter: drop-shadow(0 2px 4px rgba(42,93,94,0.3)); 
-}
-.nav-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 3px;
-  background: var(--teal);
-  border-radius: 2px;
-}
-.nav-btn svg { 
-  width: 20px; height: 20px; stroke: currentColor; fill: none; 
-}
+.nav-btn.active { color: var(--teal); }
+.nav-btn.active svg { filter: drop-shadow(0 2px 4px rgba(42,93,94,0.3)); }
+.nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; }
 
 /* ═══ PRACTICE OVERLAY ═══ */
 .practice-overlay {
@@ -873,15 +755,10 @@ body.reduce-motion *, body.reduce-motion *::before, body.reduce-motion *::after 
 
       <!-- HERO WITH ROTATING QUOTES -->
       <div class="hero-section">
-        <img class="hero-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 360'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%232A5D5E;stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:%23A8D5DC;stop-opacity:1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='480' height='360' fill='url(%23g)'/%3E%3Ctext x='240' y='160' font-size='48' font-weight='bold' text-anchor='middle' fill='white' font-family='Georgia,serif'%3EMindfulness%3C/text%3E%3Ctext x='240' y='220' font-size='24' text-anchor='middle' fill='%23E8F6F8' font-family='Georgia,serif'%3E4-Axis Guide%3C/text%3E%3C/svg%3E" alt="Mindfulness Guide" loading="lazy" decoding="async">
+        <img class="hero-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 360'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%232A5D5E;stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:%23A8D5DC;stop-opacity:1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='480' height='360' fill='url(%23g)'/%3E%3C/svg%3E" alt="Mindfulness" loading="lazy">
         <div class="hero-overlay">
           <h2 class="hero-overlay-text" id="hero-quote"></h2>
         </div>
-      </div>
-
-      <!-- HERO SUBTITLE — Guide for new users -->
-      <div style="padding: 0 16px 12px; text-align: center;">
-        <p style="font-size: 14px; color: var(--text-soft); margin: 0; font-style: italic;" data-i18n="heroSubtitle">Τέσσερις άξονες ενσυνειδητότητας για νευροδιαφορετικά μυαλά</p>
       </div>
 
       <!-- 3 BIG ACTION BUTTONS -->
@@ -1071,9 +948,6 @@ const T = {
     // Nav
     navHome: 'Αρχική', navChapters: 'Βήματα', navBreath: 'Αναπνοή',
     navExercises: 'Ασκήσεις', navJournal: 'Ημερολόγιο',
-
-    // Hero
-    heroSubtitle: 'Τέσσερις άξονες ενσυνειδητότητας για νευροδιαφορετικά μυαλά',
 
     // RPG Menu
     menuStart: 'Ξεκίνα', menuStartSub: 'Μανιφέστο · Πρώτα βήματα',
@@ -1654,46 +1528,6 @@ let LANG = 'el';
 let currentScreen = 'home';
 const screenHistory = ['home'];
 
-// ═══ SESSION RECOVERY & CRASH DETECTION ═══
-const SESSION_KEY = 'mindfulness_session';
-const CRASH_KEY = 'mindfulness_crashed';
-
-// Detect and recover from crashes
-if (safeLocalStorage.getItem(CRASH_KEY)) {
-  console.log('App crashed previously, recovering session...');
-  const savedScreen = safeLocalStorage.getItem(SESSION_KEY);
-  if (savedScreen) {
-    setTimeout(() => showScreen(savedScreen), 100);
-  }
-  safeLocalStorage.removeItem(CRASH_KEY);
-}
-
-// Mark as running (remove on unload)
-safeLocalStorage.setItem(CRASH_KEY, 'true');
-window.addEventListener('beforeunload', () => {
-  safeLocalStorage.setItem(SESSION_KEY, currentScreen);
-  safeLocalStorage.removeItem(CRASH_KEY);
-});
-
-// ═══ PERFORMANCE & NETWORK MONITORING ═══
-let isOnline = navigator.onLine;
-window.addEventListener('online', () => { isOnline = true; });
-window.addEventListener('offline', () => { isOnline = false; });
-
-// Log performance metrics
-if ('PerformanceObserver' in window) {
-  try {
-    const perfObserver = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (entry.duration > 1000) {
-          console.log(`Slow operation: ${entry.name} took ${Math.round(entry.duration)}ms`);
-        }
-      }
-    });
-    perfObserver.observe({ entryTypes: ['measure', 'navigation', 'paint'] });
-  } catch(e) { /* observer not supported */ }
-}
-
 // ═══ NAVIGATION ═══
 function tapFeedback() { if (navigator.vibrate && !document.body.classList.contains('reduce-motion')) navigator.vibrate(8); }
 function showScreen(id) {
@@ -1702,7 +1536,6 @@ function showScreen(id) {
   const screen = document.getElementById('screen-' + id);
   if (screen) {
     screen.classList.add('active');
-    
     if (currentScreen !== id) {
       screenHistory.push(id);
       try{history.pushState({screen:id},'','#'+id)}catch(e){}
@@ -1734,18 +1567,10 @@ function showScreen(id) {
 }
 
 function goBack() {
-  // Improved back navigation with fallback
-  if (screenHistory.length > 1) {
-    screenHistory.pop();
-    const prevScreen = screenHistory[screenHistory.length - 1];
-    showScreen(prevScreen);
-  } else {
-    // Fallback: use browser history
-    try { history.back(); } catch(e) { showScreen('home'); }
-  }
+  try{history.back()}catch(e){showScreen('home')}
 }
 
-// Browser back button handler with improved state management
+// Browser back button handler
 window.addEventListener('popstate', function(e) {
   if (e.state && e.state.screen) {
     currentScreen = e.state.screen;
@@ -2892,12 +2717,6 @@ function bMaybeCue(now) {
 }
 
 function bAnimate(ts) {
-  // Pause animation if page is hidden (save battery)
-  if (document.hidden) {
-    bAnimId = requestAnimationFrame(bAnimate);
-    return;
-  }
-  
   if (!bCanvas.width) bResizeCanvas();
   if (bRunning) { bUpdatePhase(ts); bUpdateTimer(ts); bMaybeCue(ts); }
   bDraw();
@@ -2988,102 +2807,41 @@ function showCelebrate() {
 }
 
 // ══════════════════════════════════════════════
-// SERVICE WORKER REGISTRATION — PWA OFFLINE SUPPORT
+// SERVICE WORKER — OFFLINE SUPPORT
 // ══════════════════════════════════════════════
-// ══════════════════════════════════════════════
-// ERROR HANDLING & GRACEFUL DEGRADATION
-// ══════════════════════════════════════════════
-window.addEventListener('error', (event) => {
-  console.error('Global error caught:', event.error);
-  // Log non-critical errors but don't crash the app
-});
-
-window.addEventListener('unhandledrejection', (event) => {
-  console.error('Unhandled promise rejection:', event.reason);
-  // Log promise rejections
-});
-
-// Fallback for critical features
-const safeLocalStorage = {
-  getItem(key) {
-    try { return localStorage.getItem(key); } 
-    catch(e) { return null; }
-  },
-  setItem(key, value) {
-    try { localStorage.setItem(key, value); } 
-    catch(e) { console.log('localStorage full or unavailable'); }
-  },
-  removeItem(key) {
-    try { localStorage.removeItem(key); } 
-    catch(e) { }
-  }
-};
-
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('data:application/javascript,' + encodeURIComponent(`
       const CACHE_NAME = 'mindfulness-v1';
-      const urlsToCache = [
-        '/',
-        '/index.html',
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
-      ];
       
       self.addEventListener('install', event => {
-        event.waitUntil(
-          caches.open(CACHE_NAME).then(cache => {
-            console.log('Service Worker: cache opened');
-            return cache.addAll(urlsToCache).catch(err => {
-              console.log('Service Worker: partial cache (expected)', err);
-            });
-          })
-        );
         self.skipWaiting();
       });
       
       self.addEventListener('activate', event => {
-        event.waitUntil(
-          caches.keys().then(cacheNames => {
-            return Promise.all(
-              cacheNames.map(cacheName => {
-                if (cacheName !== CACHE_NAME) {
-                  return caches.delete(cacheName);
-                }
-              })
-            );
-          })
-        );
         self.clients.claim();
       });
       
       self.addEventListener('fetch', event => {
         if (event.request.method !== 'GET') return;
-        
         event.respondWith(
           caches.match(event.request).then(response => {
             if (response) return response;
-            
             return fetch(event.request).then(response => {
-              if (!response || response.status !== 200 || response.type !== 'basic') {
-                return response;
-              }
-              
+              if (!response || response.status !== 200) return response;
               const responseToCache = response.clone();
               caches.open(CACHE_NAME).then(cache => {
                 cache.put(event.request, responseToCache);
               });
-              
               return response;
             }).catch(() => {
-              return caches.match(event.request).then(r => r);
+              return caches.match(event.request);
             });
           })
         );
       });
-    `)).then(reg => {
-      console.log('Service Worker registered:', reg);
-    }).catch(err => {
-      console.log('Service Worker registration failed:', err);
+    `)).catch(err => {
+      console.log('Service Worker failed:', err);
     });
   });
 }
