@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="color-scheme" content="light dark">
+    <title>Four Axes — 8-Week Program</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Instrument+Serif:opsz@14..32&display=swap" rel="stylesheet">
+    <style>
+        /* RESET & BASE — calm, predictable foundation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light mode – neutral, warm, low contrast but readable */
+            --bg-page: #f9f7f3;
+            --bg-card: #ffffff;
+            --bg-soft: #f2efe9;
+            --teal: #2c6e6b;
+            --teal-light: #4f9e9a;
+            --gold: #bc8f4b;
+            --gold-soft: #dbb067;
+            --lav: #9c8eaa;
+            --text-primary: #2b2a28;
+            --text-secondary: #5b5a56;
+            --text-muted: #8c8982;
+            --border-light: #e2ddd4;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
+            --focus-ring: 0 0 0 3px rgba(44, 110, 107, 0.3);
+            --transition: all 0.2s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-page: #121210;
+                --bg-card: #1e1f1c;
+                --bg-soft: #2a2b27;
+                --teal: #6fc2be;
+                --teal-light: #8fd9d5;
+                --gold: #e0b062;
+                --gold-soft: #ecc67a;
+                --lav: #b9accc;
+                --text-primary: #ece9e2;
+                --text-secondary: #b8b5ab;
+                --text-muted: #827f76;
+                --border-light: #34332e;
+                --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+                --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        body {
+            background: var(--bg-page);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            padding-bottom: 100px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--teal) 0%, #1d5552 100%);
+            color: white;
+            padding: 32px 24px 28px;
+            border-radius: 32px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        header h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+        }
+
+        .header-sub {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 0.2px;
+        }
+
+        .header-week {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 6px;
+        }
+
+        .header-day-title {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .progress-track {
+            background: rgba(255, 255, 255, 0.25);
+            height: 6px;
+            border-radius: 6px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: var(--gold-soft);
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .progress-label {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .week-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 12px 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            line-height: 1.3;
+            backdrop-filter: blur(2px);
+        }
+
+        .week-btn:hover {
+            border-color: var(--teal-light);
+            background: var(--bg-soft);
+            transform: translateY(-1px);
+        }
+
+        .week-btn.active {
+            background: var(--teal);
+            color: white;
+            border-color: var(--teal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .week-btn .axis-label {
+            display: block;
+            font-size: 0.7rem;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        .axis-indicator {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            padding: 6px 12px;
+            background: var(--bg-soft);
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 40px;
+            font-style: normal;
+        }
+
+        section {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: 24px 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        section h2 {
+            font-family: 'Instrument Serif', serif;
+            color: var(--teal);
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 12px;
+            letter-spacing: -0.2px;
+        }
+
+        section h3 {
+            font-family: 'Instrument Serif', serif;
+            color: var(--gold);
+            font-size: 1.35rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            border-left: 3px solid var(--gold);
+            padding-left: 14px;
+        }
+
+        .meta-line {
+            display: flex;
+            gap: 24px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .lesson-body {
+            line-height: 1.7;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .lesson-body p {
+            margin-bottom: 1.2em;
+        }
+
+        .lesson-body strong {
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        .lesson-body em {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .exercise-box {
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 24px 0;
+            border-left: 4px solid var(--teal);
+            transition: var(--transition);
+        }
+
+        .exercise-box .ex-title {
+            font-weight: 600;
+            color: var(--teal);
+            margin-bottom: 14px;
+            font-size: 1rem;
+            letter-spacing: -0.2px;
+        }
+
+        .exercise-box .step {
+            margin-bottom: 12px;
+            padding-left: 26px;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        .exercise-box .step::before {
+            content: attr(data-n);
+            position: absolute;
+            left: 0;
+            font-weight: 500;
+            color: var(--teal-light);
+            font-size: 0.85rem;
+        }
+
+        .breath-card {
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 8px 0 16px;
+            border: 1px solid var(--border-light);
+        }
+
+        .breath-card strong {
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        .reflection-q {
+            background: var(--bg-soft);
+            padding: 16px 20px;
+            border-left: 4px solid var(--lav);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            font-style: normal;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 16px;
+            border: 1.5px solid var(--border-light);
+            border-radius: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            resize: vertical;
+            transition: var(--transition);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: var(--focus-ring);
+        }
+
+        .insight-box {
+            background: linear-gradient(145deg, rgba(156, 142, 170, 0.08), rgba(44, 110, 107, 0.05));
+            border-radius: 24px;
+            padding: 20px 24px;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.2rem;
+            font-style: normal;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--teal);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 60px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn:hover {
+            filter: brightness(1.03);
+            transform: scale(0.99);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--teal);
+            border: 1.5px solid var(--border-light);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--teal);
+            background: var(--bg-soft);
+        }
+
+        .btn-done {
+            background: var(--gold);
+            color: #1e1e1c;
+        }
+
+        .nav-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .home-float {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            color: var(--teal);
+            border: 1px solid var(--border-light);
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            z-index: 100;
+            width: auto;
+            min-width: 200px;
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .home-float {
+                background: rgba(30, 31, 28, 0.9);
+                backdrop-filter: blur(10px);
+                color: var(--teal-light);
+            }
+        }
+
+        .home-float:hover {
+            background: var(--teal);
+            color: white;
+            border-color: var(--teal);
+            transform: translateX(-50%) scale(1.02);
+        }
+
+        button:focus-visible,
+        textarea:focus-visible,
+        .week-btn:focus-visible {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
+
+        @media (max-width: 560px) {
+            .container {
+                padding: 16px 12px 40px;
+            }
+            header {
+                padding: 24px 18px;
+            }
+            section {
+                padding: 20px 18px;
+            }
+            .home-float {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+                min-width: 170px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Four Axes</h1>
+            <div class="header-sub">Body · Breath · Attention · Space</div>
+            <div class="header-week" id="headerWeek">Week 1 · Body</div>
+            <div class="header-day-title" id="headerDay">Day 1</div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="progress-label" id="progressLabel">Day 1 / 56</div>
+        </header>
+
+        <div class="week-grid" id="weekGrid"></div>
+        <div class="axis-indicator" id="axisIndicator"></div>
+
+        <section id="lessonSection">
+            <h2 id="lessonTitle"></h2>
+            <div class="meta-line" id="metaLine"></div>
+            <div class="lesson-body" id="lessonBody"></div>
+        </section>
+
+        <section>
+            <h3>Today's Practice</h3>
+            <div class="breath-card" id="breathCard"></div>
+            <button class="btn btn-done" id="practiceBtn" onclick="markDone()">I Practiced</button>
+        </section>
+
+        <section>
+            <h3>Reflection</h3>
+            <div class="reflection-q" id="reflectionQ"></div>
+            <textarea id="journal" placeholder="What did I observe today?"></textarea>
+            <button class="btn" onclick="saveJournal()">Save</button>
+        </section>
+
+        <section>
+            <h3>Open Space</h3>
+            <div class="insight-box" id="insightBox"></div>
+        </section>
+
+        <section>
+            <div class="nav-row">
+                <button class="btn btn-outline" onclick="go(-1)">← Previous</button>
+                <button class="btn btn-outline" onclick="go(1)">Next →</button>
+            </div>
+        </section>
+    </div>
+
+    <button class="home-float" onclick="goHome()">← Home</button>
+
+<script>
+// ═══════════════════════════════════════
+// DATA — 8 weeks, fully translated from the workbook
+// ═══════════════════════════════════════
+
+const AXES = [
+    { name: 'Body', icon: '◆', weeks: [1,2] },
+    { name: 'Breath', icon: '◆', weeks: [3,4] },
+    { name: 'Attention', icon: '◆', weeks: [5,6] },
+    { name: 'Space', icon: '◆', weeks: [7,8] },
+];
+
+function ax(w) { return AXES.find(a => a.weeks.includes(w)); }
+
+const D = {
+1: {
+  title: 'The Stability of "Here"',
+  days: [
+    { title: 'Feel the Soles', where: 'Anywhere', dur: '2-3 min', lesson: '<p>The body is the undeniable foundation of the present moment. Today we start from the simplest: the points that touch the earth.</p><p>Stand or sit. Feel your soles — the pressure, the warmth, the contact with the ground. Simply observe, without changing anything.</p>', exercise: { title: 'Observing Contact', steps: ['Stand or sit comfortably.', 'Close your eyes if you wish.', 'Feel the points of contact with the earth — soles or pelvis.', 'Is there pressure? Warmth? Balance?', 'Stay there for 2 minutes. Just observe.'] }, breathing: '<strong>Natural Observation (2 min)</strong><p>Don\'t control your breath. Just observe how you naturally breathe while feeling your soles.</p>', reflection: 'What was the first thing I felt?', insight: 'Gravity is always here. The body is always here. That is enough to begin.' },
+    { title: 'Feel the Axis', where: 'Quiet place', dur: '3-5 min', lesson: '<p>The body is not only feet on the ground — it has structure. Imagine a line rising inside you: from the soles, through the pelvis, the spine, up to the crown of the head.</p><p>This vertical axis holds you. You don’t need to “fix” it — just recognize it.</p>', exercise: { title: 'The Vertical Axis', steps: ['Stand or sit.', 'First feel the soles (from yesterday).', 'Now imagine a line: soles → pelvis → belly → heart → neck → head.', 'Feel how this line keeps you upright.', 'Stay here for 3 minutes.'] }, breathing: '<strong>Axis Breath (3 min)</strong><p>Observe how the breath moves along this line. The spine is like a channel for the flow.</p>', reflection: 'Could I feel the axis? Where do I feel it most?', insight: 'Your axis is always there — even when you’re not paying attention. Today you recognized it.' },
+    { title: 'Feel Gravity', where: 'Home or quiet place', dur: '3 min', lesson: '<p>Gravity is not an enemy — it’s proof of “Here”. It shows us, without doubt, the exact point where we exist right now.</p><p>Let your weight drop downward — not by force, just allow it. Grounding is the first act of relaxation.</p>', exercise: { title: 'Surrendering to Gravity', steps: ['Stand or sit.', 'Feel the soles + the axis.', 'Now: let your weight sink into the earth.', 'Feel gravity pulling you — you don’t resist.', 'Observe: the body becomes more stable, more calm.'] }, breathing: '<strong>Gravity Breath (3 min)</strong><p>On the exhale, let yourself become heavier. On the inhale, feel the earth supporting you.</p>', reflection: 'What did I feel when I let go of the weight? Was it relief or discomfort?', insight: 'Gravity doesn’t press you down — it embraces you. It is your stability.' },
+    { title: 'The Book Exercise', where: 'Home', dur: '5 min', lesson: '<p>This is a classic exercise from the guide. Place a book or box on your head and observe what the body does by itself.</p><p>You don’t need to “fix” your posture — just notice how the organism self-regulates. When you pay attention, the body naturally aligns.</p>', exercise: { title: 'Book on the Head', steps: ['Stand upright.', 'Place a book or box on your head (optional).', 'Observe how you need to stand so it doesn’t fall.', 'Feel how the weight descends through the neck, spine, pelvis.', 'Remove the book — the sense of structure remains.'] }, breathing: '<strong>Stability Breath (5 min)</strong><p>Sit upright. Breathe naturally. Observe how the axis supports the breath.</p>', reflection: 'Which part of my body reacted first?', insight: 'You do nothing. Just observe — and the body responds.' },
+    { title: 'Soles + Axis + Gravity', where: 'Anywhere', dur: '3-5 min', lesson: '<p>Today you unite the three elements you learned: soles, axis, gravity. They are not three separate things — they are one unified feeling of grounding.</p>', exercise: { title: 'Integrated Grounding', steps: ['Close your eyes (optional).', 'Feel the soles — touching the earth.', 'Feel the axis — the line inside you.', 'Feel gravity — the force that stabilizes you.', 'Open your eyes. All together, simultaneously.'] }, breathing: '<strong>Integrated Breath (5 min)</strong><p>Hold all three: soles, axis, gravity. The breath connects them. Let it flow through the structure.</p>', reflection: 'Could I feel all three? Which one feels strongest?', insight: 'You don’t have three things. You have one body that knows how to stand.' },
+    { title: 'Small Returns', where: 'Throughout the day', dur: '6 × 30 sec', lesson: '<p>Today you don’t do one long exercise. You do 5-6 short ones at different moments of the day. Consistency in small doses is more important than duration.</p>', exercise: { title: '6 Grounding Moments', steps: ['When you wake up: 30" grounding.', 'Before eating: 30" grounding.', 'In the middle of work: 30" grounding.', 'After something difficult: 30" grounding.', 'Before sleeping: 30" grounding.', 'Each time: soles → axis → gravity → observe.'] }, breathing: '<strong>6 Small Recognitions (30" each)</strong><p>Stop and feel. Without judgment, without analysis. Just what is there, now.</p>', reflection: 'How many times did I remember to stop? What was different each time?', insight: 'Presence doesn’t need hours. It begins with victories of a few seconds.' },
+    { title: 'Where Do I Hold Tension?', where: 'Quiet place', dur: '5 min', lesson: '<p>The body is a living archive of experiences. Our posture often carries tension — jaw, shoulders, back, pelvis. These tensions aren’t problems. They are information.</p><p><em>Important: Change takes time. Don’t push yourself. Gentleness is the greatest act of self-regulation.</em></p>', exercise: { title: 'Tension Scan', steps: ['Ground yourself: soles → axis → gravity.', 'Slowly scan: jaw → neck → shoulders → back → belly → pelvis.', 'Where do you feel tightness?', 'With each exhale, let that area soften slightly.', 'You don’t fix anything — you just make space.'] }, breathing: '<strong>Releasing Tension (5 min)</strong><p>Observe where you hold tension. With each exhale, let that area relax. The axis helps naturally.</p>', reflection: 'Where was I holding tension? What did I learn about my body this week?', insight: 'You don’t need to “fix” anything. Nothing is broken. The goal is to return, gently, to your living presence.' }
+  ]
+},
+2: {
+  title: 'Body in Motion',
+  days: [
+    { title: 'Grounding in Space', where: 'Different spaces', dur: '3 min', lesson: '<p>Deep relaxation within the body always requires awareness of space. Today try grounding in different places: home, office, street.</p><p>When space is perceived as open, the body receives “permission” to relax.</p>', exercise: { title: 'Grounding in 3 Spaces', steps: ['Try grounding (soles, axis, gravity) in 3 different spaces.', 'Home: How does it feel?', 'Street or park: What changes?', 'Office or public space: How easily do you relax?', 'Observe: Where do you feel safest?'] }, breathing: '<strong>Grounding in Space (3 min per space)</strong><p>Same grounding, different space. What changes?</p>', reflection: 'In which space was grounding easiest? Why?', insight: 'True grounding is achieved only in a space where we feel we belong.' },
+    { title: 'Grounding While Walking', where: 'Outdoors', dur: '5 min', lesson: '<p>Grounding doesn’t require stillness. Today walk slowly, feeling your soles touch the earth with each step. The axis moves with you.</p>', exercise: { title: 'Mindful Walking', steps: ['Start walking slowly.', 'Feel each step: heel → sole → toes.', 'Keep the axis alive inside you.', 'Let gravity into each step.', '5 minutes. No destination.'] }, breathing: '<strong>Step Breath (5 min)</strong><p>Synchronize steps with breath. 3 steps inhale, 3 steps exhale — or whatever feels natural.</p>', reflection: 'What was it like to feel the earth with every step?', insight: 'The earth holds you with every step. You don’t need to stop to be present.' },
+    { title: 'Escape from Scenarios', where: 'Anywhere', dur: '3 min', lesson: '<p>When the mind lacks a stable base in the present, it falls into the trap of internal analysis. Focusing on gravity allows us to step out of mental scenarios.</p><p>No analysis needed. Returning to the body is enough.</p>', exercise: { title: 'Return to "Here"', steps: ['Observe: Is your mind “running”?', 'Don’t analyze the thought.', 'Just ground: soles → axis → gravity.', 'Stay with the body sensation.', 'If the mind wanders again, return without criticism.'] }, breathing: '<strong>Gravity Instead of Analysis (3 min)</strong><p>Whenever you catch yourself analyzing, return to the sensation of weight. Gravity is undeniable.</p>', reflection: 'How many times did the mind wander and how many times did I return?', insight: 'An open mind neither analyzes nor judges — it understands causes without words.' },
+    { title: 'Body and Space Together', where: 'Quiet place', dur: '5 min', lesson: '<p>Body and space cooperate. Today, after grounding, let your awareness include the space around you — without losing the sense of body.</p>', exercise: { title: 'Body + Space', steps: ['Grounding: soles, axis, gravity.', 'Hold that sensation.', 'Now add: what do you hear around you?', 'What do you feel on your skin? (air, temperature)', 'Feel body AND space simultaneously — 5 minutes.'] }, breathing: '<strong>Body-Space Breath (5 min)</strong><p>On the inhale feel the space. On the exhale feel the body. Gradually: both together.</p>', reflection: 'Could I feel body and space at the same time?', insight: 'True grounding is not isolation — it is connection with everything around you.' },
+    { title: 'Grounding in Tension', where: 'Before or after something difficult', dur: '2 min', lesson: '<p>Today use grounding in a moment of real tension or pressure. This is the test: does practice transfer to life?</p>', exercise: { title: 'Grounding in the Fire', steps: ['Before a difficult call, meeting, or situation:', 'Quick grounding: soles → axis → gravity (10").', 'Enter the situation.', 'Afterward: ground again — what changed?', 'Note: did it help?'] }, breathing: '<strong>Quick Reset (30")</strong><p>Soles. Axis. Gravity. Exhale. You are here.</p>', reflection: 'Did grounding help before the difficult moment?', insight: 'Grounding is not only for quiet moments. It is a tool for life.' },
+    { title: 'Observations All Day', where: 'Everywhere', dur: '6 × 30"', lesson: '<p>Like Week 1, 5-6 short pauses during the day. But now observe how the feeling changes in different situations.</p>', exercise: { title: '6 Grounding Moments', steps: ['Morning: how does the body wake up?', 'Noon: how much tension has accumulated?', 'Afternoon: where am I holding tension now?', 'Evening: how does gravity change?', 'Each moment: ground → observe → release.'] }, breathing: '<strong>6 Moments of Awareness</strong><p>Stop. Feel. Let go. Continue.</p>', reflection: 'What patterns did I notice in my body throughout the day?', insight: 'Persistent gentleness is the greatest act of self-regulation.' },
+    { title: 'Review: The Stable Foundation', where: 'Quiet place', dur: '10 min', lesson: '<p>You have completed two weeks of Body. Today do a full grounding — soles, axis, gravity, space — and note what has changed compared to the first day.</p><p>Starting tomorrow you begin the second axis: <strong>Breath</strong>.</p>', exercise: { title: 'Full Grounding 10\'', steps: ['10 minutes of grounding — the longest so far.', 'Soles → Axis → Gravity → Space.', 'Let go of whatever needs to leave.', 'Stay in this sensation.', 'This foundation will accompany you in the next steps.'] }, breathing: '<strong>Integration Breath (10 min)</strong><p>Let the breath flow within your grounded structure. You don’t try — you just feel.</p>', reflection: 'What has changed in me these two weeks? How does grounding feel now?', insight: 'Now you have a stable foundation. Whatever we build on it, this foundation remains.' }
+  ]
+},
+3: {
+  title: 'The Rhythm of Life',
+  days: [
+    { title: 'Just Observe', where: 'Quiet place', dur: '5 min', lesson: '<p>Our breath connects us to the rhythm of life. Each inhale and exhale is a small rehearsal of beginning and ending.</p><p>Today you change nothing. Just observe your breath as it is: deep or shallow, slow or fast, free or tight.</p>', exercise: { title: 'Observing Breath', steps: ['Grounding: soles, axis, gravity (30").', 'Turn attention to the breath.', 'Feel the air at your nostrils.', 'Feel the expansion and contraction of your chest.', 'Feel the movement of your belly. Don’t change anything.'] }, breathing: '<strong>Accepting Breath (5 min)</strong><p>You don’t control. You don’t improve. Observation is enough. How is your breath right now?</p>', reflection: 'How was my breath? Fast, slow, shallow, deep?', insight: 'Breath is the indicator of our mental state. No analysis needed — only observation.' },
+    { title: 'Inhale · Pause · Exhale', where: 'Quiet place', dur: '5 min', lesson: '<p>The breath has three phases: inhale (beginning), pause (presence), exhale (release). This teaches acceptance of impermanence — especially important for the neurodivergent mind, which often experiences emotions as permanent.</p>', exercise: { title: 'The Three Phases', steps: ['Grounding (30").', 'Inhale: feel the receiving, the beginning.', 'Pause: a moment of stillness — the “now”.', 'Exhale: let go — the release.', 'Repeat 10 cycles. Each cycle, a small rehearsal of beginning and ending.'] }, breathing: '<strong>Three Phases (5 min)</strong><p>Inhale: receiving. Pause: presence. Exhale: release. Each breath ends — and begins again.</p>', reflection: 'Which phase feels most familiar? Which is most difficult?', insight: 'Every state is temporary. Our breath shows us this every moment.' },
+    { title: 'Breath as Indicator', where: 'Throughout the day', dur: '6 × 30"', lesson: '<p>Today observe your breath at different moments. Is it tight or shallow? That indicates tension. Slow and deep? That indicates relaxation. Your breath tells you how you are.</p>', exercise: { title: '6 Breath Checkpoints', steps: ['5-6 times during the day:', 'Ground (5").', 'Feel your breath: how fast, deep, free?', 'Don’t change it — just recognize.', 'Note what you found each time.'] }, breathing: '<strong>6 Rhythmic Recognitions</strong><p>Stop. Ground. Breathe. What does it say? No judgment. Continue.</p>', reflection: 'How does my breath change during the day?', insight: 'No analysis needed. Your breath tells the truth.' },
+    { title: 'Active Return', where: 'Quiet place', dur: '5 min', lesson: '<p>This is the main practice from the guide. In moments of intense stress, breath becomes a regulation tool: let the exhale flow slowly out of the mouth.</p>', exercise: { title: 'Active Return', steps: ['Grounding: soles, axis, gravity.', 'Turn attention to the breath.', 'On the exhale: let your belly gently contract, as if releasing all tension with the air.', 'Acceptance: don’t try to change — awareness is enough.', 'If you feel very stressed: exhale slowly through the mouth.'] }, breathing: '<strong>Regulation via Exhalation (5 min)</strong><p>Slow exhalation sends safety signals through the vagus nerve. It automatically reduces the “fight or flight” response.</p>', reflection: 'What did I feel when the exhale became slow?', insight: 'Exhalation is the oldest tool for calm. Always with you.' },
+    { title: 'Body + Breath = One System', where: 'Quiet place', dur: '5-10 min', lesson: '<p>Today you unite Body and Breath. The breath strengthens the axis of presence supported by gravity. While the mind may race, the breath supports the body in the now.</p>', exercise: { title: 'Double Anchor', steps: ['Full grounding (1 min).', 'Add breath observation.', 'Feel how the breath moves the axis.', 'Gravity holds you DOWN. Breath holds you NOW.', 'Let them “dance” together — 5-10 minutes.'] }, breathing: '<strong>Integrated Body-Breath (5-10 min)</strong><p>They don’t fight. They dance. One system.</p>', reflection: 'Could I feel body and breath as one?', insight: 'Breath teaches us to observe without interfering.' },
+    { title: 'Breath as a Lifebuoy', where: 'In moments of pressure', dur: '1-2 min', lesson: '<p>Whenever you feel tension or anxiety today, try: stop → quick grounding → slow exhale through the mouth. The breath is always here.</p>', exercise: { title: 'Lifebuoy in Tension', steps: ['Whenever you feel tension:', 'Stop.', 'Quick grounding (soles, 5").', 'Slow exhale through the mouth — 3 times.', 'Observe what happens.'] }, breathing: '<strong>Lifebuoy Breath</strong><p>Whenever you need it, the breath is here. It is always now.</p>', reflection: 'How many times did I use the “lifebuoy” today?', insight: 'You now have two anchors: gravity holding you down, breath holding you now.' },
+    { title: 'Breath Review', where: 'Quiet place', dur: '10 min', lesson: '<p>End of breath! Do a full practice: grounding + breath, 10 minutes. Starting tomorrow you begin the third axis: <strong>Attention</strong>.</p>', exercise: { title: 'Grounding + Breath 10\'', steps: ['Full grounding (2 min).', 'Breath observation (3 min).', 'Regulation via exhalation (2 min).', 'Let them be together (3 min).', 'Open your eyes. How do you feel?'] }, breathing: '<strong>Full Body-Breath Practice (10 min)</strong><p>The foundation grows. Breath strengthens it. You are ready for the next step.</p>', reflection: 'How does my breath feel now compared to two weeks ago?', insight: 'I observe without interfering. Each breath is a new beginning.' }
+  ]
+},
+4: {
+  title: 'Breath in Life',
+  days: [
+    { title: 'Breath and Emotions', where: 'Quiet place', dur: '5 min', lesson: '<p>An intense emotion immediately changes your breath. Today observe this relationship: what happens to your breath when you are happy, anxious, angry?</p>', exercise: { title: 'Breath-Emotion', steps: ['Grounding (30").', 'Recall a joyful moment — how do you breathe?', 'Recall an anxious moment — what changes?', 'Return to natural breath.', 'The breath reflects everything.'] }, breathing: '<strong>Mirror Breath (5 min)</strong><p>In every state the breath changes. Just observe.</p>', reflection: 'How does my breath change with different emotions?', insight: 'Every emotion is temporary — our breath shows us that.' },
+    { title: 'Exhale into Tension', where: 'In a difficult moment', dur: '2 min', lesson: '<p>Today apply breath regulation in real tension. A slow, prolonged exhale through the mouth sends a safety signal to the nervous system.</p>', exercise: { title: 'Safety Exhale', steps: ['In a moment of tension:', 'Ground (5").', 'Inhale through nose.', 'Exhale slowly through mouth — like blowing out a flame.', '3-5 cycles. Feel the difference.'] }, breathing: '<strong>Flame Exhale (2 min)</strong><p>Like gently blowing out a flame. Slowly. Steadily. The brain “hears” safety.</p>', reflection: 'Did the exhale work in real tension?', insight: 'Slow exhalation isn’t a technique — it’s a language that speaks directly to the nervous system.' },
+    { title: 'Breath While Walking', where: 'Outdoors', dur: '10 min', lesson: '<p>Walk slowly, synchronizing steps and breath. Rhythmic movement naturally “burns” stress.</p>', exercise: { title: 'Mindful Walking with Breath', steps: ['Ground your soles.', 'Start walking slowly.', '3 steps inhale — 3 steps exhale.', 'Or whatever rhythm finds you.', '10 minutes. Let feet and breath become one.'] }, breathing: '<strong>Step Breath (10 min)</strong><p>Steps + breath = one rhythm. The body knows.</p>', reflection: 'How did I feel after mindful walking?', insight: 'Movement and breath were always one. You are just now observing it.' },
+    { title: 'Intense Anxiety Protocol', where: 'Anywhere', dur: '3 min', lesson: '<p>Today you learn the full protocol for moments of intense anxiety — a tool that will always accompany you:</p>', exercise: { title: 'Anxiety Protocol', steps: ['Grounding: feel weight, tensions — no analysis.', 'Regulation: 3 deep breaths. Exhale slowly through mouth.', 'If the mind sticks: label (e.g., “Worry”) → return to breath.', 'Opening: peripheral vision — observe the space around.', 'Movement: walk a little, feeling the soles.'] }, breathing: '<strong>Calm Protocol (3 min)</strong><p>Grounding → Exhalation → Open gaze → Movement. This sequence works. Trust it.</p>', reflection: 'Did I practice the protocol? How do I feel after?', insight: 'Now you have a tool for every moment of tension.' },
+    { title: 'Breath as a Bridge', where: 'Quiet place', dur: '10 min', lesson: '<p>If the body connects us to the earth, the breath connects us to the world. It is the bridge between inside and outside, between us and the world.</p>', exercise: { title: 'Bridge Breath', steps: ['Full grounding (2 min).', 'Feel the air coming in — it comes from outside.', 'Feel the air going out — it returns to the world.', 'You are the bridge. Inside ↔ Outside.', '10 minutes of this sensation.'] }, breathing: '<strong>Bridge Breath (10 min)</strong><p>Inhale: the world enters you. Exhale: you return to the world. There is no separation.</p>', reflection: 'Did I feel the inside-outside connection?', insight: 'The breath does not belong to you. You share it with everything.' },
+    { title: 'Free Practice Day', where: 'Everywhere', dur: 'As you wish', lesson: '<p>Today there is no structure. Use whatever you have learned — grounding, breath, regulation exhale — wherever and whenever you want. Practice becomes yours.</p>', exercise: { title: 'Free Practice', steps: ['Use grounding whenever you want.', 'Observe breath at random moments.', 'Regulate via exhale if needed.', 'No obligation, no structure.', 'Let your body guide you.'] }, breathing: '<strong>No Instructions</strong><p>Today you decide. What do you need?</p>', reflection: 'What did I choose to do? Why?', insight: 'The best practice is the one you do without being told.' },
+    { title: 'Review: Two Axes', where: 'Quiet place', dur: '10 min', lesson: '<p>Four weeks. Two axes: Body and Breath. Starting tomorrow: the third — <strong>Attention</strong>, the lens that illuminates the present moment.</p>', exercise: { title: 'Full Body + Breath', steps: ['Full grounding (3 min).', 'Breath: observation (3 min).', 'Active Return: regulation exhale (2 min).', 'Let them be together (2 min).', 'These two will accompany you in every next step.'] }, breathing: '<strong>Integrated Practice (10 min)</strong><p>Body + Breath: two anchors that stay forever.</p>', reflection: 'How do I feel now compared to four weeks ago?', insight: 'Two anchors. The earth holds you. The rhythm calms you. Now you will learn where to look.' }
+  ]
+},
+5: {
+  title: 'The Lens of Consciousness',
+  days: [
+    { title: 'Where Is Attention?', where: 'Quiet place', dur: '5 min', lesson: '<p>Attention is the lens of the mind — it can focus, open, or scatter. Today simply observe: where does your attention naturally go?</p>', exercise: { title: 'Observing Attention', steps: ['Grounding + Breath (1 min).', 'Close your eyes.', 'Where does attention go? To sounds? Thoughts? Body sensations?', 'Don’t direct it — just watch.', '5 minutes of observation. How many times did it “move”?'] }, breathing: '<strong>Breath + Observation (5 min)</strong><p>Maintain grounding and breath while observing where attention goes.</p>', reflection: 'Where does my attention tend to go?', insight: 'Attention is not empty of thoughts — it is the ability to observe where you are.' },
+    { title: 'Focused Attention', where: 'Quiet place', dur: '5 min', lesson: '<p>Today you try focused attention: the beam gathers on one point. Choose a stable anchor — visual, auditory, or somatic.</p>', exercise: { title: 'Stable Point', steps: ['Grounding + Breath (1 min).', 'Open your eyes. Choose a point in front of you.', 'Look at it with a soft, steady gaze.', 'If attention wanders, gently return.', '5 minutes on one point.'] }, breathing: '<strong>Focused Breath (5 min)</strong><p>The stable point can also be the breath itself. Stay there.</p>', reflection: 'How easy was it to stay on one point?', insight: 'Focus is not tension — it is quiet persistence.' },
+    { title: 'The Labeling Technique', where: 'Quiet place', dur: '5 min', lesson: '<p>When a thought pulls you, instead of engaging with its content, give it a simple label: “Planning”, “Criticism”, “Worry”, “Scenario”. Then return.</p>', exercise: { title: 'Label + Return', steps: ['Grounding + Breath + Focus on point (2 min).', 'Wait for a thought to pull you.', 'Give a label: “Planning”, “Worry”, “Past”...', 'Don’t analyze the thought — just label.', 'Return to the stable point.'] }, breathing: '<strong>Label Breath (5 min)</strong><p>Thought → Label → Breath → Point. That is the exercise. Each return builds new neural pathways.</p>', reflection: 'Which labels did I use most often?', insight: 'The return of attention is not failure — it is the exercise itself.' },
+    { title: 'Fourfold Awareness', where: 'Quiet place', dur: '10 min', lesson: '<p>At this stage attention becomes fourfold — you simultaneously hold: body, breath, attention itself, and thoughts recognized without being swept away.</p>', exercise: { title: 'Fourfold Awareness', steps: ['Grounding: feel the body.', 'Breath: feel the rhythm.', 'Attention: hold a stable point.', 'Thoughts: if they come, label → return.', '10 minutes. All four together.'] }, breathing: '<strong>Fourfold Breath (10 min)</strong><p>Body. Breath. Point. Thoughts = clouds. You = the observer.</p>', reflection: 'Could I hold all four? Which one do I “lose” first?', insight: 'Perfection is not needed. Gentle return is needed.' },
+    { title: 'Hooked Attention', where: 'Throughout the day', dur: 'Continuous observation', lesson: '<p>Today observe: are there moments when attention “gets stuck”? On a thought, worry, obsession? That is hooked attention — hyperfocus on something anxious.</p>', exercise: { title: 'Recognizing Hook', steps: ['At 5-6 moments during the day:', 'Check: where is my attention now?', 'Is it running (distraction)? Or stuck (hook)?', 'If stuck: label → grounding → breath → open gaze.', 'If running: grounding → breath → stable point.'] }, breathing: '<strong>Unhooking (30" per moment)</strong><p>Running: grounding + point. Stuck: grounding + open gaze. Breath always in the middle.</p>', reflection: 'When does my mind “run”? When does it “stick”? What situations trigger it?', insight: 'The neurodivergent mind is not broken — it has a different mode of operation.' },
+    { title: 'Attention in Social Moments', where: 'In a meeting or conversation', dur: '2-3 min', lesson: '<p>Today try: in a social moment, choose a neutral point (plant, object) as a visual reference. Feel your feet steady. Use peripheral vision.</p>', exercise: { title: 'Social Grounding', steps: ['In a social situation:', 'Choose a neutral point as reference.', 'Feel your feet on the ground.', 'If you feel tension in your jaw, release it with an exhale.', 'Use soft gaze — not tunnel vision.'] }, breathing: '<strong>Presence Breath (During)</strong><p>Maintain a quiet breath while in contact with others.</p>', reflection: 'Did grounding help in the social moment?', insight: 'You can be present in the world without getting lost in it.' },
+    { title: 'Review: Three Axes', where: 'Quiet place', dur: '10 min', lesson: '<p>Six weeks. Three axes: Body, Breath, Attention. Starting tomorrow: the fourth and final — <strong>Space</strong>, open awareness.</p>', exercise: { title: 'Three Axes Together', steps: ['Body: grounding (2 min).', 'Breath: rhythm (2 min).', 'Attention: stable point + label (3 min).', 'All three together (3 min).', 'You have learned where to stand, how to breathe, where to look.'] }, breathing: '<strong>Full Triple Practice (10 min)</strong><p>Foundation. Rhythm. Lens. Only one thing remains: space that holds everything.</p>', reflection: 'Which axis feels strongest? Where do I need more practice?', insight: 'Three anchors. One remains — the most liberating.' }
+  ]
+},
+6: {
+  title: 'Attention in Life',
+  days: [
+    { title: 'The Running Mind', where: 'In moments of distraction', dur: '3 min', lesson: '<p>The neurodivergent mind often “runs” — many stimuli, no filter. The tool: Body (grounding) + Breath (rhythm).</p>', exercise: { title: 'Grounding in Distraction', steps: ['Recognize: “My mind is running now.”', 'Immediate grounding: soles, gravity.', 'Breath: 3 slow exhales.', 'Stable point: one thing in front of you.', 'Stay there for 1 minute. Enough.'] }, breathing: '<strong>Antidote to Distraction</strong><p>Grounding → Exhalation → One point. Three steps. 30 seconds.</p>', reflection: 'Could I calm my mind?', insight: 'You don’t fight distraction — you use it as a signal to return.' },
+    { title: 'The Locked Mind', where: 'In moments of fixation', dur: '3 min', lesson: '<p>The opposite: the mind “locks” onto a thought or obsession (hyperfocus). The tool: Space (open gaze) + Attention (gentle return).</p>', exercise: { title: 'Unlocking', steps: ['Recognize: “My mind is stuck.”', 'Label: “Obsession” or “Lock”.', 'Soften the gaze — peripheral vision.', 'Feel the space around you.', 'The thought becomes smaller within the vast space.'] }, breathing: '<strong>Antidote to Locking</strong><p>Label → Open gaze → Space. The obsession is not as big as it seems.</p>', reflection: 'What happens when I open space around an obsession?', insight: 'The mechanical mind is not an enemy — it’s a tool that “overheated”.' },
+    { title: 'Noisy Spaces', where: 'Public space', dur: '5 min', lesson: '<p>In sensory overload: feet on the ground, 3 breaths, open peripheral vision. You can use headphones if needed.</p>', exercise: { title: 'Grounding in Chaos', steps: ['Feel your feet on the ground — immediate grounding.', '3 quiet breaths, exhale through mouth.', 'Soften the gaze — don’t focus anywhere.', 'Headphones or fidget toy if helpful.', 'Remember: you are not the stimuli.'] }, breathing: '<strong>3 Breaths in Chaos</strong><p>Soles. Exhale. Soft gaze. Enough.</p>', reflection: 'How did I react to noise with my tools?', insight: 'Noise is outside. Grounding is inside. You choose where to stay.' },
+    { title: 'Mindful Pacing', where: 'Outdoors', dur: '10 min', lesson: '<p>Rhythmic movement “burns” stress. Today walk with awareness — vertical axis, open gaze, sense of space.</p>', exercise: { title: 'Rhythmic Walking', steps: ['Stand. Ground.', 'Start walking rhythmically.', 'Keep the axis. Open gaze.', 'Awareness of space: what is around you?', '10 minutes. Movement calms without thought.'] }, breathing: '<strong>Movement Breath (10 min)</strong><p>Steps + breath + open gaze = moving presence.</p>', reflection: 'What was it like to walk with full awareness?', insight: 'Movement is not opposed to presence — it can be presence itself.' },
+    { title: 'Mind Running or Locked?', where: 'Throughout the day', dur: '6 × 30"', lesson: '<p>Today observe your own patterns: when does the mind “run”, when does it “lock”, what situations trigger them. Use the corresponding tools.</p>', exercise: { title: 'Self-Awareness of Patterns', steps: ['6 moments during the day:', 'Check: running or locked?', 'Running → grounding + breath.', 'Locked → label + open gaze.', 'Note what triggers each state.'] }, breathing: '<strong>Tool Switching</strong><p>Each situation asks for a different response. Today you learn when to use what.</p>', reflection: 'When does it tend to run, when to lock? What triggers them?', insight: 'Self-awareness is not analysis — it is recognizing the pattern without judgment.' },
+    { title: 'Attention Integration', where: 'Quiet place', dur: '5 min', lesson: '<p>Apply lens stabilization: body + breath + stable point + label + fourfold awareness, in a single practice.</p>', exercise: { title: 'Lens Stabilization', steps: ['Body & Breath: close eyes. Feel. (2 min)', 'Stable point: open eyes, choose. (1 min)', 'Fourfold awareness: body + breath + point + thoughts. (2 min)', 'Gentle Return: if carried away, label → body → breath → point.', 'Each “gentle return” builds new neural pathways.'] }, breathing: '<strong>Lens Breath (5 min)</strong><p>Stabilize the lens. The breath keeps it in place.</p>', reflection: 'How many returns did I make? What did I feel after?', insight: 'Every time you return, you become stronger. The return is the practice itself.' },
+    { title: 'Review: Three Axes Complete', where: 'Quiet place', dur: '15 min', lesson: '<p>Six weeks complete — three axes. Tomorrow begins the last and perhaps most liberating: <strong>Space</strong>.</p>', exercise: { title: 'Full Triple Practice', steps: ['Body: grounding (3 min).', 'Breath: rhythm + exhale (3 min).', 'Attention: point + label + fourfold awareness (5 min).', 'All three together (4 min).', 'Open your eyes. How do you feel?'] }, breathing: '<strong>15 Minutes of Full Practice</strong><p>Three axes. One body. One presence.</p>', reflection: 'Where am I now compared to the beginning? What has changed?', insight: 'Body, Breath, Attention — three paths to the same place: here.' }
+  ]
+},
+7: {
+  title: 'Open Awareness',
+  days: [
+    { title: 'Soft Eyes', where: 'Quiet place', dur: '5 min', lesson: '<p>Space is the last center. You learn to open awareness like a sky that holds everything. Start by softening the gaze.</p>', exercise: { title: 'Peripheral Vision', steps: ['Grounding + Breath + Focus point (2 min).', 'Now: soften the gaze.', 'Let your eyes “see” sideways without moving.', 'You focus nowhere — you embrace the whole visual field.', '3 minutes in this. What changes inside you?'] }, breathing: '<strong>Open Breath (5 min)</strong><p>Let the breath expand beyond the body. Feel it connected to the air around you.</p>', reflection: 'What changed in my sensation when I softened my gaze?', insight: 'Open awareness doesn’t mean lost — it means feeling everything without getting stuck anywhere.' },
+    { title: 'Sky and Clouds', where: 'Quiet place', dur: '10 min', lesson: '<p>Thoughts, emotions, sensations — they are clouds. You are the space that holds them. Your identity is not the clouds — it is the sky.</p>', exercise: { title: 'Sky Metaphor', steps: ['Full grounding + breath + focus (3 min).', 'Open peripheral vision.', 'Let thoughts come — don’t hold them.', 'Recognize: these are clouds. I am the sky.', '7 minutes in this sense of openness.'] }, breathing: '<strong>Sky Breath (10 min)</strong><p>The breath flows like air in the sky. Thoughts = clouds. They pass.</p>', reflection: 'Could I feel the “sky” behind the thoughts?', insight: 'You are not your thoughts. You are the space that holds them.' },
+    { title: 'Antidote to Overload', where: 'In moments of pressure', dur: '3 min', lesson: '<p>Open attention is the most powerful tool against overload. When you feel like you’re in a tunnel, open up — this automatically reduces the sense of danger.</p>', exercise: { title: 'Overload Protocol', steps: ['Grounding: soles, weight. “Zero” your position.', 'Breath: exhale through mouth if you feel tightness.', 'Attention: one stable point as anchor.', 'Space: soften the gaze. Peripheral vision.', 'Remember: you are not the clouds. You are space.'] }, breathing: '<strong>Opening in Overload (3 min)</strong><p>Instead of reducing stimuli, expand the space that holds them.</p>', reflection: 'Did “opening up” help in overload?', insight: 'Instead of fighting stimuli, you open space. Same clouds, bigger sky.' },
+    { title: 'Space and Safety', where: 'Quiet place', dur: '10 min', lesson: '<p>The feeling of open space sends a safety signal. Narrowing increases danger — expanding reduces it. Today try: full grounding + full openness.</p>', exercise: { title: 'Safety through Space', steps: ['Full grounding (2 min).', 'Regulation breath (2 min).', 'Focused attention → slowly open (2 min).', 'Full open awareness: sounds, sensations, thoughts, space (4 min).', 'Feel: this space holds you.'] }, breathing: '<strong>Safety Breath (10 min)</strong><p>Each exhale: space opens. Each inhale: the world enters. You are safe.</p>', reflection: 'How did I feel the space around me? Safety?', insight: 'Openness is not vulnerability — it is the greatest safety.' },
+    { title: 'The Four Stages — Full Exercise', where: 'Quiet place', dur: '15 min', lesson: '<p>For the first time: the complete, sequential Four Axes exercise. This is the practice that will accompany you from now on.</p>', exercise: { title: 'The 4 Stages', steps: ['Stage 1 — Feel the Earth: soles, axis, gravity, relaxation (3 min).', 'Stage 2 — Feel the Breath: nose → lungs → belly, natural rhythm (3 min).', 'Stage 3 — Focus Ahead: open eyes, soft gaze at a point, label if needed (4 min).', 'Stage 4 — Open to Space: peripheral vision, feel simultaneously body + breath + earth + sky (5 min).', 'Immediate sense of presence without words or effort.'] }, breathing: '<strong>Full Four Axes (15 min)</strong><p>Stability → Rhythm → Lens → Boundlessness. One organism, one presence.</p>', reflection: 'Which stage feels most natural? Where do I struggle?', insight: 'These are not four steps. They are four windows into the same presence.' },
+    { title: 'Four Axes in Motion', where: 'Outdoors', dur: '15 min', lesson: '<p>Today: the 4 stages while walking. Practice transfers to life — you don’t need silence or a special space.</p>', exercise: { title: '4 Stages While Walking', steps: ['Start standing: Stage 1 — Grounding (1 min).', 'Begin walking slowly: Stage 2 — Breath in steps (3 min).', 'Stabilize: Stage 3 — Gaze ahead, awareness (3 min).', 'Open: Stage 4 — Soft gaze, space, boundlessness (5 min).', 'Integration: all 4 together in motion (3 min).'] }, breathing: '<strong>Moving Presence (15 min)</strong><p>You don’t need a cushion. The earth is enough.</p>', reflection: 'How does full practice feel in motion?', insight: 'Mindfulness is not something you do — it is something you are.' },
+    { title: 'Almost There', where: 'Quiet place', dur: '15 min', lesson: '<p>One more week remains. Today: full 15-minute practice. Focus on the transition between stages — how smooth is it?</p>', exercise: { title: 'Smooth Transition', steps: ['Stage 1 → Stage 2: how does breath strengthen grounding?', 'Stage 2 → Stage 3: how does focus rely on rhythm?', 'Stage 3 → Stage 4: how does space open through focus?', 'You don’t jump — you flow.', '15 minutes of flowing presence.'] }, breathing: '<strong>Flowing Breath (15 min)</strong><p>The breath does not belong to any stage — it is in all of them.</p>', reflection: 'How smoothly do I “flow” between stages?', insight: 'The stages are scaffolding. Gradually they will fall away — only presence remains.' }
+  ]
+},
+8: {
+  title: 'Integration',
+  days: [
+    { title: 'Feel, Don’t Think', where: 'Quiet place', dur: '15 min', lesson: '<p>Don’t try to “experience”. Let the inflow happen: air, ground, sky. The difference between effort and surrender.</p>', exercise: { title: 'Passive Presence', steps: ['The 4 stages — but without effort.', 'Don’t control anything.', 'Let grounding happen.', 'Let the breath flow.', 'Let space open. You simply... open.'] }, breathing: '<strong>Passive Breath (15 min)</strong><p>Don’t control. Let the body breathe you. Feel the difference.</p>', reflection: 'What did I feel after I stopped trying?', insight: 'You do nothing. You just open.' },
+    { title: 'Without Separation', where: 'In an activity', dur: '20 min', lesson: '<p>Today: apply the 4 axes while doing something daily — washing dishes, cooking, walking. There is no separation between “practice” and “life”.</p>', exercise: { title: 'Life = Practice', steps: ['Choose a daily activity.', 'Apply: grounding + breath + focus + openness.', 'Maintain awareness while active.', 'If lost: gentle return.', 'The activity becomes the practice.'] }, breathing: '<strong>Breath in Action</strong><p>You don’t separate. You live with presence.</p>', reflection: 'What was it like to do something daily with full awareness?', insight: 'Life doesn’t wait for practice to end. Life is the practice.' },
+    { title: 'Effortless Presence', where: 'Anywhere', dur: '20 min', lesson: '<p>Stop trying. Let all four work on their own. The earth supports. The breath flows. The eyes see. The heart feels.</p>', exercise: { title: 'Without Effort', steps: ['Sit or stand.', 'Don’t “do” the 4 stages — let them happen.', 'The body knows. The breath knows.', 'You don’t need to do anything.', '20 minutes of effortless presence.'] }, breathing: '<strong>Effortless Breath (20 min)</strong><p>It happens. You don’t need to make it happen.</p>', reflection: 'What do I discover when I stop trying?', insight: 'True presence doesn’t need effort. It only needs acceptance.' },
+    { title: 'Presence Worksheet', where: 'Anywhere', dur: '5 min', lesson: '<p>Today practice the “Worksheet” — 4 steps that bring you back to “now” in seconds. This will accompany you after the program.</p>', exercise: { title: 'Worksheet (4 Steps)', steps: ['1. BODY: Feel weight, axis, tensions. Relax jaw, shoulders.', '2. BREATH: How is it? Fast, shallow, tight? Exhale slowly.', '3. ATTENTION: Where is it? Running? Stuck? Return to a point.', '4. SPACE: Feeling trapped? Soften gaze. Thoughts = clouds.', 'Do them in order or choose what you need.'] }, breathing: '<strong>Quick Reset (30"-2 min)</strong><p>4 steps. Seconds. Anywhere. Always.</p>', reflection: 'How fast could I “return” to now?', insight: 'Now you have a tool for every moment. You don’t need anything else.' },
+    { title: 'Autonomy', where: 'Throughout the day', dur: 'As you wish', lesson: '<p>Today there are no instructions. Use whatever you need, however you need. This freedom is the goal.</p>', exercise: { title: 'No Instructions', steps: ['You decide what, when, how.', 'Grounding? Breath? Focus? Space?', 'Full practice? Worksheet?', 'Nothing?', 'True practice begins when the program ends.'] }, breathing: '<strong>Your Own Breath</strong><p>You know by now.</p>', reflection: 'What did I choose? Why?', insight: 'You no longer need a program. You only need yourself.' },
+    { title: 'The Practice of Daily Life', where: 'Every moment', dur: 'Continuous', lesson: '<p>The path has no end. Practice becomes a way of life: small returns, small recognitions, daily. Consistency in small doses is your greatest act of care.</p>', exercise: { title: 'Your Own Routine', steps: ['Morning: 2-5 min full practice.', 'During the day: 3-5 short pauses (worksheet).', 'In tension: anxiety or overload protocol.', 'Evening: 5 min review.', 'Every moment can become a small return.'] }, breathing: '<strong>Daily Breath</strong><p>Morning, day, evening. Small doses. Big change.</p>', reflection: 'What will be my daily routine?', insight: 'Mindfulness, ultimately, is remembering that within you there is already an open space that holds you as you are.' },
+    { title: 'Completion: Keep Returning', where: 'Quiet place', dur: '20 min', lesson: '<p>8 weeks. 4 axes. Body · Breath · Attention · Space. This is not an end — it is a beginning.</p><p>Do one final full practice. 20 minutes. Dedicate it to yourself.</p>', exercise: { title: 'The Full Practice', steps: ['Stage 1 — Body: grounding, gravity, axis (5 min).', 'Stage 2 — Breath: rhythm, exhale, bridge (5 min).', 'Stage 3 — Attention: focus, label, fourfold (5 min).', 'Stage 4 — Space: open awareness, sky, acceptance (5 min).', 'Open your eyes. This space asks nothing of you — it reminds you that you are present, alive, and whole.'] }, breathing: '<strong>The Final Practice (20 min)</strong><p>Nothing more is needed. Only the return. Again and again.</p>', reflection: 'How do I feel now? What has changed in 8 weeks?', insight: 'Keep returning. Consistency in small doses is your greatest act of care.' }
+  ]
+}
+};
+
+// ═══════════════════════════════════════
+// STATE & HELPERS
+// ═══════════════════════════════════════
+let W = 1, DAY = 1;
+
+function load() {
+    try {
+        const s = localStorage.getItem('tax-state');
+        if (s) { const o = JSON.parse(s); W = o.w || 1; DAY = o.d || 1; }
+    } catch(e) {}
+    render();
+}
+
+function save() {
+    try { localStorage.setItem('tax-state', JSON.stringify({w:W, d:DAY})); } catch(e) {}
+}
+
+function render() {
+    const week = D[W], day = week.days[DAY - 1], axis = ax(W);
+    const totalDay = (W - 1) * 7 + DAY;
+    const pct = Math.round((totalDay / 56) * 100);
+
+    document.getElementById('headerWeek').textContent = `Week ${W} · ${axis.name}`;
+    document.getElementById('headerDay').textContent = `Day ${DAY}: ${day.title}`;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = `Day ${totalDay} / 56 — ${pct}%`;
+
+    const grid = document.getElementById('weekGrid');
+    grid.innerHTML = '';
+    for (let i = 1; i <= 8; i++) {
+        const a = ax(i);
+        const btn = document.createElement('button');
+        btn.className = 'week-btn' + (i === W ? ' active' : '');
+        btn.innerHTML = `Week ${i}<span class="axis-label">${a.name}</span>`;
+        btn.onclick = () => { W = i; DAY = 1; save(); render(); };
+        grid.appendChild(btn);
+    }
+
+    document.getElementById('axisIndicator').textContent = `Axis: ${axis.name} — ${week.title}`;
+    document.getElementById('lessonTitle').textContent = `Day ${DAY}: ${day.title}`;
+    document.getElementById('metaLine').innerHTML = `<span>${day.where}</span><span>${day.dur}</span>`;
+    
+    let bodyHtml = day.lesson;
+    if (day.exercise) {
+        bodyHtml += `<div class="exercise-box"><div class="ex-title">${day.exercise.title}</div>`;
+        day.exercise.steps.forEach((s, i) => {
+            bodyHtml += `<div class="step" data-n="${i+1}.">${s}</div>`;
+        });
+        bodyHtml += '</div>';
+    }
+    document.getElementById('lessonBody').innerHTML = bodyHtml;
+    document.getElementById('breathCard').innerHTML = day.breathing;
+    document.getElementById('reflectionQ').textContent = day.reflection;
+    document.getElementById('journal').value = '';
+    document.getElementById('insightBox').innerHTML = day.insight;
+
+    const pb = document.getElementById('practiceBtn');
+    pb.textContent = 'I Practiced';
+    pb.className = 'btn btn-done';
+
+    save();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function go(dir) {
+    if (dir === 1) {
+        if (DAY < 7) DAY++;
+        else if (W < 8) { W++; DAY = 1; }
+    } else {
+        if (DAY > 1) DAY--;
+        else if (W > 1) { W--; DAY = 7; }
+    }
+    render();
+}
+
+function markDone() {
+    const b = document.getElementById('practiceBtn');
+    b.textContent = '✓ I Practiced Today!';
+    b.style.background = 'var(--gold)';
+}
+
+function saveJournal() {
+    const t = document.getElementById('journal').value.trim();
+    if (!t) { alert('Write something first!'); return; }
+    document.getElementById('journal').value = '';
+    alert('✓ Saved!');
+}
+
+function goHome() {
+    if (confirm('Return to home page?')) window.location.href = 'index.html';
+}
+
+document.addEventListener('DOMContentLoaded', load);
+</script>
+</body>
+</html>
