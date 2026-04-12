@@ -447,6 +447,247 @@ const T = {
       {id:'racing', icon:'🌀', name:'Racing Mind', axis:'Body · Breath', axisColor:'#C07050',
        desc:'Dispersion → Grounding → Breath → Presence.',
        file:'racing_mind.html'}
-    ]
+    ],
+
+    // ═════════════════════════════════════════════════
+    // GUIDED ROUTINES (NEW)
+    // ═════════════════════════════════════════════════
+    routinesTitle: 'Προσχεδιασμένες Ρουτίνες',
+    routinesIntro: 'Έτοιμες αλυσίδες 2-3 λεπτών που συνδυάζουν γείωση, αναπνοή και καλοσύνη αυτόματα. Κάθε ρουτίνα έχει σαφή βήματα και haptic feedback.',
+
+    routineMorning: '🌅 Πρωινή Γείωση',
+    routineMorningDesc: '3 λεπτά για να ξυπνήσεις με παρουσία. Σώμα → Αναπνοή → Καλοσύνη.',
+    
+    routineBedtime: '🌙 Πριν τον Ύπνο',
+    routineBedtimeDesc: '3 λεπτά για να αποδεσμεύσεις την ημέρα. Σταδιακή χαλάρωση → Αργή αναπνοή.',
+    
+    routineCrisis: '🆘 SOS Ηρεμία',
+    routineCrisisDesc: '2 λεπτά για κρίσεις. Έκτακτη αναπνοή → Γείωση 5 αισθήσεων → Σταθερότητα.',
+
+    // Morning routine phases
+    routineGroundingStart: 'Έλα στο Εδώ',
+    routineGroundingText: 'Νιώσε τα πέλματά σου στο έδαφος. Το σώμα σου είναι εδώ, ασφαλές.',
+    
+    routineBodyAwareness: 'Ενειδέτωση Σώματος',
+    routineBodyText: 'Σάρωση γρήγορα: πέλματα → κνήμες → ισχία → σπίνη → κεφάλι. Τι νιώθεις;',
+    
+    routineBreath421: 'Ρυθμική Αναπνοή',
+    routineBreathText: 'Εισπνοή 4, κράτηση 2, εκπνοή 1. Αργή και αργή για το πρωί.',
+    
+    routineKindness: 'Καλοσύνη προς τον Εαυτό',
+    routineKindnessText: 'Σκέψου κάτι καλό για σένα. «Σήμερα κάνω ό,τι μπορώ». Αρκεί.',
+    
+    routineClosing: 'Ευγνωμοσύνη',
+    routineClosingText: 'Σκέψου ένα πράγμα που έχεις. Θυμήσου: υπάρχεις.',
+
+    // Bedtime routine phases
+    routineReleaseStart: 'Αποδέσμευση',
+    routineReleaseText: 'Ημέρα, σε αφήνω. Σώμα, μπορείς να ηρεμήσεις.',
+    
+    routineProgressiveRelax: 'Σταδιακή Χαλάρωση',
+    routineRelaxText: 'Από τα δάχτυλα στο κεφάλι: σφίξε και χαλάρωσε κάθε ομάδα μυών.',
+    
+    routineSlowBreath: 'Αργή Αναπνοή',
+    routineSlowBreathText: 'Εισπνοή 6, κράτηση 4, εκπνοή 6. Μακρά εκπνοή για χαλάρωση.',
+    
+    routineSettling: 'Διευθέτηση',
+    routineSettlingText: 'Νιώσε το σώμα σου να καθιζάνει στην επιφάνεια. Βαρύ, ασφαλές, κουρασμένο.',
+    
+    routineSleep: 'Μετάβαση Ύπνου',
+    routineSleepText: 'Κλείσε τα μάτια. Κάθε αναπνοή σε πλησιάζει στον ύπνο.',
+
+    // Crisis routine phases
+    routineEmergencyBreath: 'Έκτακτη Αναπνοή',
+    routineEmergencyText: 'Εισπνοή 2 δευτ., εκπνοή 2 δευτ. Γρήγορα και ρυθμικά. Μόνο αναπνοή τώρα.',
+    
+    routine5Senses: '5 Αισθήσεις',
+    routine5SensesText: 'Τι ΒΛΕΠΕΙΣ; ΑΚΟΥΕΙΣ; ΝΙΩΘΕΙΣ; ΜΥΡΩΝΕΙΣ; ΓΕΥΕΣΑΙ; (ένα πράγμα για κάθε αίσθηση)',
+    
+    routineStabilize: 'Σταθεροποίηση',
+    routineStabilizeText: 'Εισπνοή 4, κράτηση 4, εκπνοή 4. Σταθερή τριάδα.',
+    
+    routineSafety: 'Ασφάλεια',
+    routineSafetyText: 'Είσαι ασφαλής εδώ. Αυτό θα περάσει. Κάνεις καλά.',
+
+    routineComplete: '✨ Ολοκληρώθηκες!',
+    routineCompleteMsg: 'Κάθε σταγόνα νερού επίγνωσης αριθμεί. Ευχαριστώ που ήρθες.',
+    routineHome: 'Στην Αρχική',
+    routineAgain: 'Πάλι',
+    
+    routinePhaseStart: 'Έναρξη',
+    routinePhaseBody: 'Σώμα',
+    routinePhaseBreath: 'Αναπνοή',
+    routinePhaseKindness: 'Καλοσύνη',
+    routinePhaseClosing: 'Κλείσιμο',
+    routinePhaseEmergency: 'Έκτακτη',
+    routinePhaseGrounding5: 'Γείωση',
+    routinePhaseStabilize: 'Σταθεροποίηση',
+    routinePhaseSettling: 'Διευθέτηση',
+    routinePhaseSafety: 'Ασφάλεια',
+    routinePhaseIntro: 'Εισαγωγή',
+
+    // ═════════════════════════════════════════════════
+    // SOUNDSCAPES (NEW)
+    // ═════════════════════════════════════════════════
+    soundscapeRain: 'Βροχή',
+    soundscapeRainDesc: 'Ήχος βροχής με χαμηλό δόνηση για γείωση.',
+    
+    soundscapeFire: 'Φωτιά',
+    soundscapeFireDesc: 'Κόκκινες σπίθες και σφριγμός για θερμότητα.',
+    
+    soundscapeCicadas: 'Τζιτζίκια',
+    soundscapeCicadasDesc: 'Καλοκαιρινό τραγούδι από τα δέντρα.',
+    
+    soundscapeNone: 'Σίγα'
+  },
+
+  en: {
+    navHome: 'Home', navChapters: 'Steps', navBreath: 'Breath',
+    navExercises: 'Exercises', navJournal: 'Journal',
+
+    menuStart: 'Start', menuStartSub: 'Manifesto · First steps',
+    menuChapters: 'Learn', menuChaptersSub: 'Chapters + 8-week program',
+    menuBreath: 'Breath', menuBreathSub: 'Exercise 4-2-6-1',
+    menuExercises: 'Exercises', menuExercisesSub: '12 interactive exercises',
+    menuJournal: 'Journal', menuJournalSub: 'Reflection · 4 axes',
+    menuAbout: 'About', menuAboutSub: 'Trauma-informed · Contact',
+    menuDownloads: 'Downloads', menuDownloadsSub: 'PDF guide · Install app',
+
+    // ═════════════════════════════════════════════════
+    // GUIDED ROUTINES (NEW)
+    // ═════════════════════════════════════════════════
+    routinesTitle: 'Guided Routines',
+    routinesIntro: 'Pre-built 2-3 minute chains that combine grounding, breath, and kindness automatically. Each routine has clear steps and haptic feedback.',
+
+    routineMorning: '🌅 Morning Grounding',
+    routineMorningDesc: '3 minutes to wake up with presence. Body → Breath → Kindness.',
+    
+    routineBedtime: '🌙 Before Sleep',
+    routineBedtimeDesc: '3 minutes to release the day. Progressive relaxation → Slow breath.',
+    
+    routineCrisis: '🆘 SOS Calm',
+    routineCrisisDesc: '2 minutes for crises. Emergency breath → 5-sense grounding → Stability.',
+
+    // Morning routine phases
+    routineGroundingStart: 'Come to Here',
+    routineGroundingText: 'Feel your feet on the ground. Your body is here, safe.',
+    
+    routineBodyAwareness: 'Body Awareness',
+    routineBodyText: 'Quick scan: feet → shins → hips → spine → head. What do you feel?',
+    
+    routineBreath421: 'Rhythmic Breath',
+    routineBreathText: 'Inhale 4, hold 2, exhale 1. Slow and gentle for the morning.',
+    
+    routineKindness: 'Self-Kindness',
+    routineKindnessText: 'Think of something good about yourself. "Today I do what I can." That\'s enough.',
+    
+    routineClosing: 'Gratitude',
+    routineClosingText: 'Think of one thing you have. Remember: you exist.',
+
+    // Bedtime routine phases
+    routineReleaseStart: 'Release',
+    routineReleaseText: 'Day, I release you. Body, you can rest now.',
+    
+    routineProgressiveRelax: 'Progressive Relaxation',
+    routineRelaxText: 'Fingers to head: tense and release each muscle group.',
+    
+    routineSlowBreath: 'Slow Breathing',
+    routineSlowBreathText: 'Inhale 6, hold 4, exhale 6. Long exhale for relaxation.',
+    
+    routineSettling: 'Settling',
+    routineSettlingText: 'Feel your body sinking into the surface. Heavy, safe, tired.',
+    
+    routineSleep: 'Sleep Transition',
+    routineSleepText: 'Close your eyes. Each breath brings you closer to sleep.',
+
+    // Crisis routine phases
+    routineEmergencyBreath: 'Emergency Breath',
+    routineEmergencyText: 'Inhale 2 sec, exhale 2 sec. Fast and rhythmic. Just breathing now.',
+    
+    routine5Senses: '5 Senses',
+    routine5SensesText: 'What do you SEE? HEAR? FEEL? SMELL? TASTE? (one thing per sense)',
+    
+    routineStabilize: 'Stabilization',
+    routineStabilizeText: 'Inhale 4, hold 4, exhale 4. Stable triad.',
+    
+    routineSafety: 'Safety',
+    routineSafetyText: 'You are safe here. This will pass. You\'re doing well.',
+
+    routineComplete: '✨ Complete!',
+    routineCompleteMsg: 'Every drop of mindfulness water counts. Thank you for showing up.',
+    routineHome: 'Home',
+    routineAgain: 'Again',
+    
+    routinePhaseStart: 'Start',
+    routinePhaseBody: 'Body',
+    routinePhaseBreath: 'Breath',
+    routinePhaseKindness: 'Kindness',
+    routinePhaseClosing: 'Closing',
+    routinePhaseEmergency: 'Emergency',
+    routinePhaseGrounding5: 'Grounding',
+    routinePhaseStabilize: 'Stabilization',
+    routinePhaseSettling: 'Settling',
+    routinePhaseSafety: 'Safety',
+    routinePhaseIntro: 'Intro',
+
+    // ═════════════════════════════════════════════════
+    // SOUNDSCAPES (NEW)
+    // ═════════════════════════════════════════════════
+    soundscapeRain: 'Rain',
+    soundscapeRainDesc: 'Rain sound with low rumble for grounding.',
+    
+    soundscapeFire: 'Fire',
+    soundscapeFireDesc: 'Crackling sparks and warmth.',
+    
+    soundscapeCicadas: 'Cicadas',
+    soundscapeCicadasDesc: 'Summer song from the trees.',
+    
+    soundscapeNone: 'Silent'
   }
 };
+
+    // ═════════════════════════════════════════════════════
+    // ROUTINE BUILDER (NEW - v2.2)
+    // ═════════════════════════════════════════════════════
+    routineBuilderTitle: 'Δημιουργός Ρουτινών',
+    routineBuilderIntro: 'Δημιούργησε τις δικές σου ρουτίνες προσθέτοντας φάσεις, ορίζοντας διάρκειες και αποθηκεύοντας. Όλα αποθηκεύονται στη συσκευή σου.',
+    routineBuilderCustom: 'Οι Ρουτίνες Μου',
+    routineBuilderNew: 'Δημιουργία Νέας Ρουτίνας',
+    routineBuilderEdit: 'Επεξεργασία Ρουτίνας',
+    routineBuilderName: 'Όνομα Ρουτίνας',
+    routineBuilderAddPhase: 'Προσθήκη Φάσης',
+    routineBuilderSave: 'Αποθήκευση',
+    routineBuilderPreview: 'Προεπισκόπηση',
+    
+    // Phase titles in builder
+    bodyPhase: '🧍 Σώμα',
+    breathPhase: '🫁 Αναπνοή',
+    kindnessPhase: '💛 Καλοσύνη',
+    spacePhase: '✦ Χώρος',
+    groundingPhase: '🌍 Γείωση',
+    closingPhase: '🙏 Κλείσιμο'
+  },
+
+  en: {
+    // ... existing keys ...
+    
+    // ═════════════════════════════════════════════════════
+    // ROUTINE BUILDER (NEW - v2.2)
+    // ═════════════════════════════════════════════════════
+    routineBuilderTitle: 'Routine Builder',
+    routineBuilderIntro: 'Create your own routines by adding phases, setting durations, and saving. Everything stays on your device.',
+    routineBuilderCustom: 'My Routines',
+    routineBuilderNew: 'Create New Routine',
+    routineBuilderEdit: 'Edit Routine',
+    routineBuilderName: 'Routine Name',
+    routineBuilderAddPhase: 'Add Phase',
+    routineBuilderSave: 'Save',
+    routineBuilderPreview: 'Preview',
+    
+    // Phase titles in builder
+    bodyPhase: '🧍 Body',
+    breathPhase: '🫁 Breath',
+    kindnessPhase: '💛 Kindness',
+    spacePhase: '✦ Space',
+    groundingPhase: '🌍 Grounding',
+    closingPhase: '🙏 Closing'

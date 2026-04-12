@@ -25,6 +25,8 @@ function showScreen(id) {
   if (id === 'journal') buildJournal();
   if (id === 'start') buildStartScreen();
   if (id === 'micro') buildMicroScreen();
+  if (id === 'routines') buildRoutinesScreen();
+  if (id === 'routine-builder') buildRoutineBuilderScreen();
   if (id === 'about') buildAboutScreen();
   if (id === 'downloads') buildDownloadsScreen();
 

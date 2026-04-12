@@ -159,6 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.removeEventListener('click', _initHapticClick);
   }, { once: true });
 
+  // Initialize SOS Mode (3× tap + button)
+  initSOSMode();
+  registerSOSButton();
+
   // Welcome screen — only first visit
   if (!localStorage.getItem('welcomed')) {
     showWelcome();
