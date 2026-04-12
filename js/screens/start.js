@@ -52,6 +52,11 @@ function buildStartScreen() {
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;padding:0 16px;margin-top:8px">
         <button class="btn-primary" onclick="showScreen('breath')">🫁 ${t('tryBreath')}</button>
+        <button class="btn-secondary" onclick="showScreen('routines')">⏱ Ρουτίνες</button>
+        <button class="btn-secondary" onclick="showScreen('routine-builder')">✏️ Κτίσε</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;padding:0 16px">
+        <button class="btn-secondary" onclick="startRoutine('crisis')" style="background:#dc2626;border-color:#dc2626;color:white">🆘 SOS</button>
         <button class="btn-secondary" onclick="openChapter(1)">📖 ${t('startCh1')}</button>
         <button class="btn-secondary" onclick="showScreen('practice')">🎯 ${t('seeExercises')}</button>
       </div>
