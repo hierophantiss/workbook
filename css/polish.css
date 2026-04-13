@@ -1,0 +1,288 @@
+/* ═══════════════════════════════════════════
+   polish.css — Visual Refinements
+   Warmer, cleaner, more polished feel
+   No structural changes — only visual overrides
+   ═══════════════════════════════════════════ */
+
+/* ═══ TOP BAR — cleaner, more breathing room ═══ */
+.top-bar {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.top-subtitle-el {
+  font-size: 6.5px;
+  opacity: 0.4;
+}
+body.dark .top-bar {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+}
+
+/* ═══ HERO — subtle refinements ═══ */
+.hero-section {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: none;
+}
+.hero-overlay {
+  padding: 40px 20px 16px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.65) 100%);
+}
+.hero-overlay-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.3px;
+}
+body.dark .hero-section {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: none;
+}
+
+/* ═══ CTA BUTTON — warmer glow ═══ */
+.cta-calm {
+  padding: 18px 22px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(42,93,94,0.25), 0 1px 3px rgba(0,0,0,0.06);
+}
+.cta-icon {
+  font-size: 24px;
+}
+.cta-label {
+  font-size: 16px;
+  letter-spacing: 0.3px;
+}
+body.dark .cta-calm {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 0 0 1px rgba(168,213,220,0.06);
+}
+
+/* ═══ SOS HOME BUTTON — warmer, more inviting ═══ */
+[onclick*="activateSOS"] {
+  border-radius: 14px !important;
+  padding: 14px 18px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  background: rgba(42,93,94,0.04) !important;
+  border-color: rgba(42,93,94,0.15) !important;
+  transition: transform 0.12s, background 0.2s !important;
+}
+[onclick*="activateSOS"]:active {
+  transform: scale(0.97) !important;
+  background: rgba(42,93,94,0.08) !important;
+}
+[onclick*="activateSOS"] span:first-child {
+  font-size: 18px !important;
+}
+[onclick*="activateSOS"] span:last-child {
+  font-size: 12px !important;
+  color: var(--text-soft) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.2px !important;
+}
+body.dark [onclick*="activateSOS"] {
+  background: rgba(13,27,42,0.4) !important;
+  border-color: rgba(100,180,210,0.12) !important;
+}
+body.dark [onclick*="activateSOS"] span:last-child {
+  color: rgba(168,213,220,0.4) !important;
+}
+
+/* ═══ GRID CARDS — warmer, more depth ═══ */
+.grid-card {
+  border-radius: 14px;
+  padding: 16px 18px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 0.5px 2px rgba(0,0,0,0.03);
+  border-width: 1px;
+  transition: transform 0.15s, box-shadow 0.25s, border-color 0.2s;
+}
+.grid-card .grid-icon {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+.grid-card .grid-label {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+}
+.grid-card .grid-sub {
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+/* Card accent top border — thinner, more refined */
+.grid-card {
+  border-top-width: 2.5px !important;
+}
+/* Arrow more visible */
+.grid-card span[style*="color:var(--border)"] {
+  font-size: 16px !important;
+  opacity: 0.5;
+}
+
+body.dark .grid-card {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2), 0 0.5px 2px rgba(0,0,0,0.15);
+  border-color: rgba(255,255,255,0.06);
+}
+@media (hover: hover) {
+  .grid-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+    border-color: rgba(42,93,94,0.2);
+  }
+  body.dark .grid-card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    border-color: rgba(168,213,220,0.12);
+  }
+}
+
+/* ═══ BOTTOM NAV — cleaner separation ═══ */
+.bottom-nav {
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+  border-top: none;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.nav-btn {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  gap: 4px;
+  transition: color 0.2s, transform 0.15s;
+}
+.nav-btn.active {
+  transform: translateY(-1px);
+}
+.nav-btn svg {
+  width: 22px;
+  height: 22px;
+}
+body.dark .bottom-nav {
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.3);
+  border-top: none;
+}
+
+/* ═══ COMPANION FAB — clearer presence ═══ */
+#companion-fab {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.06), 0 0 0 1px rgba(42,93,94,0.08);
+}
+#companion-fab:hover {
+  box-shadow: 0 6px 24px rgba(42,93,94,0.2), 0 2px 8px rgba(0,0,0,0.08);
+}
+body.dark #companion-fab {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2), 0 0 0 1px rgba(168,213,220,0.08);
+}
+
+/* ═══ FOOTER LINKS — more elegant ═══ */
+.footer-link {
+  opacity: 0.6 !important;
+  font-size: 11px !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid transparent !important;
+  transition: opacity 0.2s, border-color 0.2s !important;
+}
+.footer-link:hover {
+  opacity: 0.9 !important;
+  border-bottom-color: var(--text-hint) !important;
+}
+
+/* ═══ DISCLAIMERS — softer, less cramped ═══ */
+[data-i18n="disclaimer"] {
+  font-size: 10px !important;
+  line-height: 1.7 !important;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+[data-i18n="privacyNote"] {
+  font-size: 9px !important;
+}
+
+/* ═══ CONTENT CARDS — warmer interior pages ═══ */
+.content-card {
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-width: 1px;
+}
+.content-card h3 {
+  font-size: 16px;
+  letter-spacing: 0.2px;
+}
+.content-card p {
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+body.dark .content-card {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* ═══ CHAPTER LIST CARDS — more refined ═══ */
+.ch-item {
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  transition: transform 0.12s, box-shadow 0.2s;
+}
+.ch-title {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+}
+body.dark .ch-item {
+  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
+}
+
+/* ═══ PRACTICE CARDS — warmer ═══ */
+.practice-card {
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+body.dark .practice-card {
+  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
+}
+
+/* ═══ BUTTONS — slightly rounder, warmer ═══ */
+.btn-primary {
+  border-radius: 14px;
+  padding: 14px 28px;
+  box-shadow: 0 3px 12px rgba(42,93,94,0.2);
+  letter-spacing: 0.3px;
+}
+.btn-secondary {
+  border-radius: 14px;
+  padding: 13px 26px;
+}
+
+/* ═══ SCREEN HEADERS — cleaner ═══ */
+.screen-header {
+  padding: 14px 16px;
+  border-bottom-width: 1px;
+}
+.screen-title {
+  font-size: 17px;
+  letter-spacing: 0.3px;
+}
+
+/* ═══ SCROLL AREA — smoother feel ═══ */
+.scroll-area {
+  scroll-behavior: smooth;
+}
+/* Subtle fade at bottom before nav */
+.scroll-area::after {
+  content: '';
+  display: block;
+  height: 1px;
+}
+
+/* ═══ SUBTLE SPACING IMPROVEMENTS ═══ */
+.home-cta {
+  padding: 0 16px 8px;
+}
+.spacer-bottom {
+  height: 32px;
+}
+
+/* ═══ BREATH PATTERN BUTTONS — slightly rounder ═══ */
+.breath-pattern-btn {
+  border-radius: 16px;
+  min-width: 80px;
+}
+.breath-ctrl-btn {
+  border-radius: 28px;
+  min-height: 42px;
+  padding: 10px 24px;
+}
