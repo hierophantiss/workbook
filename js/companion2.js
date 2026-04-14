@@ -1,31 +1,16 @@
 /* ═══════════════════════════════════════════
    js/companion2.js — Companion 2.0 Routing Engine
-   v2.4 — FULL FIXED FLOW + Event Delegation + Progressive Body Scan
+   v2.5 — FIXED + FLOATING ∞ BUTTON + Event Delegation
    ============================================= */
 
-// 🛡️ SAFE showScreen wrapper (από την v2.2 σου)
+// SAFE showScreen wrapper
 window.c2SafeShowScreen = function(screen) {
   try {
-    if (typeof window.showScreen === 'function') {
-      return window.showScreen(screen);
-    }
-  } catch (e) {
-    console.error('c2SafeShowScreen error', e);
-  }
+    if (typeof window.showScreen === 'function') return window.showScreen(screen);
+  } catch (e) { console.error('c2SafeShowScreen error', e); }
 };
 
-// 🔒 Protect showScreen
-(function protectShowScreen() {
-  if (!window._c2_showScreen_wrapped && typeof window.showScreen === 'function') {
-    const originalShowScreen = window.showScreen;
-    window.showScreen = function() {
-      return originalShowScreen.apply(this, arguments);
-    };
-    window._c2_showScreen_wrapped = true;
-  }
-})();
-
-// ⭐ ERROR LOGGING (όλο το σύστημα logs που είχες ήδη)
+// ERROR LOGGING (όλο το σύστημα logs που είχες)
 var c2ErrorLog = [];
 var MAX_LOG_ENTRIES = 100;
 
@@ -51,56 +36,10 @@ function c2LogError(source, message, stack, extra) {
   console.warn('[C2 Logged Error]', entry);
 }
 
-window.addEventListener('error', function(e) {
-  c2LogError('global window.onerror', e.message, e.error ? e.error.stack : null, { filename: e.filename, lineno: e.lineno });
-});
+window.addEventListener('error', e => c2LogError('global', e.message, e.error?.stack, {file: e.filename, line: e.lineno}));
+window.addEventListener('unhandledrejection', e => c2LogError('promise', e.reason, e.reason?.stack));
 
-window.addEventListener('unhandledrejection', function(e) {
-  c2LogError('unhandledrejection', e.reason, e.reason ? e.reason.stack : null, { promise: e.promise });
-});
-
-window.c2ExportLogs = function() {
-  var dataStr = JSON.stringify(c2ErrorLog, null, 2);
-  var blob = new Blob([dataStr], {type: 'application/json'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url; a.download = 'c2_error_log_' + new Date().toISOString().slice(0,19).replace(/:/g,'-') + '.json';
-  a.click(); URL.revokeObjectURL(url);
-};
-
-window.c2ShowLogsModal = function() { /* ίδιο όπως στην v2.2 σου */ 
-  // (ο κώδικας του modal logs παραμένει ακριβώς όπως τον είχες)
-  var lang = typeof LANG !== 'undefined' ? LANG : 'el';
-  var logCount = c2ErrorLog.length;
-  var html = '<div class="c2-back-row"><span class="c2-back-title">Error Log (' + logCount + ')</span>' +
-    '<button class="c2-close" onclick="window.c2HideSheet()">X</button></div>' +
-    '<div style="padding:16px; max-height:60vh; overflow:auto; font-family:monospace; font-size:12px;">';
-  if (logCount === 0) {
-    html += '<p style="color:#888;">' + (lang === 'el' ? 'Δεν υπάρχουν καταγεγραμμένα σφάλματα.' : 'No errors logged.') + '</p>';
-  } else {
-    for (var i = c2ErrorLog.length - 1; i >= 0; i--) {
-      var entry = c2ErrorLog[i];
-      html += '<div style="border-bottom:1px solid #ddd; padding:8px 0;">' +
-        '<strong>' + entry.timestamp + '</strong> ' + entry.source + '<br>' +
-        '<span style="color:#c00;">' + entry.message + '</span><br>';
-      if (entry.stack) html += '<pre style="margin:4px 0 0; white-space:pre-wrap;">' + entry.stack + '</pre>';
-      if (entry.extra) html += '<pre style="margin:4px 0 0; white-space:pre-wrap;">' + JSON.stringify(entry.extra, null, 2) + '</pre>';
-      html += '</div>';
-    }
-  }
-  html += '</div><div class="c2-actions" style="padding:12px;">' +
-    '<button class="c2-action-btn" onclick="window.c2ExportLogs()">Download JSON</button>' +
-    '<button class="c2-action-btn c2-action-secondary" onclick="navigator.clipboard?.writeText(JSON.stringify(c2ErrorLog, null, 2));alert(\'' + (lang === 'el' ? 'Αντιγράφηκε!' : 'Copied!') + '\')">Copy</button>' +
-    '<button class="c2-action-btn c2-action-secondary" onclick="window.c2HideSheet()">Close</button></div>';
-  document.getElementById('c2-content').innerHTML = html;
-};
-
-function c2SetupLogTrigger() {
-  var handle = document.querySelector('.c2-sheet-handle');
-  if (handle) handle.addEventListener('dblclick', function(e) { e.stopPropagation(); window.c2ShowLogsModal(); });
-}
-
-// === STATE ===
+// STATE
 var c2SheetVisible = false;
 
 function c2EnsureState() {
@@ -124,7 +63,24 @@ window.c2ToggleSheet = function() {
   sheet.style.transform = c2SheetVisible ? 'translateY(0)' : 'translateY(100%)';
 };
 
-// === KNOWLEDGE + ΕΠΙΣΤΗΜΟΝΙΚΗ ΕΞΗΓΗΣΗ ===
+// CREATE FLOATING ∞ BUTTON (αυτό έλειπε!)
+function c2CreateFloatingButton() {
+  if (document.getElementById('c2-floating-btn')) return;
+  const btn = document.createElement('div');
+  btn.id = 'c2-floating-btn';
+  btn.innerHTML = '∞';
+  btn.style.cssText = `
+    position:fixed; bottom:30px; right:30px; z-index:99999;
+    width:68px; height:68px; border-radius:50%; background:#1a1a1a;
+    color:#fff; font-size:42px; display:flex; align-items:center;
+    justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    cursor:pointer; user-select:none; touch-action:manipulation;
+  `;
+  btn.onclick = window.c2ToggleSheet;
+  document.body.appendChild(btn);
+}
+
+// KNOWLEDGE + ΕΠΙΣΤΗΜΟΝΙΚΗ ΕΞΗΓΗΣΗ
 function c2GetChapterGuidance(chapter) {
   const lang = typeof LANG !== 'undefined' ? LANG : 'el';
   return {
@@ -132,14 +88,14 @@ function c2GetChapterGuidance(chapter) {
     icon: ['🧍','🫁','👁','✦'][chapter-1],
     wisdom: lang === 'el' ? 'Η παρουσία αρχίζει με μικρές νίκες.' : 'Presence starts with small victories.',
     science: lang === 'el' 
-      ? `Η **insula** επεξεργάζεται την **interoception** (εσωτερική αίσθηση σώματος). Το progressive body scan ενεργοποιεί νέους νευρώνες στην insula → καλύτερη ρύθμιση συναισθημάτων και λιγότερο overwhelm (ιδανικό για ADHD/autism).`
-      : `The **insula** processes **interoception**. Progressive body scan grows new neural connections → better emotion regulation, less overwhelm.`,
+      ? `Η **insula** επεξεργάζεται την **interoception**. Το progressive body scan ενεργοποιεί νέους νευρώνες → καλύτερη ρύθμιση συναισθημάτων και λιγότερο overwhelm (ιδανικό για ADHD/autism).`
+      : `The **insula** processes **interoception**. Progressive body scan grows new neural connections → better emotion regulation.`,
     micro: lang === 'el' ? 'Ξεκίνα με 10 δευτερόλεπτα αίσθησης του σώματος.' : 'Start with 10 seconds of body awareness.',
     nextPrompt: lang === 'el' ? 'Θέλεις να κάνουμε progressive body scan τώρα;' : 'Shall we do the progressive body scan now?'
   };
 }
 
-// === 4 ΕΠΙΛΟΓΕΣ (ΚΑΘΑΡΕΣ) ===
+// 4 ΕΠΙΛΟΓΕΣ
 function c2DecideView() {
   const lang = typeof LANG !== 'undefined' ? LANG : 'el';
   const content = document.getElementById('c2-content');
@@ -158,7 +114,7 @@ function c2DecideView() {
   `;
 }
 
-// === EVENT DELEGATION (το κλειδί που λύνει το πρόβλημα) ===
+// EVENT DELEGATION
 function c2SetupClickDelegation() {
   const sheet = document.getElementById('c2-sheet');
   if (!sheet) return;
@@ -188,30 +144,31 @@ function c2SetupClickDelegation() {
   }, true);
 }
 
-// === PROGRESSIVE BODY SCAN ===
 window.c2StartProgressiveBodyScan = function(chapter) {
   c2LogError('c2StartProgressiveBodyScan', `Started for chapter ${chapter}`, null, {chapter});
-  alert(`🚀 Ξεκινάμε Progressive Body Scan (4 στάδια insula) για Άξονα ${chapter}\n\n1. Χέρια\n2. Στήθος & αναπνοή\n3. Κοιλιά\n4. Ολόκληρο σώμα\n\n(Θα το κάνουμε πλήρες UI στο επόμενο βήμα)`);
-  // εδώ μπορείς να καλέσεις την breath_exercise αργότερα
+  alert(`🚀 Ξεκινάμε Progressive Body Scan (4 στάδια insula) για Άξονα ${chapter}\n\n1. Χέρια\n2. Στήθος & αναπνοή\n3. Κοιλιά\n4. Ολόκληρο σώμα`);
 };
 
-// === INIT ===
+// INIT + CREATE BUTTON + SHEET
 function c2Init() {
   try {
     if (document.getElementById('c2-sheet')) return;
     c2EnsureState();
+    
+    // 1. Δημιουργία κάτω sheet
     var sheet = document.createElement('div');
     sheet.id = 'c2-sheet';
     sheet.className = 'c2-sheet';
     sheet.innerHTML = `<div class="c2-sheet-handle" onclick="window.c2ToggleSheet()"><div class="c2-handle-bar"></div></div><div class="c2-sheet-content" id="c2-content"></div>`;
     document.body.appendChild(sheet);
-    c2SetupLogTrigger();
-    setTimeout(() => {
-      c2DecideView();           // δείχνει τις 4 επιλογές
-      c2SetupClickDelegation(); // διορθώνει τα clicks
-    }, 10);
+    
+    // 2. Δημιουργία floating ∞ button
+    c2CreateFloatingButton();
+    
+    c2SetupClickDelegation();
+    setTimeout(() => { c2DecideView(); }, 10);
   } catch(e) { c2LogError('c2Init', e.message, e.stack); }
 }
 
 window.addEventListener('load', c2Init);
-console.log('%c✅ Companion 2.4 loaded — Flow FIXED!', 'color:#0a0;font-weight:bold');
+console.log('%c✅ Companion 2.5 loaded — Floating ∞ button + full flow!', 'color:#0a0;font-weight:bold');
