@@ -325,7 +325,23 @@
      MODULAR SCRIPTS
      Load order matters — data first, then logic
      ═══════════════════════════════════════════ -->
+<script>
+    // Καθολικές μεταβλητές που χρειάζεται ο Companion
+    var LANG = 'el'; 
+    var companionData = JSON.parse(localStorage.getItem('companionData')) || {
+        chapterProgress: {},
+        moodHistory: [],
+        faqSeen: {},
+        conceptsSeen: [],
+        depthPreference: 1,
+        lastChapter: 1
+    };
 
+    function saveCompanionData(data) {
+        localStorage.setItem('companionData', JSON.stringify(data));
+        window.companionData = data;
+    }
+</script>
 <!-- 1. Data & Translations (no dependencies) -->
 <script src="js/i18n.js"></script>
 <script src="js/data/chapters.js"></script>
