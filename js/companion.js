@@ -338,14 +338,16 @@ function initCompanion() {
     companionStartChapterTracking(num);
   };
 
-  // ─── ONBOARDING vs RETURNING USER ───
-  if (!localStorage.getItem('welcomed')) {
-    // First visit: hide old welcome, launch tour
-    var oldWelcome = document.getElementById('welcome-overlay');
-    if (oldWelcome) oldWelcome.style.display = 'none';
-    setTimeout(function() { startTour(); }, 800);
-  } else if (!companionData.dismissed) {
-    setTimeout(function() { showCompanionNudge(); }, 3000);
+  // ─── PURELY PASSIVE MODE AFTER 7 INTERACTIONS ───
+  // We only show welcome or nudge if interaction count < 7
+  if (companionData.bubbleCount < 7) {
+    if (!localStorage.getItem('welcomed')) {
+      var oldWelcome = document.getElementById('welcome-overlay');
+      if (oldWelcome) oldWelcome.style.display = 'none';
+      setTimeout(function() { startTour(); }, 800);
+    } else if (!companionData.dismissed) {
+      setTimeout(function() { showCompanionNudge(); }, 3000);
+    }
   }
 }
 

@@ -21,6 +21,19 @@ window.addEventListener('beforeinstallprompt', (e) => {
   window.deferredPrompt = e;
 });
 
+// ═══ THEME ═══
+function toggleDark() {
+  const body = document.body;
+  const isDark = body.classList.contains('dark');
+  if (isDark) {
+    body.classList.remove('dark');
+    document.getElementById('dark-toggle').textContent = '🌙';
+  } else {
+    body.classList.add('dark');
+    document.getElementById('dark-toggle').textContent = '☀️';
+  }
+}
+
 function showScreen(id) {
   tapFeedback();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
