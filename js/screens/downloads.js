@@ -11,10 +11,6 @@ function buildDownloadsScreen() {
         <h3>📥 ${t('dlPdfName')}</h3>
         <p>${t('dlPdfDesc')}</p>
       </div>
-      <div class="content-card" style="cursor:pointer" onclick="window.open('widget.html', '_blank')">
-        <h3>🧩 ${t('dlWidgetName')}</h3>
-        <p>${t('dlWidgetDesc')} (Άνοιξε και πάτα "Προσθήκη στην αρχική οθόνη")</p>
-      </div>
       <div class="content-card" id="installCard" style="cursor:pointer" onclick="installApp()">
         <h3>📱 ${t('dlAppName')}</h3>
         <p>${t('dlAppDesc')}</p>

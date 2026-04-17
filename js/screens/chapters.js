@@ -67,7 +67,7 @@ function openChapter(num) {
       ${ch.theorySections.map(s => `
         <div class="content-card">
           <h3>${s.title}</h3>
-          <p>${s.body.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</p>
+          <p>${window.c2LinkConcepts(s.body.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>'), LANG)}</p>
         </div>
       `).join('')}
       ${ch.exercise ? `

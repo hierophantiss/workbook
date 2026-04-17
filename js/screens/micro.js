@@ -1,4 +1,5 @@
 /* ═══ js/screens/micro.js ═══ */
+var microTimer = null;
 function buildMicroScreen() {
   var screen = document.getElementById('screen-micro');
   var cats = [
